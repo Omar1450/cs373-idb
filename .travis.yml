@@ -12,6 +12,7 @@ install:
     - pip install numpy
     - pip install requests
     - pip install flask
+    - pip install sqlalchemy
 
 before_script:
     - uname -a
