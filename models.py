@@ -1,9 +1,16 @@
-from flask.ext.sqlalchemy import SQLAlchemy
-from app import db
+"""
+models.py
+"""
+
 import json
 
+from sqlalchemy import *
+from sqlalchemy.orm import relationship
+from sqlalchemy.ext.declarative import declarative_base
 
-class Summoner(db.Model):
+Base = declarative_base()
+
+class Summoner(Base):
 	"""
 	A Summoner is the equivalent of a player in League of Legends, each Summoner has a pool of champions he or she much unlock to be able to player
 	A Summoner can play Ranked Matches in order to increase his Rank, declared as (tier, division, lp). In order to be promoted in division, and eventually tier,
@@ -13,17 +20,17 @@ class Summoner(db.Model):
 	A Summoner can earn Mastery Points with any corresponding unlocked Champion, where mastery points describes the relative skill the summoner has with the champion
 	"""
 	__tablename__ = 'summoner'
-	id = db.Column(db.Integer, primary_key=True)
-	name = db.Column(db.String)
-	rank = db.Column(db.Integer)
-	tier = db.Column(db.String)
-	division = db.Column(db.Integer)
-	lp = db.Column(db.Integer)
-	champions = db.relationship("summ2champ_asc", back_populates="summoner")
-	teams = db.relationship("summ2team_asc", back_populates="summoner")
-	total_games = db.Column(db.Integer)
-	win_percentage = db.Column(db.Float)
-	search_vector = db.Column(TSVectorType('name', 'summoner_id', 'rank'))
+	id = Column(Integer, primary_key=True)
+	name = Column(String)
+	rank = Column(Integer)
+	tier = Column(String)
+	division = Column(Integer)
+	lp = Column(Integer)
+	champions = relationship("summ2champ_asc", back_populates="summoner")
+	teams = relationship("summ2team_asc", back_populates="summoner")
+	total_games = Column(Integer)
+	win_percentage = Column(Float)
+	#search_vector = Column(TSVectorType('name', 'summoner_id', 'rank'))
 
 	def __init__(self, s_id, name, tier, division, lp, win_per, total_games):
 		self.id = s_id
@@ -49,18 +56,18 @@ class Summoner(db.Model):
 		self.win_percentage = win_per
 		self.total_games = total_games
 
-class Team(db.Model):
+class Team(Base):
 	"""
 	Teams are composed of Summoners, with the minimum of 1 Summoner per team. Each team name is unique. Each Team can play in a competitive setting in ranked matches
 	"""
 	__tablename__ = 'team'
-	id = db.Column(db.String, primary_key=True)
-	tag = db.Column(db.String)
-	status = db.Column(db.Boolean)
-	win_percentage = db.Column(db.Float)
-	total_games = db.Column(db.Integer)
-	most_recent_member_timestamp = db.Column(db.Date)
-	summoners = db.relationship("summ2team_asc", back_populates="team")
+	id = Column(String, primary_key=True)
+	tag = Column(String)
+	status = Column(Boolean)
+	win_percentage = Column(Float)
+	total_games = Column(Integer)
+	most_recent_member_timestamp = Column(Date)
+	summoners = relationship("summ2team_asc", back_populates="team")
 
 	def __init__(self, id, tag, status, win_p, total_games, most_recent_member_timestamp):
 		self.id = id
@@ -70,20 +77,20 @@ class Team(db.Model):
 		self.total_games = total_games
 		self.most_recent_member_timestamp = most_recent_member_timestamp
 
-class Champion(db.Model):
+class Champion(Base):
 	"""
 	Champions are the characters that Summoners can play in this game. Each Champion has unique abilities and personalized base stats which change with level.
 	"""
 	__tablename__ = 'champion'
-	id = db.Column(db.Integer, primary_key=True)
-	name = db.Column(db.String)
-	title = db.Column(db.String)
-	hp = db.Column(db.Float)
-	mp = db.Column(db.Float)
-	movespeed = db.Column(db.Float)
-	spellblock = db.Column(db.Float)
-	summoners = db.relationship("summ2champ_asc", back_populates="champion")
-	portrait_url = db.Column(db.String)
+	id = Column(Integer, primary_key=True)
+	name = Column(String)
+	title = Column(String)
+	hp = Column(Float)
+	mp = Column(Float)
+	movespeed = Column(Float)
+	spellblock = Column(Float)
+	summoners = relationship("summ2champ_asc", back_populates="champion")
+	portrait_url = Column(String)
 
 	def __init__(self, id, name, title, hp, mp, movespeed, spellblock, portrait_url):
 		self.id = id
@@ -95,7 +102,7 @@ class Champion(db.Model):
 		self.spellblock = spellblock
 		self.portrait_url = portrait_url
 
-class summ2team_asc(db.Model):
+class summ2team_asc(Base):
 	"""
 	Maps the relationship between Summoners and Teams
 	A Summoner can be in multiple teams
@@ -103,11 +110,11 @@ class summ2team_asc(db.Model):
 	This many-to-many relationship is represented thru an association table
 	"""
 	__tablename__ = 'summ2team_asc'
-	# id = db.Column(db.Integer, primary_key=True)
-	summ_id = db.Column(db.Integer, db.ForeignKey('summoner.id'), primary_key=True)
-	team_id = db.Column(db.String, db.ForeignKey('team.id'), primary_key=True)
+	# id = Column(Integer, primary_key=True)
+	summ_id = Column(Integer, ForeignKey('summoner.id'), primary_key=True)
+	team_id = Column(String, ForeignKey('team.id'), primary_key=True)
 
-class summ2champ_asc(db.Model):
+class summ2champ_asc(Base):
 	"""
 	Maps the relationship between Summoners and Champions
 	A Summoner can have multiple Champions
@@ -116,7 +123,7 @@ class summ2champ_asc(db.Model):
 	This many-to-many relationship is represented thru an association table
 	"""
 	__tablename__ = 'summ2champ_asc'
-	# id = db.Column(db.Integer, primary_key=True)
-	summ_id = db.Column(db.Integer, db.ForeignKey('summoner.id'), primary_key=True)
-	champ_id = db.Column(db.Integer, db.ForeignKey('champion.id'), primary_key=True)
-	mastery_score = db.Column(db.Integer)
+	# id = Column(Integer, primary_key=True)
+	summ_id = Column(Integer, ForeignKey('summoner.id'), primary_key=True)
+	champ_id = Column(Integer, ForeignKey('champion.id'), primary_key=True)
+	mastery_score = Column(Integer)
