@@ -3,7 +3,8 @@ HOST: http://dudecarry.me/api
 
 # dudecarry.me API
 
-dudecarry.me provides this API to lookup info about summoners, champions, and player teams, on the game League of Legends
+dudecarry.me provides this API to lookup info about summoners, champions, and player teams, on the game
+League of Legends
 
 
 
@@ -281,3 +282,32 @@ Get a team by name.
                 72680640
             ]
         }
+
+# Group Searching
+
+## Sitewide Search [/search/{query}?type={type}]
+
+Search over all players, champions, and teams by partial text matches.
+
++ Parameters
+    + query (required, string) ... the search query
+    + type  (optional, string) ... type to restrict search ("champion", "player", "team")
+
+### GET [GET]
++ Response 200 (application/json)
+
+        "teams": [
+            {
+                "name": "Order of the Iron Potato",
+                "id": "TEAM-222e7b80-49d9-11e4-806c-782bcb4d0bb2",
+                "tag": "OPot",
+                "status": "RANKED",
+                "win_percentage": 0.5,
+                "total_games": 2,
+                "most_recent_member_timestamp": 1413137738000,
+                "players": [
+                    23509228,
+                    72680640
+                ]
+            }
+        ],
