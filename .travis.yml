@@ -13,7 +13,8 @@ install:
     - pip install requests
     - pip install flask
     - pip install sqlalchemy
-
+    - pip install flask.ext.sqlalchemy
+    
 before_script:
     - uname -a
     - printenv
