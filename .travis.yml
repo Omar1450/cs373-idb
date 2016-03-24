@@ -14,7 +14,7 @@ install:
     - pip install flask
     - pip install flask-Script
     - pip install flask-sqlalchemy
-    
+    - pip install app 
 before_script:
     - uname -a
     - printenv
