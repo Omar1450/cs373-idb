@@ -29,8 +29,6 @@ check:
 clean:
 	rm -f  .coverage
 	rm -f  *.pyc
-	rm -f  RunNetflix.tmp
-	rm -f  TestNetflix.tmp
 	rm -rf __pycache__
 
 config:
@@ -38,9 +36,9 @@ config:
 
 scrub:
 	make clean
-	rm -f  Netflix.html
-	rm -f  Netflix.log
-	rm -rf netflix-tests
+	rm -f  models.html
+	rm -f  IDB1.log
+	rm -rf tests.py
 
 status:
 	make clean
