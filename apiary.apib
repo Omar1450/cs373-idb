@@ -1,4 +1,4 @@
-MAT: 1A
+FORMAT: 1A
 HOST: http://dudecarry.me/api
 
 # dudecarry.me API
@@ -13,7 +13,7 @@ League of Legends
 
 Champions are player controlled characters.
 
-## All Champions [/api/champions]
+## All Champions [/champions]
 
 Get list of all champions.
 
@@ -35,7 +35,7 @@ Get list of all champions.
             ...
         ]
 
-## Champion By Id [/api/champion/{id}]
+## Champion By Id [/champion/{id}]
 
 Get a single champion by their id
 
@@ -57,7 +57,7 @@ Get a single champion by their id
             "spellblock": 30.0,
         }
 
-## Champion By Name [/api/champion/by_name/{name}]
+## Champion By Name [/champion/by_name/{name}]
 
 Get a single champion by their name
 
@@ -82,6 +82,9 @@ Get a single champion by their name
         
         
 # Group Players
+
+Players have a pool of playable champions they can select from for each match.
+They're also able to join teams, and they can join more than one.
 
 ## All Players [/players]
 
@@ -114,7 +117,7 @@ Get list of all players.
             }
         ]
 
-## Player By Id [/api/player/{id}]
+## Player By Id [/player/{id}]
 
 Get a single player by their id
 
@@ -146,7 +149,7 @@ Get a single player by their id
             "total_games": 202,
         }
 
-## Player By Name [/api/player/by_name/{name}]
+## Player By Name [/player/by_name/{name}]
 
 Get a single player by their name
 
@@ -181,7 +184,7 @@ Get a single player by their name
 
 A team consists of a few players. Players may join more than one team.
 
-## All teams [/api/teams]
+## All teams [/teams]
 
 Get list of all teams.
 
@@ -205,12 +208,12 @@ Get list of all teams.
         ...
         ]
         
-## Team By ID [/api/team/{id}]
+## Team By ID [/team/{id}]
 
 Get a team by id.
 
 + Parameters
-    + id (required, number) ... ID of the team
+    + id (required, string) ... ID of the team
 
 
 ### GET [GET]
@@ -230,7 +233,7 @@ Get a team by id.
             ]
         }
         
-## Team By Tag [/api/team/by_tag/{tag}]
+## Team By Tag [/team/by_tag/{tag}]
 
 Get a team by tag.
 
@@ -255,7 +258,7 @@ Get a team by tag.
             ]
         }
         
-## Team By Name [/api/team/by_name/{name}]
+## Team By Name [/team/by_name/{name}]
 
 Get a team by name.
 
@@ -279,3 +282,32 @@ Get a team by name.
                 72680640
             ]
         }
+
+# Group Searching
+
+## Sitewide Search [/search/{query}?type={type}]
+
+Search over all players, champions, and teams by partial text matches.
+
++ Parameters
+    + query (required, string) ... the search query
+    + type  (optional, string) ... type to restrict search ("champion", "player", "team")
+
+### GET [GET]
++ Response 200 (application/json)
+
+        "teams": [
+            {
+                "name": "Order of the Iron Potato",
+                "id": "TEAM-222e7b80-49d9-11e4-806c-782bcb4d0bb2",
+                "tag": "OPot",
+                "status": "RANKED",
+                "win_percentage": 0.5,
+                "total_games": 2,
+                "most_recent_member_timestamp": 1413137738000,
+                "players": [
+                    23509228,
+                    72680640
+                ]
+            }
+        ],

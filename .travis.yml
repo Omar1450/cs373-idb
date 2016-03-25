@@ -10,7 +10,11 @@ install:
     - pip --version
     - pip install coverage
     - pip install numpy
-
+    - pip install requests
+    - pip install flask
+    - pip install flask-Script
+    - pip install flask-sqlalchemy
+ 
 before_script:
     - uname -a
     - printenv
