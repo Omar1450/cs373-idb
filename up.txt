@@ -1,0 +1,39 @@
+Attaching to cs373idb_app_1, dudecarryme_lb, dudecarryme_db_data, dudecarryme_db
+[36mapp_1               | [0m[2016-04-01 22:33:24 +0000] [1] [INFO] Starting gunicorn 19.4.5
+[36mapp_1               | [0m[2016-04-01 22:33:24 +0000] [1] [INFO] Listening at: http://0.0.0.0:8000 (1)
+[36mapp_1               | [0m[2016-04-01 22:33:24 +0000] [1] [INFO] Using worker: sync
+[36mapp_1               | [0m[2016-04-01 22:33:24 +0000] [8] [INFO] Booting worker with pid: 8
+[36mapp_1               | [0mDEBUG: Starting flask...
+[35mdudecarryme_db      | [0mInitializing database
+[32mdudecarryme_db_data exited with code 0
+[0m[35mdudecarryme_db      | [0mWarning: World-writable config file '/etc/mysql/conf.d/mysql.cnf' is ignored
+[35mdudecarryme_db      | [0mWarning: World-writable config file '/etc/mysql/conf.d/mysql.cnf' is ignored
+[35mdudecarryme_db      | [0m2016-04-01 22:33:25 0 [Note] /usr/sbin/mysqld (mysqld 5.6.29) starting as process 17 ...
+[35mdudecarryme_db      | [0m2016-04-01 22:33:25 17 [Note] InnoDB: Using atomics to ref count buffer pool pages
+[35mdudecarryme_db      | [0m2016-04-01 22:33:25 17 [Note] InnoDB: The InnoDB memory heap is disabled
+[35mdudecarryme_db      | [0m2016-04-01 22:33:25 17 [Note] InnoDB: Mutexes and rw_locks use GCC atomic builtins
+[35mdudecarryme_db      | [0m2016-04-01 22:33:25 17 [Note] InnoDB: Memory barrier is not used
+[35mdudecarryme_db      | [0m2016-04-01 22:33:25 17 [Note] InnoDB: Compressed tables use zlib 1.2.8
+[35mdudecarryme_db      | [0m2016-04-01 22:33:25 17 [Note] InnoDB: Using Linux native AIO
+[35mdudecarryme_db      | [0m2016-04-01 22:33:25 17 [Note] InnoDB: Using CPU crc32 instructions
+[35mdudecarryme_db      | [0m2016-04-01 22:33:25 17 [Note] InnoDB: Initializing buffer pool, size = 128.0M
+[35mdudecarryme_db      | [0m2016-04-01 22:33:25 17 [Note] InnoDB: Completed initialization of buffer pool
+[35mdudecarryme_db      | [0m2016-04-01 22:33:25 17 [Note] InnoDB: The first specified data file ./ibdata1 did not exist: a new database to be created!
+[35mdudecarryme_db      | [0m2016-04-01 22:33:25 17 [Note] InnoDB: Setting file ./ibdata1 size to 12 MB
+[35mdudecarryme_db      | [0m2016-04-01 22:33:25 17 [Note] InnoDB: Database physically writes the file full: wait...
+[35mdudecarryme_db      | [0m2016-04-01 22:33:25 17 [Note] InnoDB: Setting log file ./ib_logfile101 size to 48 MB
+[35mdudecarryme_db      | [0m2016-04-01 22:33:26 17 [Note] InnoDB: Setting log file ./ib_logfile1 size to 48 MB
+[35mdudecarryme_db      | [0m2016-04-01 22:33:26 17 [Note] InnoDB: Renaming log file ./ib_logfile101 to ./ib_logfile0
+[35mdudecarryme_db      | [0m2016-04-01 22:33:26 17 [Warning] InnoDB: New log files created, LSN=45781
+[35mdudecarryme_db      | [0m2016-04-01 22:33:26 17 [Note] InnoDB: Doublewrite buffer not found: creating new
+[35mdudecarryme_db      | [0m2016-04-01 22:33:26 17 [Note] InnoDB: Doublewrite buffer created
+[35mdudecarryme_db      | [0m2016-04-01 22:33:26 17 [Note] InnoDB: 128 rollback segment(s) are active.
+[35mdudecarryme_db      | [0m2016-04-01 22:33:26 17 [Warning] InnoDB: Creating foreign key constraint system tables.
+[35mdudecarryme_db      | [0m2016-04-01 22:33:26 17 [Note] InnoDB: Foreign key constraint system tables created
+[35mdudecarryme_db      | [0m2016-04-01 22:33:26 17 [Note] InnoDB: Creating tablespace and datafile system tables.
+[35mdudecarryme_db      | [0m2016-04-01 22:33:26 17 [Note] InnoDB: Tablespace and datafile system tables created.
+[35mdudecarryme_db      | [0m2016-04-01 22:33:26 17 [Note] InnoDB: Waiting for purge to start
+[35mdudecarryme_db      | [0m2016-04-01 22:33:26 17 [Note] InnoDB: 5.6.29 started; log sequence number 0
+[35mdudecarryme_db      | [0m2016-04-01 22:33:26 17 [Note] Binlog end
+[35mdudecarryme_db      | [0m2016-04-01 22:33:26 17 [Note] InnoDB: FTS optimize thread exiting.
+[35mdudecarryme_db      | [0m2016-04-01 22:33:26 17 [Note] InnoDB: Starting shutdown...

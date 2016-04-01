@@ -3,7 +3,7 @@ docker-machine create --driver virtualbox default
 docker-machine start default
 
 # stop on any errors after this
-set -e
+#set -e
 
 # setup environment
 eval "$(docker-machine env default)"
@@ -18,5 +18,8 @@ docker-machine ip default
 printf "\n"
 
 # run the app
-docker-compose up
+docker-compose up > up.txt
+
+#create database
+docker-compose run -d --rm --no-deps app python app.py create_db 
 
