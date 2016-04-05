@@ -24,8 +24,8 @@ services:
           - apps
     environment:
       # Environment variables to configure the app on startup.
-      - MYSQL_DATABASE=guestbook
-      - MYSQL_HOST=pythonwebapp_db
+      - MYSQL_DATABASE=dudecarryme
+      - MYSQL_HOST=dudecarryme_db
 
   db:
     # The database container. Built from the db/Dockerfile.
@@ -39,9 +39,9 @@ services:
       - MYSQL_DATABASE=guestbook
 
   data:
-    container_name: dudecarryme_db_data
+    container_name: dudecarryme_data
     # The Data Volume Container used to mount a volume to store our persistent data
-   # https://getcarina.com/docs/tutorials/data-volume-containers/
+    # https://getcarina.com/docs/tutorials/data-volume-containers/
     image: cirros
     volumes:
       # Mount this path as a volume to store our MySQL files
