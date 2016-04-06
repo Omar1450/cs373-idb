@@ -35,8 +35,8 @@ docker-machine ip default
 printf "\n"
 
 # run the app
-docker-compose up 
+docker-compose up
 
 #create database
-docker-compose run -d --rm --no-deps app python app.py create_db 
+docker-compose run -d --rm --no-deps app python app.py create_db
 

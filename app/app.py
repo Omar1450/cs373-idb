@@ -1,9 +1,11 @@
 import logging
 import os
+import time
 
 from flask import Flask, render_template, request, redirect, url_for, send_file
+from flask.ext.script import Manager, Server
+from flask.ext.sqlalchemy import SQLAlchemy
 
-#from database import init_db
 
 logging.basicConfig(
     level=logging.DEBUG,
@@ -13,10 +15,31 @@ logger = logging.getLogger(__name__)
 
 logger.debug("Starting flask...")
 
-#init_db()
-
 app = Flask(__name__, static_url_path='')
 
+DATABASE_URI = \
+    '{engine}://{username}:{password}@{hostname}/{database}'.format(
+        engine='mysql+pymysql',
+    username=os.getenv('MYSQL_USER'),
+    password=os.getenv('MYSQL_PASSWORD'),
+    hostname=os.getenv('MYSQL_HOST'),
+    database=os.getenv('MYSQL_DATABASE'))
+
+app.config['SQLALCHEMY_COMMIT_ON_TEARDOWN'] = True
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+app.config['SQLALCHEMY_DATABASE_URI'] = DATABASE_URI
+
+db = SQLAlchemy(app)
+
+manager = Manager(app)
+manager.add_command("runserver", Server(host="0.0.0.0", use_debugger=True))
+
+@manager.command
+def create_db():
+  logger.debug("creating db..")
+  app.config['SQLALCHEMY_ECHO'] = True
+  db.drop_all()
+  db.create_all()
 
 @app.route('/')
 def splash():
@@ -45,7 +68,6 @@ def summoners():
 @app.route('/summoner/<int:id>')
 def summoner(id):
     return render_template('summoner.html', id=id)
-
 
 @app.route('/api/champions')
 def api_champions():
@@ -237,6 +259,7 @@ def api_summoner(id):
     "link" : "summoner0.html",
    }
 '''
+
 @app.route('/api/team/<int:id>')
 def api_team(id):
     return ''' 
@@ -256,4 +279,10 @@ def api_team(id):
 '''
 
 if __name__ == '__main__':
-    app.run(host = '0.0.0.0', debug=True)
+
+    # timer.sleep(15)
+    # logger.debug("creating db..")
+    # app.config['SQLALCHEMY_ECHO'] = True
+    # db.drop_all()
+    # db.create_all()
+    manager.run(debug=True)
