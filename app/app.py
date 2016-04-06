@@ -3,6 +3,8 @@ import os
 
 from flask import Flask, render_template, request, redirect, url_for, send_file
 
+#from database import init_db
+
 logging.basicConfig(
     level=logging.DEBUG,
     format='%(levelname)s: %(message)s')
@@ -11,13 +13,42 @@ logger = logging.getLogger(__name__)
 
 logger.debug("Starting flask...")
 
+#init_db()
+
 app = Flask(__name__, static_url_path='')
+
 
 @app.route('/')
 def splash():
-    return send_file('index.html')
-@app.route('/api/champions')
+    return render_template('index.html')
+
+@app.route('/champions')
 def champions():
+    return render_template('champions.html')
+
+@app.route('/champion/<int:id>')
+def champion(id):
+    return render_template('champ.html', id=id)
+
+@app.route('/teams')
+def teams(teams):
+    return render_template('teams.html')
+
+@app.route('/team/<int:id>')
+def team(id):
+    return render_template('team.html', id=id)
+
+@app.route('/summoners')
+def summoners():
+    return render_template('summoners.html')
+
+@app.route('/summoner/<int:id>')
+def summoner(id):
+    return render_template('summoner.html', id=id)
+
+
+@app.route('/api/champions')
+def api_champions():
     return ''' 
   [{
     "name": "Thresh",
@@ -54,7 +85,7 @@ def champions():
   }]
 '''
 @app.route('/api/summoners')
-def summoners():
+def api_summoners():
     return ''' 
     [{
     "name": "XRedxDragonX",
@@ -123,7 +154,7 @@ def summoners():
 
 '''
 @app.route('/api/teams')
-def teams():
+def api_teams():
     return ''' 
      [{
       "name": "Order of the Iron Potato",
@@ -167,7 +198,7 @@ def teams():
   }]
 '''
 @app.route('/api/champion/<int:id>')
-def champion(id):
+def api_champion(id):
     return '''
     {
     "name": "Thresh",
@@ -182,7 +213,7 @@ def champion(id):
    }
 '''
 @app.route('/api/summoner/<int:id>')
-def summoner(id):
+def api_summoner(id):
     return '''
     {
     "name": "XRedxDragonX",
@@ -207,7 +238,7 @@ def summoner(id):
    }
 '''
 @app.route('/api/team/<int:id>')
-def team(id):
+def api_team(id):
     return ''' 
     {
       "name": "Team Zon and Friends",

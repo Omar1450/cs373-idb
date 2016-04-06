@@ -1,3 +1,7 @@
+#!/usr/bin/env bash
+
+export SOME_VAR="blah"
+
 DOCKERHUB_USER="hallofswe"
 APP_NAME="dudecarryme"
 MYSQL_ENV_FILE="mysql-prod.env"

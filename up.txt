@@ -1,39 +1,281 @@
-Attaching to cs373idb_app_1, dudecarryme_lb, dudecarryme_db_data, dudecarryme_db
-[36mapp_1               | [0m[2016-04-01 22:33:24 +0000] [1] [INFO] Starting gunicorn 19.4.5
-[36mapp_1               | [0m[2016-04-01 22:33:24 +0000] [1] [INFO] Listening at: http://0.0.0.0:8000 (1)
-[36mapp_1               | [0m[2016-04-01 22:33:24 +0000] [1] [INFO] Using worker: sync
-[36mapp_1               | [0m[2016-04-01 22:33:24 +0000] [8] [INFO] Booting worker with pid: 8
-[36mapp_1               | [0mDEBUG: Starting flask...
-[35mdudecarryme_db      | [0mInitializing database
-[32mdudecarryme_db_data exited with code 0
-[0m[35mdudecarryme_db      | [0mWarning: World-writable config file '/etc/mysql/conf.d/mysql.cnf' is ignored
-[35mdudecarryme_db      | [0mWarning: World-writable config file '/etc/mysql/conf.d/mysql.cnf' is ignored
-[35mdudecarryme_db      | [0m2016-04-01 22:33:25 0 [Note] /usr/sbin/mysqld (mysqld 5.6.29) starting as process 17 ...
-[35mdudecarryme_db      | [0m2016-04-01 22:33:25 17 [Note] InnoDB: Using atomics to ref count buffer pool pages
-[35mdudecarryme_db      | [0m2016-04-01 22:33:25 17 [Note] InnoDB: The InnoDB memory heap is disabled
-[35mdudecarryme_db      | [0m2016-04-01 22:33:25 17 [Note] InnoDB: Mutexes and rw_locks use GCC atomic builtins
-[35mdudecarryme_db      | [0m2016-04-01 22:33:25 17 [Note] InnoDB: Memory barrier is not used
-[35mdudecarryme_db      | [0m2016-04-01 22:33:25 17 [Note] InnoDB: Compressed tables use zlib 1.2.8
-[35mdudecarryme_db      | [0m2016-04-01 22:33:25 17 [Note] InnoDB: Using Linux native AIO
-[35mdudecarryme_db      | [0m2016-04-01 22:33:25 17 [Note] InnoDB: Using CPU crc32 instructions
-[35mdudecarryme_db      | [0m2016-04-01 22:33:25 17 [Note] InnoDB: Initializing buffer pool, size = 128.0M
-[35mdudecarryme_db      | [0m2016-04-01 22:33:25 17 [Note] InnoDB: Completed initialization of buffer pool
-[35mdudecarryme_db      | [0m2016-04-01 22:33:25 17 [Note] InnoDB: The first specified data file ./ibdata1 did not exist: a new database to be created!
-[35mdudecarryme_db      | [0m2016-04-01 22:33:25 17 [Note] InnoDB: Setting file ./ibdata1 size to 12 MB
-[35mdudecarryme_db      | [0m2016-04-01 22:33:25 17 [Note] InnoDB: Database physically writes the file full: wait...
-[35mdudecarryme_db      | [0m2016-04-01 22:33:25 17 [Note] InnoDB: Setting log file ./ib_logfile101 size to 48 MB
-[35mdudecarryme_db      | [0m2016-04-01 22:33:26 17 [Note] InnoDB: Setting log file ./ib_logfile1 size to 48 MB
-[35mdudecarryme_db      | [0m2016-04-01 22:33:26 17 [Note] InnoDB: Renaming log file ./ib_logfile101 to ./ib_logfile0
-[35mdudecarryme_db      | [0m2016-04-01 22:33:26 17 [Warning] InnoDB: New log files created, LSN=45781
-[35mdudecarryme_db      | [0m2016-04-01 22:33:26 17 [Note] InnoDB: Doublewrite buffer not found: creating new
-[35mdudecarryme_db      | [0m2016-04-01 22:33:26 17 [Note] InnoDB: Doublewrite buffer created
-[35mdudecarryme_db      | [0m2016-04-01 22:33:26 17 [Note] InnoDB: 128 rollback segment(s) are active.
-[35mdudecarryme_db      | [0m2016-04-01 22:33:26 17 [Warning] InnoDB: Creating foreign key constraint system tables.
-[35mdudecarryme_db      | [0m2016-04-01 22:33:26 17 [Note] InnoDB: Foreign key constraint system tables created
-[35mdudecarryme_db      | [0m2016-04-01 22:33:26 17 [Note] InnoDB: Creating tablespace and datafile system tables.
-[35mdudecarryme_db      | [0m2016-04-01 22:33:26 17 [Note] InnoDB: Tablespace and datafile system tables created.
-[35mdudecarryme_db      | [0m2016-04-01 22:33:26 17 [Note] InnoDB: Waiting for purge to start
-[35mdudecarryme_db      | [0m2016-04-01 22:33:26 17 [Note] InnoDB: 5.6.29 started; log sequence number 0
-[35mdudecarryme_db      | [0m2016-04-01 22:33:26 17 [Note] Binlog end
-[35mdudecarryme_db      | [0m2016-04-01 22:33:26 17 [Note] InnoDB: FTS optimize thread exiting.
-[35mdudecarryme_db      | [0m2016-04-01 22:33:26 17 [Note] InnoDB: Starting shutdown...
+Attaching to cs373idb_app_1, dudecarryme_lb, dudecarryme_data, dudecarryme_db
+[36mapp_1            | [0m[2016-04-05 04:25:04 +0000] [1] [INFO] Starting gunicorn 19.4.5
+[36mapp_1            | [0m[2016-04-05 04:25:04 +0000] [1] [INFO] Listening at: http://0.0.0.0:8000 (1)
+[36mapp_1            | [0m[2016-04-05 04:25:04 +0000] [1] [INFO] Using worker: sync
+[36mapp_1            | [0m[2016-04-05 04:25:04 +0000] [8] [INFO] Booting worker with pid: 8
+[36mapp_1            | [0m[2016-04-05 04:25:04 +0000] [8] [ERROR] Exception in worker process:
+[36mapp_1            | [0mTraceback (most recent call last):
+[36mapp_1            | [0m  File "/usr/local/lib/python3.4/site-packages/gunicorn/arbiter.py", line 515, in spawn_worker
+[36mapp_1            | [0m    worker.init_process()
+[36mapp_1            | [0m  File "/usr/local/lib/python3.4/site-packages/gunicorn/workers/base.py", line 122, in init_process
+[36mapp_1            | [0m    self.load_wsgi()
+[36mapp_1            | [0m  File "/usr/local/lib/python3.4/site-packages/gunicorn/workers/base.py", line 130, in load_wsgi
+[36mapp_1            | [0m    self.wsgi = self.app.wsgi()
+[36mapp_1            | [0m  File "/usr/local/lib/python3.4/site-packages/gunicorn/app/base.py", line 67, in wsgi
+[36mapp_1            | [0m    self.callable = self.load()
+[36mapp_1            | [0m  File "/usr/local/lib/python3.4/site-packages/gunicorn/app/wsgiapp.py", line 65, in load
+[36mapp_1            | [0m    return self.load_wsgiapp()
+[36mapp_1            | [0m  File "/usr/local/lib/python3.4/site-packages/gunicorn/app/wsgiapp.py", line 52, in load_wsgiapp
+[36mapp_1            | [0m    return util.import_app(self.app_uri)
+[36mapp_1            | [0m  File "/usr/local/lib/python3.4/site-packages/gunicorn/util.py", line 357, in import_app
+[36mapp_1            | [0m    __import__(module)
+[36mapp_1            | [0m  File "/src/app.py", line 6, in <module>
+[36mapp_1            | [0m    from database import init_db
+[36mapp_1            | [0m  File "/src/database.py", line 8, in <module>
+[36mapp_1            | [0m    username=os.getenv('MYSQL_USER'),
+[36mapp_1            | [0mNameError: name 'os' is not defined
+[36mapp_1            | [0mTraceback (most recent call last):
+[36mapp_1            | [0m  File "/usr/local/lib/python3.4/site-packages/gunicorn/arbiter.py", line 515, in spawn_worker
+[36mapp_1            | [0m    worker.init_process()
+[36mapp_1            | [0m  File "/usr/local/lib/python3.4/site-packages/gunicorn/workers/base.py", line 122, in init_process
+[36mapp_1            | [0m    self.load_wsgi()
+[36mapp_1            | [0m  File "/usr/local/lib/python3.4/site-packages/gunicorn/workers/base.py", line 130, in load_wsgi
+[36mapp_1            | [0m    self.wsgi = self.app.wsgi()
+[36mapp_1            | [0m  File "/usr/local/lib/python3.4/site-packages/gunicorn/app/base.py", line 67, in wsgi
+[36mapp_1            | [0m    self.callable = self.load()
+[36mapp_1            | [0m  File "/usr/local/lib/python3.4/site-packages/gunicorn/app/wsgiapp.py", line 65, in load
+[36mapp_1            | [0m    return self.load_wsgiapp()
+[36mapp_1            | [0m  File "/usr/local/lib/python3.4/site-packages/gunicorn/app/wsgiapp.py", line 52, in load_wsgiapp
+[36mapp_1            | [0m    return util.import_app(self.app_uri)
+[36mapp_1            | [0m  File "/usr/local/lib/python3.4/site-packages/gunicorn/util.py", line 357, in import_app
+[36mapp_1            | [0m    __import__(module)
+[36mapp_1            | [0m  File "/src/app.py", line 6, in <module>
+[36mapp_1            | [0m    from database import init_db
+[36mapp_1            | [0m  File "/src/database.py", line 8, in <module>
+[36mapp_1            | [0m    username=os.getenv('MYSQL_USER'),
+[36mapp_1            | [0mNameError: name 'os' is not defined
+[36mapp_1            | [0m[2016-04-05 04:25:04 +0000] [8] [INFO] Worker exiting (pid: 8)
+[36mapp_1            | [0m[2016-04-05 04:25:05 +0000] [1] [INFO] Shutting down: Master
+[36mapp_1            | [0m[2016-04-05 04:25:05 +0000] [1] [INFO] Reason: Worker failed to boot.
+[35mdudecarryme_db   | [0mInitializing database
+[35mdudecarryme_db   | [0mWarning: World-writable config file '/etc/mysql/conf.d/mysql.cnf' is ignored
+[35mdudecarryme_db   | [0mWarning: World-writable config file '/etc/mysql/conf.d/mysql.cnf' is ignored
+[35mdudecarryme_db   | [0m2016-04-05 04:25:05 0 [Note] /usr/sbin/mysqld (mysqld 5.6.29) starting as process 17 ...
+[32mdudecarryme_data exited with code 0
+[0m[35mdudecarryme_db   | [0m2016-04-05 04:25:05 17 [Note] InnoDB: Using atomics to ref count buffer pool pages
+[35mdudecarryme_db   | [0m2016-04-05 04:25:05 17 [Note] InnoDB: The InnoDB memory heap is disabled
+[35mdudecarryme_db   | [0m2016-04-05 04:25:05 17 [Note] InnoDB: Mutexes and rw_locks use GCC atomic builtins
+[35mdudecarryme_db   | [0m2016-04-05 04:25:05 17 [Note] InnoDB: Memory barrier is not used
+[35mdudecarryme_db   | [0m2016-04-05 04:25:05 17 [Note] InnoDB: Compressed tables use zlib 1.2.8
+[35mdudecarryme_db   | [0m2016-04-05 04:25:05 17 [Note] InnoDB: Using Linux native AIO
+[35mdudecarryme_db   | [0m2016-04-05 04:25:05 17 [Note] InnoDB: Not using CPU crc32 instructions
+[35mdudecarryme_db   | [0m2016-04-05 04:25:05 17 [Note] InnoDB: Initializing buffer pool, size = 128.0M
+[35mdudecarryme_db   | [0m2016-04-05 04:25:05 17 [Note] InnoDB: Completed initialization of buffer pool
+[35mdudecarryme_db   | [0m2016-04-05 04:25:05 17 [Note] InnoDB: The first specified data file ./ibdata1 did not exist: a new database to be created!
+[35mdudecarryme_db   | [0m2016-04-05 04:25:05 17 [Note] InnoDB: Setting file ./ibdata1 size to 12 MB
+[35mdudecarryme_db   | [0m2016-04-05 04:25:05 17 [Note] InnoDB: Database physically writes the file full: wait...
+[35mdudecarryme_db   | [0m2016-04-05 04:25:05 17 [Note] InnoDB: Setting log file ./ib_logfile101 size to 48 MB
+[35mdudecarryme_db   | [0m2016-04-05 04:25:05 17 [Note] InnoDB: Setting log file ./ib_logfile1 size to 48 MB
+[36mcs373idb_app_1 exited with code 0
+[0m[35mdudecarryme_db   | [0m2016-04-05 04:25:05 17 [Note] InnoDB: Renaming log file ./ib_logfile101 to ./ib_logfile0
+[35mdudecarryme_db   | [0m2016-04-05 04:25:05 17 [Warning] InnoDB: New log files created, LSN=45781
+[35mdudecarryme_db   | [0m2016-04-05 04:25:05 17 [Note] InnoDB: Doublewrite buffer not found: creating new
+[35mdudecarryme_db   | [0m2016-04-05 04:25:05 17 [Note] InnoDB: Doublewrite buffer created
+[35mdudecarryme_db   | [0m2016-04-05 04:25:05 17 [Note] InnoDB: 128 rollback segment(s) are active.
+[35mdudecarryme_db   | [0m2016-04-05 04:25:05 17 [Warning] InnoDB: Creating foreign key constraint system tables.
+[35mdudecarryme_db   | [0m2016-04-05 04:25:05 17 [Note] InnoDB: Foreign key constraint system tables created
+[35mdudecarryme_db   | [0m2016-04-05 04:25:05 17 [Note] InnoDB: Creating tablespace and datafile system tables.
+[35mdudecarryme_db   | [0m2016-04-05 04:25:05 17 [Note] InnoDB: Tablespace and datafile system tables created.
+[35mdudecarryme_db   | [0m2016-04-05 04:25:05 17 [Note] InnoDB: Waiting for purge to start
+[35mdudecarryme_db   | [0m2016-04-05 04:25:05 17 [Note] InnoDB: 5.6.29 started; log sequence number 0
+[35mdudecarryme_db   | [0m2016-04-05 04:25:05 17 [Note] Binlog end
+[35mdudecarryme_db   | [0m2016-04-05 04:25:05 17 [Note] InnoDB: FTS optimize thread exiting.
+[35mdudecarryme_db   | [0m2016-04-05 04:25:05 17 [Note] InnoDB: Starting shutdown...
+[33mdudecarryme_lb   | [0m2016/04/05 04:25:07 [error] 7#7: *1 connect() failed (111: Connection refused) while connecting to upstream, client: 192.168.99.1, server: , request: "GET /about.html HTTP/1.1", upstream: "http://172.21.0.2:8000/about.html", host: "192.168.99.100"
+[33mdudecarryme_lb   | [0m192.168.99.1 - - [05/Apr/2016:04:25:07 +0000] "GET /about.html HTTP/1.1" 502 575 "-" "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/49.0.2623.110 Safari/537.36"
+[33mdudecarryme_lb   | [0m2016/04/05 04:25:07 [error] 7#7: *1 recv() failed (104: Connection reset by peer) while reading response header from upstream, client: 192.168.99.1, server: , request: "GET /favicon.ico HTTP/1.1", upstream: "http://172.21.0.2:8000/favicon.ico", host: "192.168.99.100", referrer: "http://192.168.99.100/about.html"
+[33mdudecarryme_lb   | [0m192.168.99.1 - - [05/Apr/2016:04:25:07 +0000] "GET /favicon.ico HTTP/1.1" 502 575 "http://192.168.99.100/about.html" "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/49.0.2623.110 Safari/537.36"
+[35mdudecarryme_db   | [0m2016-04-05 04:25:07 17 [Note] InnoDB: Shutdown completed; log sequence number 1625977
+[35mdudecarryme_db   | [0m
+[35mdudecarryme_db   | [0m
+[35mdudecarryme_db   | [0mWarning: World-writable config file '/etc/mysql/conf.d/mysql.cnf' is ignored
+[35mdudecarryme_db   | [0m2016-04-05 04:25:07 0 [Note] /usr/sbin/mysqld (mysqld 5.6.29) starting as process 40 ...
+[35mdudecarryme_db   | [0m2016-04-05 04:25:07 40 [Note] InnoDB: Using atomics to ref count buffer pool pages
+[35mdudecarryme_db   | [0m2016-04-05 04:25:07 40 [Note] InnoDB: The InnoDB memory heap is disabled
+[35mdudecarryme_db   | [0m2016-04-05 04:25:07 40 [Note] InnoDB: Mutexes and rw_locks use GCC atomic builtins
+[35mdudecarryme_db   | [0m2016-04-05 04:25:07 40 [Note] InnoDB: Memory barrier is not used
+[35mdudecarryme_db   | [0m2016-04-05 04:25:07 40 [Note] InnoDB: Compressed tables use zlib 1.2.8
+[35mdudecarryme_db   | [0m2016-04-05 04:25:07 40 [Note] InnoDB: Using Linux native AIO
+[35mdudecarryme_db   | [0m2016-04-05 04:25:07 40 [Note] InnoDB: Not using CPU crc32 instructions
+[35mdudecarryme_db   | [0m2016-04-05 04:25:07 40 [Note] InnoDB: Initializing buffer pool, size = 128.0M
+[35mdudecarryme_db   | [0m2016-04-05 04:25:07 40 [Note] InnoDB: Completed initialization of buffer pool
+[35mdudecarryme_db   | [0m2016-04-05 04:25:07 40 [Note] InnoDB: Highest supported file format is Barracuda.
+[35mdudecarryme_db   | [0m2016-04-05 04:25:07 40 [Note] InnoDB: 128 rollback segment(s) are active.
+[35mdudecarryme_db   | [0m2016-04-05 04:25:07 40 [Note] InnoDB: Waiting for purge to start
+[35mdudecarryme_db   | [0m2016-04-05 04:25:07 40 [Note] InnoDB: 5.6.29 started; log sequence number 1625977
+[35mdudecarryme_db   | [0m2016-04-05 04:25:07 40 [Note] Binlog end
+[35mdudecarryme_db   | [0m2016-04-05 04:25:07 40 [Note] InnoDB: FTS optimize thread exiting.
+[35mdudecarryme_db   | [0m2016-04-05 04:25:07 40 [Note] InnoDB: Starting shutdown...
+[33mdudecarryme_lb   | [0m2016/04/05 04:25:08 [error] 7#7: *1 connect() failed (111: Connection refused) while connecting to upstream, client: 192.168.99.1, server: , request: "GET /about.html HTTP/1.1", upstream: "http://172.21.0.2:8000/about.html", host: "192.168.99.100"
+[33mdudecarryme_lb   | [0m192.168.99.1 - - [05/Apr/2016:04:25:08 +0000] "GET /about.html HTTP/1.1" 502 575 "-" "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/49.0.2623.110 Safari/537.36"
+[33mdudecarryme_lb   | [0m2016/04/05 04:25:08 [error] 7#7: *1 connect() failed (111: Connection refused) while connecting to upstream, client: 192.168.99.1, server: , request: "GET /favicon.ico HTTP/1.1", upstream: "http://172.21.0.2:8000/favicon.ico", host: "192.168.99.100", referrer: "http://192.168.99.100/about.html"
+[33mdudecarryme_lb   | [0m192.168.99.1 - - [05/Apr/2016:04:25:08 +0000] "GET /favicon.ico HTTP/1.1" 502 575 "http://192.168.99.100/about.html" "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/49.0.2623.110 Safari/537.36"
+[35mdudecarryme_db   | [0m2016-04-05 04:25:09 40 [Note] InnoDB: Shutdown completed; log sequence number 1625987
+[33mdudecarryme_lb   | [0m2016/04/05 04:25:09 [error] 7#7: *1 connect() failed (111: Connection refused) while connecting to upstream, client: 192.168.99.1, server: , request: "GET / HTTP/1.1", upstream: "http://172.21.0.2:8000/", host: "192.168.99.100"
+[33mdudecarryme_lb   | [0m192.168.99.1 - - [05/Apr/2016:04:25:09 +0000] "GET / HTTP/1.1" 502 575 "-" "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/49.0.2623.110 Safari/537.36"
+[35mdudecarryme_db   | [0m
+[35mdudecarryme_db   | [0m
+[35mdudecarryme_db   | [0m
+[35mdudecarryme_db   | [0m
+[35mdudecarryme_db   | [0mPLEASE REMEMBER TO SET A PASSWORD FOR THE MySQL root USER !
+[35mdudecarryme_db   | [0mTo do so, start the server, then issue the following commands:
+[35mdudecarryme_db   | [0m
+[35mdudecarryme_db   | [0m  /usr/bin/mysqladmin -u root password 'new-password'
+[35mdudecarryme_db   | [0m  /usr/bin/mysqladmin -u root -h abbba77a05f4 password 'new-password'
+[35mdudecarryme_db   | [0m
+[35mdudecarryme_db   | [0mAlternatively you can run:
+[35mdudecarryme_db   | [0m
+[35mdudecarryme_db   | [0m  /usr/bin/mysql_secure_installation
+[35mdudecarryme_db   | [0m
+[35mdudecarryme_db   | [0mwhich will also give you the option of removing the test
+[35mdudecarryme_db   | [0mdatabases and anonymous user created by default.  This is
+[35mdudecarryme_db   | [0mstrongly recommended for production servers.
+[35mdudecarryme_db   | [0m
+[35mdudecarryme_db   | [0mSee the manual for more instructions.
+[35mdudecarryme_db   | [0m
+[35mdudecarryme_db   | [0mPlease report any problems at http://bugs.mysql.com/
+[35mdudecarryme_db   | [0m
+[35mdudecarryme_db   | [0mThe latest information about MySQL is available on the web at
+[35mdudecarryme_db   | [0m
+[35mdudecarryme_db   | [0m  http://www.mysql.com
+[35mdudecarryme_db   | [0m
+[35mdudecarryme_db   | [0mSupport MySQL by buying support/licenses at http://shop.mysql.com
+[35mdudecarryme_db   | [0m
+[35mdudecarryme_db   | [0mNote: new default config file not created.
+[35mdudecarryme_db   | [0mPlease make sure your config file is current
+[35mdudecarryme_db   | [0m
+[35mdudecarryme_db   | [0mWARNING: Default config file /etc/mysql/my.cnf exists on the system
+[35mdudecarryme_db   | [0mThis file will be read by default by the MySQL server
+[35mdudecarryme_db   | [0mIf you do not want to use this, either remove it, or use the
+[35mdudecarryme_db   | [0m--defaults-file argument to mysqld_safe when starting the server
+[35mdudecarryme_db   | [0m
+[35mdudecarryme_db   | [0mDatabase initialized
+[35mdudecarryme_db   | [0mMySQL init process in progress...
+[35mdudecarryme_db   | [0mWarning: World-writable config file '/etc/mysql/conf.d/mysql.cnf' is ignored
+[33mdudecarryme_lb   | [0m2016/04/05 04:25:09 [error] 7#7: *1 connect() failed (111: Connection refused) while connecting to upstream, client: 192.168.99.1, server: , request: "GET /favicon.ico HTTP/1.1", upstream: "http://172.21.0.2:8000/favicon.ico", host: "192.168.99.100", referrer: "http://192.168.99.100/"
+[33mdudecarryme_lb   | [0m192.168.99.1 - - [05/Apr/2016:04:25:09 +0000] "GET /favicon.ico HTTP/1.1" 502 575 "http://192.168.99.100/" "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/49.0.2623.110 Safari/537.36"
+[35mdudecarryme_db   | [0m2016-04-05 04:25:10 0 [Note] mysqld (mysqld 5.6.29) starting as process 63 ...
+[35mdudecarryme_db   | [0m2016-04-05 04:25:10 63 [Note] Plugin 'FEDERATED' is disabled.
+[35mdudecarryme_db   | [0m2016-04-05 04:25:10 63 [Note] InnoDB: Using atomics to ref count buffer pool pages
+[35mdudecarryme_db   | [0m2016-04-05 04:25:10 63 [Note] InnoDB: The InnoDB memory heap is disabled
+[35mdudecarryme_db   | [0m2016-04-05 04:25:10 63 [Note] InnoDB: Mutexes and rw_locks use GCC atomic builtins
+[35mdudecarryme_db   | [0m2016-04-05 04:25:10 63 [Note] InnoDB: Memory barrier is not used
+[35mdudecarryme_db   | [0m2016-04-05 04:25:10 63 [Note] InnoDB: Compressed tables use zlib 1.2.8
+[35mdudecarryme_db   | [0m2016-04-05 04:25:10 63 [Note] InnoDB: Using Linux native AIO
+[35mdudecarryme_db   | [0m2016-04-05 04:25:10 63 [Note] InnoDB: Not using CPU crc32 instructions
+[35mdudecarryme_db   | [0m2016-04-05 04:25:10 63 [Note] InnoDB: Initializing buffer pool, size = 128.0M
+[35mdudecarryme_db   | [0m2016-04-05 04:25:10 63 [Note] InnoDB: Completed initialization of buffer pool
+[35mdudecarryme_db   | [0m2016-04-05 04:25:10 63 [Note] InnoDB: Highest supported file format is Barracuda.
+[35mdudecarryme_db   | [0m2016-04-05 04:25:10 63 [Note] InnoDB: 128 rollback segment(s) are active.
+[35mdudecarryme_db   | [0m2016-04-05 04:25:10 63 [Note] InnoDB: Waiting for purge to start
+[35mdudecarryme_db   | [0m2016-04-05 04:25:10 63 [Note] InnoDB: 5.6.29 started; log sequence number 1625987
+[35mdudecarryme_db   | [0m2016-04-05 04:25:10 63 [Warning] No existing UUID has been found, so we assume that this is the first time that this server has been started. Generating a new UUID: 62304ed5-fae6-11e5-b199-0242ac150004.
+[35mdudecarryme_db   | [0m2016-04-05 04:25:10 63 [Warning] 'user' entry 'root@abbba77a05f4' ignored in --skip-name-resolve mode.
+[35mdudecarryme_db   | [0m2016-04-05 04:25:10 63 [Warning] 'user' entry '@abbba77a05f4' ignored in --skip-name-resolve mode.
+[35mdudecarryme_db   | [0m2016-04-05 04:25:10 63 [Warning] 'proxies_priv' entry '@ root@abbba77a05f4' ignored in --skip-name-resolve mode.
+[35mdudecarryme_db   | [0m2016-04-05 04:25:10 63 [Note] Event Scheduler: Loaded 0 events
+[35mdudecarryme_db   | [0m2016-04-05 04:25:10 63 [Note] mysqld: ready for connections.
+[35mdudecarryme_db   | [0mVersion: '5.6.29'  socket: '/var/run/mysqld/mysqld.sock'  port: 0  MySQL Community Server (GPL)
+[35mdudecarryme_db   | [0mWarning: World-writable config file '/etc/mysql/conf.d/mysql.cnf' is ignored
+[35mdudecarryme_db   | [0mWarning: Unable to load '/usr/share/zoneinfo/iso3166.tab' as time zone. Skipping it.
+[35mdudecarryme_db   | [0mWarning: Unable to load '/usr/share/zoneinfo/leap-seconds.list' as time zone. Skipping it.
+[35mdudecarryme_db   | [0mWarning: Unable to load '/usr/share/zoneinfo/zone.tab' as time zone. Skipping it.
+[35mdudecarryme_db   | [0mWarning: World-writable config file '/etc/mysql/conf.d/mysql.cnf' is ignored
+[35mdudecarryme_db   | [0m2016-04-05 04:25:13 63 [Warning] 'proxies_priv' entry '@ root@abbba77a05f4' ignored in --skip-name-resolve mode.
+[35mdudecarryme_db   | [0mWarning: World-writable config file '/etc/mysql/conf.d/mysql.cnf' is ignored
+[35mdudecarryme_db   | [0mWarning: Using a password on the command line interface can be insecure.
+[35mdudecarryme_db   | [0mWarning: World-writable config file '/etc/mysql/conf.d/mysql.cnf' is ignored
+[35mdudecarryme_db   | [0mWarning: Using a password on the command line interface can be insecure.
+[35mdudecarryme_db   | [0mWarning: World-writable config file '/etc/mysql/conf.d/mysql.cnf' is ignored
+[35mdudecarryme_db   | [0mWarning: Using a password on the command line interface can be insecure.
+[35mdudecarryme_db   | [0mWarning: World-writable config file '/etc/mysql/conf.d/mysql.cnf' is ignored
+[35mdudecarryme_db   | [0mWarning: Using a password on the command line interface can be insecure.
+[35mdudecarryme_db   | [0m2016-04-05 04:25:13 63 [Warning] 'proxies_priv' entry '@ root@abbba77a05f4' ignored in --skip-name-resolve mode.
+[35mdudecarryme_db   | [0m
+[35mdudecarryme_db   | [0m/entrypoint.sh: ignoring /docker-entrypoint-initdb.d/*
+[35mdudecarryme_db   | [0m
+[35mdudecarryme_db   | [0m2016-04-05 04:25:13 63 [Note] mysqld: Normal shutdown
+[35mdudecarryme_db   | [0m
+[35mdudecarryme_db   | [0m2016-04-05 04:25:13 63 [Note] Giving 0 client threads a chance to die gracefully
+[35mdudecarryme_db   | [0m2016-04-05 04:25:13 63 [Note] Event Scheduler: Purging the queue. 0 events
+[35mdudecarryme_db   | [0m2016-04-05 04:25:13 63 [Note] Shutting down slave threads
+[35mdudecarryme_db   | [0m2016-04-05 04:25:13 63 [Note] Forcefully disconnecting 0 remaining clients
+[35mdudecarryme_db   | [0m2016-04-05 04:25:13 63 [Note] Binlog end
+[35mdudecarryme_db   | [0m2016-04-05 04:25:13 63 [Note] Shutting down plugin 'partition'
+[35mdudecarryme_db   | [0m2016-04-05 04:25:13 63 [Note] Shutting down plugin 'INNODB_SYS_DATAFILES'
+[35mdudecarryme_db   | [0m2016-04-05 04:25:13 63 [Note] Shutting down plugin 'INNODB_SYS_TABLESPACES'
+[35mdudecarryme_db   | [0m2016-04-05 04:25:13 63 [Note] Shutting down plugin 'INNODB_SYS_FOREIGN_COLS'
+[35mdudecarryme_db   | [0m2016-04-05 04:25:13 63 [Note] Shutting down plugin 'INNODB_SYS_FOREIGN'
+[35mdudecarryme_db   | [0m2016-04-05 04:25:13 63 [Note] Shutting down plugin 'INNODB_SYS_FIELDS'
+[35mdudecarryme_db   | [0m2016-04-05 04:25:13 63 [Note] Shutting down plugin 'INNODB_SYS_COLUMNS'
+[35mdudecarryme_db   | [0m2016-04-05 04:25:13 63 [Note] Shutting down plugin 'INNODB_SYS_INDEXES'
+[35mdudecarryme_db   | [0m2016-04-05 04:25:13 63 [Note] Shutting down plugin 'INNODB_SYS_TABLESTATS'
+[35mdudecarryme_db   | [0m2016-04-05 04:25:13 63 [Note] Shutting down plugin 'INNODB_SYS_TABLES'
+[35mdudecarryme_db   | [0m2016-04-05 04:25:13 63 [Note] Shutting down plugin 'INNODB_FT_INDEX_TABLE'
+[35mdudecarryme_db   | [0m2016-04-05 04:25:13 63 [Note] Shutting down plugin 'INNODB_FT_INDEX_CACHE'
+[35mdudecarryme_db   | [0m2016-04-05 04:25:13 63 [Note] Shutting down plugin 'INNODB_FT_CONFIG'
+[35mdudecarryme_db   | [0m2016-04-05 04:25:13 63 [Note] Shutting down plugin 'INNODB_FT_BEING_DELETED'
+[35mdudecarryme_db   | [0m2016-04-05 04:25:13 63 [Note] Shutting down plugin 'INNODB_FT_DELETED'
+[35mdudecarryme_db   | [0m2016-04-05 04:25:13 63 [Note] Shutting down plugin 'INNODB_FT_DEFAULT_STOPWORD'
+[35mdudecarryme_db   | [0m2016-04-05 04:25:13 63 [Note] Shutting down plugin 'INNODB_METRICS'
+[35mdudecarryme_db   | [0m2016-04-05 04:25:13 63 [Note] Shutting down plugin 'INNODB_BUFFER_POOL_STATS'
+[35mdudecarryme_db   | [0m2016-04-05 04:25:13 63 [Note] Shutting down plugin 'INNODB_BUFFER_PAGE_LRU'
+[35mdudecarryme_db   | [0m2016-04-05 04:25:13 63 [Note] Shutting down plugin 'INNODB_BUFFER_PAGE'
+[35mdudecarryme_db   | [0m2016-04-05 04:25:13 63 [Note] Shutting down plugin 'INNODB_CMP_PER_INDEX_RESET'
+[35mdudecarryme_db   | [0m2016-04-05 04:25:13 63 [Note] Shutting down plugin 'INNODB_CMP_PER_INDEX'
+[35mdudecarryme_db   | [0m2016-04-05 04:25:13 63 [Note] Shutting down plugin 'INNODB_CMPMEM_RESET'
+[35mdudecarryme_db   | [0m2016-04-05 04:25:13 63 [Note] Shutting down plugin 'INNODB_CMPMEM'
+[35mdudecarryme_db   | [0m2016-04-05 04:25:13 63 [Note] Shutting down plugin 'INNODB_CMP_RESET'
+[35mdudecarryme_db   | [0m2016-04-05 04:25:13 63 [Note] Shutting down plugin 'INNODB_CMP'
+[35mdudecarryme_db   | [0m2016-04-05 04:25:13 63 [Note] Shutting down plugin 'INNODB_LOCK_WAITS'
+[35mdudecarryme_db   | [0m2016-04-05 04:25:13 63 [Note] Shutting down plugin 'INNODB_LOCKS'
+[35mdudecarryme_db   | [0m2016-04-05 04:25:13 63 [Note] Shutting down plugin 'INNODB_TRX'
+[35mdudecarryme_db   | [0m2016-04-05 04:25:13 63 [Note] Shutting down plugin 'InnoDB'
+[35mdudecarryme_db   | [0m2016-04-05 04:25:13 63 [Note] InnoDB: FTS optimize thread exiting.
+[35mdudecarryme_db   | [0m2016-04-05 04:25:13 63 [Note] InnoDB: Starting shutdown...
+[35mdudecarryme_db   | [0m2016-04-05 04:25:15 63 [Note] InnoDB: Shutdown completed; log sequence number 1625997
+[35mdudecarryme_db   | [0m2016-04-05 04:25:15 63 [Note] Shutting down plugin 'BLACKHOLE'
+[35mdudecarryme_db   | [0m2016-04-05 04:25:15 63 [Note] Shutting down plugin 'ARCHIVE'
+[35mdudecarryme_db   | [0m2016-04-05 04:25:15 63 [Note] Shutting down plugin 'PERFORMANCE_SCHEMA'
+[35mdudecarryme_db   | [0m2016-04-05 04:25:15 63 [Note] Shutting down plugin 'MEMORY'
+[35mdudecarryme_db   | [0m2016-04-05 04:25:15 63 [Note] Shutting down plugin 'MyISAM'
+[35mdudecarryme_db   | [0m2016-04-05 04:25:15 63 [Note] Shutting down plugin 'MRG_MYISAM'
+[35mdudecarryme_db   | [0m2016-04-05 04:25:15 63 [Note] Shutting down plugin 'CSV'
+[35mdudecarryme_db   | [0m2016-04-05 04:25:15 63 [Note] Shutting down plugin 'sha256_password'
+[35mdudecarryme_db   | [0m2016-04-05 04:25:15 63 [Note] Shutting down plugin 'mysql_old_password'
+[35mdudecarryme_db   | [0m2016-04-05 04:25:15 63 [Note] Shutting down plugin 'mysql_native_password'
+[35mdudecarryme_db   | [0m2016-04-05 04:25:15 63 [Note] Shutting down plugin 'binlog'
+[35mdudecarryme_db   | [0m2016-04-05 04:25:15 63 [Note] mysqld: Shutdown complete
+[35mdudecarryme_db   | [0m
+[35mdudecarryme_db   | [0m
+[35mdudecarryme_db   | [0mMySQL init process done. Ready for start up.
+[35mdudecarryme_db   | [0m
+[35mdudecarryme_db   | [0mWarning: World-writable config file '/etc/mysql/conf.d/mysql.cnf' is ignored
+[35mdudecarryme_db   | [0m2016-04-05 04:25:15 0 [Note] mysqld (mysqld 5.6.29) starting as process 1 ...
+[35mdudecarryme_db   | [0m2016-04-05 04:25:15 1 [Note] Plugin 'FEDERATED' is disabled.
+[35mdudecarryme_db   | [0m2016-04-05 04:25:15 1 [Note] InnoDB: Using atomics to ref count buffer pool pages
+[35mdudecarryme_db   | [0m2016-04-05 04:25:15 1 [Note] InnoDB: The InnoDB memory heap is disabled
+[35mdudecarryme_db   | [0m2016-04-05 04:25:15 1 [Note] InnoDB: Mutexes and rw_locks use GCC atomic builtins
+[35mdudecarryme_db   | [0m2016-04-05 04:25:15 1 [Note] InnoDB: Memory barrier is not used
+[35mdudecarryme_db   | [0m2016-04-05 04:25:15 1 [Note] InnoDB: Compressed tables use zlib 1.2.8
+[35mdudecarryme_db   | [0m2016-04-05 04:25:15 1 [Note] InnoDB: Using Linux native AIO
+[35mdudecarryme_db   | [0m2016-04-05 04:25:15 1 [Note] InnoDB: Not using CPU crc32 instructions
+[35mdudecarryme_db   | [0m2016-04-05 04:25:15 1 [Note] InnoDB: Initializing buffer pool, size = 128.0M
+[35mdudecarryme_db   | [0m2016-04-05 04:25:15 1 [Note] InnoDB: Completed initialization of buffer pool
+[35mdudecarryme_db   | [0m2016-04-05 04:25:15 1 [Note] InnoDB: Highest supported file format is Barracuda.
+[35mdudecarryme_db   | [0m2016-04-05 04:25:15 1 [Note] InnoDB: 128 rollback segment(s) are active.
+[35mdudecarryme_db   | [0m2016-04-05 04:25:15 1 [Note] InnoDB: Waiting for purge to start
+[35mdudecarryme_db   | [0m2016-04-05 04:25:15 1 [Note] InnoDB: 5.6.29 started; log sequence number 1625997
+[35mdudecarryme_db   | [0m2016-04-05 04:25:15 1 [Note] Server hostname (bind-address): '*'; port: 3306
+[35mdudecarryme_db   | [0m2016-04-05 04:25:15 1 [Note] IPv6 is available.
+[35mdudecarryme_db   | [0m2016-04-05 04:25:15 1 [Note]   - '::' resolves to '::';
+[35mdudecarryme_db   | [0m2016-04-05 04:25:15 1 [Note] Server socket created on IP: '::'.
+[35mdudecarryme_db   | [0m2016-04-05 04:25:15 1 [Warning] 'proxies_priv' entry '@ root@abbba77a05f4' ignored in --skip-name-resolve mode.
+[35mdudecarryme_db   | [0m2016-04-05 04:25:15 1 [Note] Event Scheduler: Loaded 0 events
+[35mdudecarryme_db   | [0m2016-04-05 04:25:15 1 [Note] mysqld: ready for connections.
+[35mdudecarryme_db   | [0mVersion: '5.6.29'  socket: '/var/run/mysqld/mysqld.sock'  port: 3306  MySQL Community Server (GPL)
+[33mdudecarryme_lb   | [0m2016/04/05 04:25:16 [error] 7#7: *1 connect() failed (111: Connection refused) while connecting to upstream, client: 192.168.99.1, server: , request: "GET / HTTP/1.1", upstream: "http://172.21.0.2:8000/", host: "192.168.99.100"
+[33mdudecarryme_lb   | [0m192.168.99.1 - - [05/Apr/2016:04:25:16 +0000] "GET / HTTP/1.1" 502 575 "-" "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/49.0.2623.110 Safari/537.36"
+[33mdudecarryme_lb   | [0m2016/04/05 04:25:16 [error] 7#7: *1 connect() failed (111: Connection refused) while connecting to upstream, client: 192.168.99.1, server: , request: "GET /favicon.ico HTTP/1.1", upstream: "http://172.21.0.2:8000/favicon.ico", host: "192.168.99.100", referrer: "http://192.168.99.100/"
+[33mdudecarryme_lb   | [0m192.168.99.1 - - [05/Apr/2016:04:25:16 +0000] "GET /favicon.ico HTTP/1.1" 502 575 "http://192.168.99.100/" "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/49.0.2623.110 Safari/537.36"
+Gracefully stopping... (press Ctrl+C again to force)

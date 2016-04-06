@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 MYSQL_ENV_FILE="mysql-prod.env"
 
 # create local virtual machine if it doesn't exist
@@ -25,6 +27,7 @@ fi
 printf "\nStopping old containers\n"
 docker stop $(docker ps -a -q) || true
 docker rm $(docker ps -a -q) || true
+#docker rmi $(docker images -q) || true
 
 # print ip
 printf "\nRunning at this ip: "
@@ -32,7 +35,7 @@ docker-machine ip default
 printf "\n"
 
 # run the app
-docker-compose up > up.txt
+docker-compose up 
 
 #create database
 docker-compose run -d --rm --no-deps app python app.py create_db 
