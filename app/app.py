@@ -29,10 +29,25 @@ app.config['SQLALCHEMY_COMMIT_ON_TEARDOWN'] = True
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SQLALCHEMY_DATABASE_URI'] = DATABASE_URI
 
-db = SQLAlchemy(app)
+logger.debug("%s", DATABASE_URI)
 
 manager = Manager(app)
-manager.add_command("runserver", Server(host="0.0.0.0", use_debugger=True))
+
+db = SQLAlchemy(app)
+
+import models
+from models import *
+
+logger.debug("finished start up")
+
+# class Guest(db.Model):
+#     __tablename__ = 'guests'
+
+#     id = db.Column(db.Integer, primary_key=True)
+#     name = db.Column(db.String(256), nullable=False)
+
+#     def __repr__(self):
+#         return "[Guest: id={}, name={}]".format(self.id, self.name)
 
 @manager.command
 def create_db():
@@ -43,7 +58,7 @@ def create_db():
 
 @app.route('/')
 def splash():
-    return render_template('index.html')
+  return render_template('index.html')
 
 @app.route('/champions')
 def champions():
@@ -219,6 +234,7 @@ def api_teams():
       "link" : "team2.html",
   }]
 '''
+
 @app.route('/api/champion/<int:id>')
 def api_champion(id):
     return '''
@@ -285,4 +301,4 @@ if __name__ == '__main__':
     # app.config['SQLALCHEMY_ECHO'] = True
     # db.drop_all()
     # db.create_all()
-    manager.run(debug=True)
+    manager.run()
