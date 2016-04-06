@@ -55,7 +55,7 @@ lol_app.controller('lol_controller', function($scope) {
     ],
     "win_percentage": 0.539603960396,
     "total_games": 202,
-    "link" : "summoner0.html",
+    "link" : "/summoner/0",
   },
   {
     "name": "Eveloken",
@@ -76,7 +76,7 @@ lol_app.controller('lol_controller', function($scope) {
     ],
     "win_percentage": 0.691842900302,
     "total_games": 331,
-    "link" : "summoner1.html",
+    "link" : "/summoner/1",
   },
   {
     "name": "Ah Wunder",
@@ -98,7 +98,7 @@ lol_app.controller('lol_controller', function($scope) {
     ],
     "win_percentage": 0.530120481928,
     "total_games": 83,
-    "link" : "summoner2.html",
+    "link" : "/summoner/2",
   }];
 
   function get_summoner_link(index) {
@@ -106,7 +106,7 @@ lol_app.controller('lol_controller', function($scope) {
       return '#';
     }
     else {
-      return $scope.summoners[index].link;
+      return '/summoner/' + index;
     }
   }
 
@@ -151,7 +151,7 @@ lol_app.controller('lol_controller', function($scope) {
     "mp": 273.92,
     "movespeed": 335.0,
     "spellblock": 30.0,
-    "link": "champ0.html",
+    "link": "/champion/0",
   },
   {
     "name": "Veigar",
@@ -162,7 +162,7 @@ lol_app.controller('lol_controller', function($scope) {
     "mp": 392.4,
     "movespeed": 340.0,
     "spellblock": 30.0,
-    "link": "champ1.html",
+    "link": "/champion/1",
   },
   {
     "name": "Katarina",
@@ -173,7 +173,7 @@ lol_app.controller('lol_controller', function($scope) {
     "mp": 0.0,
     "movespeed": 345.0,
     "spellblock": 32.1,
-    "link": "champ2.html",
+    "link": "/champion/2",
   }];
 
   function get_champion_link(index) {
@@ -181,7 +181,7 @@ lol_app.controller('lol_controller', function($scope) {
       return '#';
     }
     else {
-      return $scope.champs[index].link;
+      return '/champion/' + index;
     }
   }
 
@@ -230,7 +230,7 @@ lol_app.controller('lol_controller', function($scope) {
           23509228,
           72680640
       ],
-      "link" : "team0.html",
+      "link" : "/team/0",
   },
   {
       "name": "Team Zon and Friends",
@@ -243,7 +243,7 @@ lol_app.controller('lol_controller', function($scope) {
       "players": [
           36109721
       ],
-      "link" : "team1.html",
+      "link" : "/team/1",
   },
   {
       "name": "Tomato Terrors",
@@ -256,7 +256,7 @@ lol_app.controller('lol_controller', function($scope) {
       "players": [
           36109721
       ],
-      "link" : "team2.html",
+      "link" : "/team/2",
   }];
   
   

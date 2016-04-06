@@ -47,25 +47,27 @@
     </nav>
       
     <div class="container body-content" ng-app="lol_app" ng-controller="lol_controller">
-      <div>
-        <img src="{{champs[0].icon_url}}" class="col-md-6"/>
+      {% endraw %}
+      <div ng-init="id = {{id}}">
+        {% raw %}
+        <img src="{{champs[id].icon_url}}" class="col-md-6"/>
         <div class="top-text">
-          <h1>{{champs[0].name}}</h1>
+          <h1>{{champs[id].name}}</h1>
           <hr>
         </div>
         <div class="well col-md-6">
           <h3>ID</h3>
-          <p>{{champs[0].id}}</p>
+          <p>{{champs[id].id}}</p>
           <h3>Title</h3>
-          <p>{{champs[0].title}}</p>
+          <p>{{champs[id].title}}</p>
           <h3>HP</h3>
-          <p>{{champs[0].hp}}</p>
+          <p>{{champs[id].hp}}</p>
           <h3>MP</h3>
-          <p>{{champs[0].mp}}</p>
+          <p>{{champs[id].mp}}</p>
           <h3>Movespeed</h3>
-          <p>{{champs[0].movespeed}}</p>
+          <p>{{champs[id].movespeed}}</p>
           <h3>Spellblock</h3>
-          <p>{{champs[0].spellblock}}</p>                                        
+          <p>{{champs[id].spellblock}}</p>                                        
         </div>
       </div>
     </div>
