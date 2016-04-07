@@ -40,15 +40,6 @@ from models import *
 
 logger.debug("finished start up")
 
-# class Guest(db.Model):
-#     __tablename__ = 'guests'
-
-#     id = db.Column(db.Integer, primary_key=True)
-#     name = db.Column(db.String(256), nullable=False)
-
-#     def __repr__(self):
-#         return "[Guest: id={}, name={}]".format(self.id, self.name)
-
 @manager.command
 def create_db():
   logger.debug("creating db..")
@@ -58,7 +49,11 @@ def create_db():
 
 @app.route('/')
 def splash():
-  return render_template('index.html')
+    return render_template('index.html')
+
+@app.route('/about')
+def about():
+    return render_template('about.html')
 
 @app.route('/champions')
 def champions():

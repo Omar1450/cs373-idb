@@ -25,9 +25,10 @@ services:
       # Environment variables to configure the app on startup.
       # We don't care about commiting these creds to GitHub because they're only
       # for our local development environment
-      - MYSQL_USER=admin
-      - MYSQL_PASSWORD=admin
-    command: gunicorn --reload app:app --bind 0.0.0.0:8000
+      - MYSQL_USER=a
+      - MYSQL_PASSWORD=a
+    command: gunicorn --no-sendfile --reload app:app --bind 0.0.0.0:8000
+      
       # Run Gunicorn to serve app requests and reload on change so we can see our
       # changes to the app code
 
