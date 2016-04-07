@@ -12,6 +12,11 @@ then
 
     # setup environment
     eval "$(docker-machine env default)"
+
+    # print ip
+    printf "\nWill run at this ip: "
+    docker-machine ip default
+    printf "\n"
 fi
 
 # stop on any errors after this
@@ -34,10 +39,7 @@ docker stop $(docker ps -a -q) || true
 docker rm $(docker ps -a -q) || true
 #docker rmi $(docker images -q) || true
 
-# print ip
-printf "\nRunning at this ip: "
-#docker-machine ip default
-printf "\n"
+
 
 # run the app
 docker-compose up
