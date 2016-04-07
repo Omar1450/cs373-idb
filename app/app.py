@@ -28,6 +28,7 @@ DATABASE_URI = \
 app.config['SQLALCHEMY_COMMIT_ON_TEARDOWN'] = True
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SQLALCHEMY_DATABASE_URI'] = DATABASE_URI
+app.config['SQLALCHEMY_ECHO'] = True
 
 logger.debug("%s", DATABASE_URI)
 
@@ -46,6 +47,18 @@ def create_db():
   app.config['SQLALCHEMY_ECHO'] = True
   db.drop_all()
   db.create_all()
+
+@manager.command
+def create_dummy_data():
+   champion = Champion(1, "john", "asdfasf", 20.5, 60.2, 55.5, 2.2, "example.com")
+   team = Team(1, "asdfasdfaskljlkj", True, 60.0, 105, 89)
+   summoner = Summoner(1, "bob", "bronze", 1, 50, 25.0, 100)
+   summoner.champions.append(champion)
+   summoner.teams.append(team)
+   db.session.add(summoner)
+   db.session.add(champion)
+   db.session.add(team)
+   db.session.commit()
 
 @app.route('/')
 def splash():

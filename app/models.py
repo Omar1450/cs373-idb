@@ -8,120 +8,116 @@ from app import db
 from flask.ext.sqlalchemy import SQLAlchemy
 
 
-class Summoner(db.Model):
-	"""
-	A Summoner is the equivalent of a player in League of Legends, each Summoner has a pool of champions he or she much unlock to be able to player
-	A Summoner can play Ranked Matches in order to increase his Rank, declared as (tier, division, lp). In order to be promoted in division, and eventually tier,
-	he or she must earn League Points, or LP, by winning Matches.
-	Thus, win rate is important.
-	A Summoner can also join social circles called Teams, where teams have definitive rosters that can compete in Ranked matches as well.
-	A Summoner can earn Mastery Points with any corresponding unlocked Champion, where mastery points describes the relative skill the summoner has with the champion
-	"""
-	__tablename__ = 'summoner'
-	id = db.Column(db.Integer, primary_key=True)
-	name = db.Column(db.String(50))
-	rank = db.Column(db.Integer)
-	tier = db.Column(db.String(50))
-	division = db.Column(db.Integer)
-	lp = db.Column(db.Integer)
-	champions = db.relationship("summoner_champion_mastery", back_populates="summoner")
-	teams = db.relationship("summoner_team_membership", back_populates="summoner")
-	total_games = db.Column(db.Integer)
-	win_percentage = db.Column(db.Float)
-	#search_vector = db.Column(TSVectorType('name', 'summoner_id', 'rank'))
+team_membership = db.Table('team_membership', 
+    db.Column('summoner_id', db.Integer, db.ForeignKey('summoner.id')),
+    db.Column('team_id', db.String(50), db.ForeignKey('team.id'))
+    )
 
-	def __init__(self, s_id, name, tier, division, lp, win_per, total_games):
-		self.id = s_id
-		self.name = name
-		if (tier.lower() == "bronze"):
-			self.rank += 10
-		elif (tier.lower() == "silver"):
-			self.rank += 20
-		elif (tier.lower() == "gold"):
-			self.rank += 30
-		elif (tier.lower() == "platinum"):
-			self.rank += 40
-		elif (tier.lower() == "diamond"):
-			self.rank += 50
-		elif (tier.lower() == "master"):
-			self.rank += 60
-		elif (tier.lower() == "challenger"):
-			self.rank += 70
-		self.rank += int(division)
-		self.tier = tier
-		self.division = division
-		self.lp = lp
-		self.win_percentage = win_per
-		self.total_games = total_games
+class Summoner(db.Model):
+    """
+    A Summoner is the equivalent of a player in League of Legends, each Summoner has a pool of champions he or she much unlock to be able to player
+    A Summoner can play Ranked Matches in order to increase his Rank, declared as (tier, division, lp). In order to be promoted in division, and eventually tier,
+    he or she must earn League Points, or LP, by winning Matches.
+    Thus, win rate is important.
+    A Summoner can also join social circles called Teams, where teams have definitive rosters that can compete in Ranked matches as well.
+    A Summoner can earn Mastery Points with any corresponding unlocked Champion, where mastery points describes the relative skill the summoner has with the champion
+    """
+    __tablename__ = 'summoner'
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(50))
+    rank = db.Column(db.Integer)
+    tier = db.Column(db.String(50))
+    division = db.Column(db.Integer)
+    lp = db.Column(db.Integer)
+    champions = db.relationship("SummonerChampionMastery", backref=db.backref("summoner"))
+    teams = db.relationship("Team", secondary=team_membership, backref=db.backref("summoners"))
+    total_games = db.Column(db.Integer)
+    win_percentage = db.Column(db.Float)
+    #search_vector = db.Column(TSVectorType('name', 'summoner_id', 'rank'))
+
+    def __init__(self, s_id, name, tier, division, lp, win_per, total_games):
+        self.id = s_id
+        self.name = name
+        self.rank = 0
+        if (tier.lower() == "bronze"):
+            self.rank += 10
+        elif (tier.lower() == "silver"):
+            self.rank += 20
+        elif (tier.lower() == "gold"):
+            self.rank += 30
+        elif (tier.lower() == "platinum"):
+            self.rank += 40
+        elif (tier.lower() == "diamond"):
+            self.rank += 50
+        elif (tier.lower() == "master"):
+            self.rank += 60
+        elif (tier.lower() == "challenger"):
+            self.rank += 70
+        self.rank += int(division)
+        self.tier = tier
+        self.division = division
+        self.lp = lp
+        self.win_percentage = win_per
+        self.total_games = total_games
 
 class Team(db.Model):
-	"""
-	Teams are composed of Summoners, with the minimum of 1 Summoner per team. Each team name is unique. Each Team can play in a competitive setting in ranked matches
-	"""
-	__tablename__ = 'team'
-	id = db.Column(db.String(50), primary_key=True)
-	tag = db.Column(db.String(50))
-	status = db.Column(db.Boolean)
-	win_percentage = db.Column(db.Float)
-	total_games = db.Column(db.Integer)
-	most_recent_member_timestamp = db.Column(db.Date)
-	summoners = db.relationship("summoner_team_membership", back_populates="team")
+    """
+    Teams are composed of Summoners, with the minimum of 1 Summoner per team. Each team name is unique. Each Team can play in a competitive setting in ranked matches
+    """
+    __tablename__ = 'team'
+    id = db.Column(db.String(50), primary_key=True)
+    tag = db.Column(db.String(50))
+    status = db.Column(db.Boolean)
+    win_percentage = db.Column(db.Float)
+    total_games = db.Column(db.Integer)
+    most_recent_member_timestamp = db.Column(db.Integer)
 
-	def __init__(self, id, tag, status, win_p, total_games, most_recent_member_timestamp):
-		self.id = id
-		self.tag = tag
-		self.status = status
-		self.win_percentage = win_p
-		self.total_games = total_games
-		self.most_recent_member_timestamp = most_recent_member_timestamp
+    def __init__(self, id, tag, status, win_p, total_games, most_recent_member_timestamp):
+        self.id = id
+        self.tag = tag
+        self.status = status
+        self.win_percentage = win_p
+        self.total_games = total_games
+        self.most_recent_member_timestamp = most_recent_member_timestamp
 
 class Champion(db.Model):
-	"""
-	Champions are the characters that Summoners can play in this game. Each Champion has unique abilities and personalized db.Model stats which change with level.
-	"""
-	__tablename__ = 'champion'
-	id = db.Column(db.Integer, primary_key=True)
-	name = db.Column(db.String(50))
-	title = db.Column(db.String(50))
-	hp = db.Column(db.Float)
-	mp = db.Column(db.Float)
-	movespeed = db.Column(db.Float)
-	spellblock = db.Column(db.Float)
-	summoners = db.relationship("summoner_champion_mastery", back_populates="champion")
-	portrait_url = db.Column(db.String(50))
+    """
+    Champions are the characters that Summoners can play in this game. Each Champion has unique abilities and personalized db.Model stats which change with level.
+    """
+    __tablename__ = 'champion'
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(50))
+    title = db.Column(db.String(50))
+    hp = db.Column(db.Float)
+    mp = db.Column(db.Float)
+    movespeed = db.Column(db.Float)
+    spellblock = db.Column(db.Float)
+    portrait_url = db.Column(db.String(50))
+    summoners = db.relationship("SummonerChampionMastery", backref=db.backref("champion"))
 
-	def __init__(self, id, name, title, hp, mp, movespeed, spellblock, portrait_url):
-		self.id = id
-		self.name = name
-		self.title = title
-		self.hp = hp
-		self.mp = mp
-		self.movespeed = movespeed
-		self.spellblock = spellblock
-		self.portrait_url = portrait_url
+    def __init__(self, id, name, title, hp, mp, movespeed, spellblock, portrait_url):
+        self.id = id
+        self.name = name
+        self.title = title
+        self.hp = hp
+        self.mp = mp
+        self.movespeed = movespeed
+        self.spellblock = spellblock
+        self.portrait_url = portrait_url
 
-class SummonerTeamMembership(db.Model):
-	"""
-	Maps the db.relationship between Summoners and Teams
-	A Summoner can be in multiple teams
-	A Team can have multiple summoners
-	This many-to-many db.relationship is represented thru an association table
-	"""
-	__tablename__ = 'summoner_team_membership'
-	# id = db.Column(db.Integer, primary_key=True)
-	summ_id = db.Column(db.Integer, db.ForeignKey('summoner.id'), primary_key=True)
-	team_id = db.Column(db.String(50), db.ForeignKey('team.id'), primary_key=True)
 
-class SummonerChampionMastery(db.Model):
-	"""
-	Maps the db.relationship between Summoners and Champions
-	A Summoner can have multiple Champions
-	A Champion can be unlocked by multiple Summoners
-	Each Summoner has respective Mastery Points with a corresponding Champion
-	This many-to-many db.relationship is represented thru an association table
-	"""
-	__tablename__ = 'summoner_champion_mastery'
-	# id = db.Column(db.Integer, primary_key=True)
-	summ_id = db.Column(db.Integer, db.ForeignKey('summoner.id'), primary_key=True)
-	champ_id = db.Column(db.Integer, db.ForeignKey('champion.id'), primary_key=True)
-	mastery_score = db.Column(db.Integer)
+class SummonerChampionMastery(db.Model):               
+    """             
+    Maps the db.relationship between Summoners and Champions                
+    A Summoner can have multiple Champions          
+    A Champion can be unlocked by multiple Summoners                
+    Each Summoner has respective Mastery Points with a corresponding Champion               
+    This many-to-many db.relationship is represented thru an association table              
+    """             
+    __tablename__ = 'summoner_champion_mastery'             
+    summ_id = db.Column(db.Integer, db.ForeignKey('summoner.id'), primary_key=True)         
+    champ_id = db.Column(db.Integer, db.ForeignKey('champion.id'), primary_key=True)                
+    mastery_score = db.Column(db.Integer)
+    
+    def __init__(self, score):
+        self.mastery_score = score
