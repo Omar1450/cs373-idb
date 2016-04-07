@@ -7,6 +7,15 @@ import json
 from app import db 
 from flask.ext.sqlalchemy import SQLAlchemy
 
+summoner_mastery = db.Table('summoner_mastery',
+    db.Column('summoner_id', db.Integer, db.ForeignKey('summoner.id')),
+    db.Column('champ_id', db.Integer, db.ForeignKey('champion.id'))
+    )
+
+team_membership = db.Table('team_membership', 
+    db.Column('summoner_id', db.Integer, db.ForeignKey('summoner.id')),
+    db.Column('team_id', db.String(50), db.ForeignKey('team.id'))
+    )
 
 class Summoner(db.Model):
 	"""
@@ -24,8 +33,8 @@ class Summoner(db.Model):
 	tier = db.Column(db.String(50))
 	division = db.Column(db.Integer)
 	lp = db.Column(db.Integer)
-	champions = db.relationship("summoner_champion_mastery", back_populates="summoner")
-	teams = db.relationship("summoner_team_membership", back_populates="summoner")
+	champions = db.relationship("Champion", secondary=summoner_mastery, backref=db.backref("mastery", lazy='dynamic'))
+	teams = db.relationship("Team", secondary=team_membership, backref=db.backref("teammembership", lazy='dynamic'))
 	total_games = db.Column(db.Integer)
 	win_percentage = db.Column(db.Float)
 	#search_vector = db.Column(TSVectorType('name', 'summoner_id', 'rank'))
@@ -33,6 +42,7 @@ class Summoner(db.Model):
 	def __init__(self, s_id, name, tier, division, lp, win_per, total_games):
 		self.id = s_id
 		self.name = name
+		self.rank = 0
 		if (tier.lower() == "bronze"):
 			self.rank += 10
 		elif (tier.lower() == "silver"):
@@ -64,8 +74,7 @@ class Team(db.Model):
 	status = db.Column(db.Boolean)
 	win_percentage = db.Column(db.Float)
 	total_games = db.Column(db.Integer)
-	most_recent_member_timestamp = db.Column(db.Date)
-	summoners = db.relationship("summoner_team_membership", back_populates="team")
+	most_recent_member_timestamp = db.Column(db.Integer)
 
 	def __init__(self, id, tag, status, win_p, total_games, most_recent_member_timestamp):
 		self.id = id
@@ -87,7 +96,6 @@ class Champion(db.Model):
 	mp = db.Column(db.Float)
 	movespeed = db.Column(db.Float)
 	spellblock = db.Column(db.Float)
-	summoners = db.relationship("summoner_champion_mastery", back_populates="champion")
 	portrait_url = db.Column(db.String(50))
 
 	def __init__(self, id, name, title, hp, mp, movespeed, spellblock, portrait_url):
@@ -100,28 +108,3 @@ class Champion(db.Model):
 		self.spellblock = spellblock
 		self.portrait_url = portrait_url
 
-class SummonerTeamMembership(db.Model):
-	"""
-	Maps the db.relationship between Summoners and Teams
-	A Summoner can be in multiple teams
-	A Team can have multiple summoners
-	This many-to-many db.relationship is represented thru an association table
-	"""
-	__tablename__ = 'summoner_team_membership'
-	# id = db.Column(db.Integer, primary_key=True)
-	summ_id = db.Column(db.Integer, db.ForeignKey('summoner.id'), primary_key=True)
-	team_id = db.Column(db.String(50), db.ForeignKey('team.id'), primary_key=True)
-
-class SummonerChampionMastery(db.Model):
-	"""
-	Maps the db.relationship between Summoners and Champions
-	A Summoner can have multiple Champions
-	A Champion can be unlocked by multiple Summoners
-	Each Summoner has respective Mastery Points with a corresponding Champion
-	This many-to-many db.relationship is represented thru an association table
-	"""
-	__tablename__ = 'summoner_champion_mastery'
-	# id = db.Column(db.Integer, primary_key=True)
-	summ_id = db.Column(db.Integer, db.ForeignKey('summoner.id'), primary_key=True)
-	champ_id = db.Column(db.Integer, db.ForeignKey('champion.id'), primary_key=True)
-	mastery_score = db.Column(db.Integer)
