@@ -43,8 +43,16 @@ hr {
 	margin-top: 25px;
 	height: 200px;
 	border-width: 5px;
-	border-color: white;
+	border-color: black;
 	border-style: solid;
 	border-collapse: separate;
 	border-radius: 50%;
+}
+
+.icon {
+	width: initial;
+}
+
+.wrap {
+	word-wrap: break-word;
 }

@@ -19,9 +19,14 @@ function getNumber(num) {
   return arr;
 }
 
-var lol_app = angular.module('lol_app', [])
+var lol_app = angular.module('lol_app', []);
 
 lol_app.controller('lol_controller', function($scope) {
+
+  Console.log("EWRTYU");
+
+  $scope.rut = "Unit test complete.";
+  $scope.fillrut = "";
 
   // SUMMONERS
   //
@@ -258,6 +263,5 @@ lol_app.controller('lol_controller', function($scope) {
       ],
       "link" : "/team/2",
   }];
-  
-  
+
 });

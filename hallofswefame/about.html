@@ -45,7 +45,7 @@
         </div>
     </nav>
       
-    <div class="container body-content">
+    <div class="container body-content" ng-app="lol_app" ng-controller="lol_controller">
       <div>
         <h1 style="color:white">About</h1>
       </div>
@@ -209,6 +209,15 @@
         <li class="list-group-item">Slack</li>
         <li class="list-group-item">SQLAlchemy</li>
         <li class="list-group-item">Travis CI</li>
+      </ul>
+      <br />
+      <hr>
+
+      <!-- Run Unit Tests -->
+      <h2 style="color: white">Run Unit Tests</h2>
+      <ul class="list-group">
+        <a ng-click="fill = unittests" class="list-group-item"><b>Run Unit Tests</b></a>
+        <li class="wrap list-group-item" ng-bind="fill"></li>
       </ul>
 
     </div>

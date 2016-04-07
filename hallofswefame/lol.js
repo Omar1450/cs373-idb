@@ -23,6 +23,19 @@ var lol_app = angular.module('lol_app', [])
 
 lol_app.controller('lol_controller', function($scope) {
 
+  $scope.unittests = "I ran it.";
+  $scope.fill = "";
+  
+  var url = "http://soundcloud.com/oembed?url=http%3A//soundcloud.com/forss/flickermood&format=json";
+
+  var success = function(data){
+    var html =[];
+    /* parse the JSON */
+    data = $.parseJSON(data);
+  };
+
+  $scope.unittests = xhr.responseText;
+
   // SUMMONERS
   //
   //
