@@ -1,4 +1,4 @@
-FILES :=                               
+FILES :=                              \
     .travis.yml                       \
     apiary.apib                       \
     makefile                          \
