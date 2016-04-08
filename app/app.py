@@ -1,8 +1,8 @@
-import loggin
+import logging
 import os
 import time
 
-from flask import Flask, render_template, request, redirect, url_for, send_file
+from flask import Flask, render_template, request, redirect, url_for, send_file, jsonify
 from flask.ext.script import Manager, Server
 from flask.ext.sqlalchemy import SQLAlchemy
 
@@ -50,11 +50,18 @@ def create_db():
 
 @manager.command
 def create_dummy_data():
-   champion = Champion(1, "john", "asdfasf", 20.5, 60.2, 55.5, 2.2, "example.com")
-   team = Team(1, "asdfasdfaskljlkj", True, 60.0, 105, 89)
-   summoner = Summoner(1, "bob", "bronze", 1, 50, 25.0, 100)
-   summoner.champions.append(champion)
+   champion = Champion(5, "john", "asdfasf", 20.5, 60.2, 55.5, 2.2, "example.com")
+   team = Team(10, "asdfasdfaskljlkj", True, 60.0, 105, 89)
+   summoner = Summoner(15, "bob", "bronze", 1, 50, 25.0, 100)
+   summoner2 = Summoner(20, "bob", "bronze", 1, 50, 25.0, 100)
+   mastery = SummonerChampionMastery(50)
+   summoner.champions.append(mastery)
    summoner.teams.append(team)
+   champion.summoners.append(mastery)
+
+   mastery2 = SummonerChampionMastery(70)
+   summoner2.champions.append(mastery2)
+   champion.summoners.append(mastery2)
    db.session.add(summoner)
    db.session.add(champion)
    db.session.add(team)
@@ -94,219 +101,41 @@ def summoner(id):
 
 @app.route('/api/champions')
 def api_champions():
-    return ''' 
-  [{
-    "name": "Thresh",
-    "id": 412,
-    "icon_url": "http://ddragon.leagueoflegends.com/cdn/6.5.1/img/champion/Thresh.png",
-    "title": "the Chain Warden",
-    "hp": 560.2,
-    "mp": 273.92,
-    "movespeed": 335.0,
-    "spellblock": 30.0,
-    "link": "champ0.html",
-  },
-  {
-    "name": "Veigar",
-    "id": 45,
-    "icon_url": "http://ddragon.leagueoflegends.com/cdn/6.5.1/img/champion/Veigar.png",
-    "title": "the Tiny Master of Evil",
-    "hp": 492.76,
-    "mp": 392.4,
-    "movespeed": 340.0,
-    "spellblock": 30.0,
-    "link": "champ1.html",
-  },
-  {
-    "name": "Katarina",
-    "id": 55,
-    "icon_url": "http://ddragon.leagueoflegends.com/cdn/6.5.1/img/champion/Katarina.png",
-    "title": "the Sinister Blade",
-    "hp": 510.0,
-    "mp": 0.0,
-    "movespeed": 345.0,
-    "spellblock": 32.1,
-    "link": "champ2.html",
-  }]
-'''
+    champions = Champion.query.all()
+    return jsonify({"champions": [champion_to_json(c) for c in champions]})
+
 @app.route('/api/summoners')
 def api_summoners():
-    return ''' 
-    [{
-    "name": "XRedxDragonX",
-    "id": 23509228,
-    "icon_url": "http://sk2.op.gg/images/profile_icons/profileIcon592.jpg",
-    "rank": {
-        "tier": "DIAMOND",
-        "division": 4,
-        "league_points": 69
-    },
-    "teams": [
-        "OPot"
-    ],
-    "top_3_champions": [
-        412,
-        45,
-        55
-    ],
-    "win_percentage": 0.539603960396,
-    "total_games": 202,
-    "link" : "summoner0.html",
-  },
-  {
-    "name": "Eveloken",
-    "id": 72680640,
-    "icon_url": "http://sk2.op.gg/images/profile_icons/profileIcon1105.jpg",
-    "rank": {
-        "tier": "CHALLENGER",
-        "division": 1,
-        "league_points": 1360
-    },
-    "teams": [
-        "OPot"
-    ],
-    "top_3_champions": [
-        55,
-        45,
-        412
-    ],
-    "win_percentage": 0.691842900302,
-    "total_games": 331,
-    "link" : "summoner1.html",
-  },
-  {
-    "name": "Ah Wunder",
-    "id": 36109721,
-    "icon_url": "http://sk2.op.gg/images/profile_icons/profileIcon588.jpg",
-    "rank": {
-        "tier": "GOLD",
-        "division": 2,
-        "league_points": 54
-    },
-    "teams": [
-        "zonpls",
-        "ILILI"
-    ],
-    "top_3_champions": [
-        55,
-        45,
-        412
-    ],
-    "win_percentage": 0.530120481928,
-    "total_games": 83,
-    "link" : "summoner2.html",
-  }]
+    summoners = Summoner.query.all()
+    return jsonify({"summoners": [summoner_to_json(s) for s in summoners]})
 
-'''
+
 @app.route('/api/teams')
 def api_teams():
-    return ''' 
-     [{
-      "name": "Order of the Iron Potato",
-      "id": "TEAM-222e7b80-49d9-11e4-806c-782bcb4d0bb2",
-      "tag": "OPot",
-      "status": "RANKED",
-      "win_percentage": 0.5,
-      "total_games": 2,
-      "most_recent_member_timestamp": 1413137738000,
-      "players": [
-          23509228,
-          72680640
-      ],
-      "link" : "team0.html",
-  },
-  {
-      "name": "Team Zon and Friends",
-      "id": "TEAM-f5b98c70-3bcd-11e4-834d-782bcb4d1861",
-      "tag": "zonpls",
-      "status": "RANKED",
-      "win_percentage": 0.6,
-      "total_games": 5,
-      "most_recent_member_timestamp": 1432351174000,
-      "players": [
-          36109721
-      ],
-      "link" : "team1.html",
-  },
-  {
-      "name": "Tomato Terrors",
-      "id": "TEAM-9b111140-5e80-11e5-87b6-c81f66dd45c9",
-      "tag": "ILILI",
-      "status": "RANKED",
-      "win_percentage": 0.6,
-      "total_games": 8,
-      "most_recent_member_timestamp": 1445915715000,
-      "players": [
-          36109721
-      ],
-      "link" : "team2.html",
-  }]
-'''
+    teams = Team.query.all()
+    return jsonify({"teams": [team_to_json(t) for t in teams]})
+
+def jsonify_single_obj(obj, func):
+    if obj == None:
+        return jsonify({})
+    else:
+        return jsonify(func(obj))
 
 @app.route('/api/champion/<int:id>')
 def api_champion(id):
-    return '''
-    {
-    "name": "Thresh",
-    "id": 412,
-    "icon_url": "http://ddragon.leagueoflegends.com/cdn/6.5.1/img/champion/Thresh.png",
-    "title": "the Chain Warden",
-    "hp": 560.2,
-    "mp": 273.92,
-    "movespeed": 335.0,
-    "spellblock": 30.0,
-    "link": "champ0.html",
-   }
-'''
+    champion = Champion.query.filter(Champion.id == id).first()
+    return jsonify_single_obj(champion, champion_to_json)
+
 @app.route('/api/summoner/<int:id>')
 def api_summoner(id):
-    return '''
-    {
-    "name": "XRedxDragonX",
-    "id": 23509228,
-    "icon_url": "http://sk2.op.gg/images/profile_icons/profileIcon592.jpg",
-    "rank": {
-        "tier": "DIAMOND",
-        "division": 4,
-        "league_points": 69
-    },
-    "teams": [
-        "OPot"
-    ],
-    "top_3_champions": [
-        412,
-        45,
-        55
-    ],
-    "win_percentage": 0.539603960396,
-    "total_games": 202,
-    "link" : "summoner0.html",
-   }
-'''
+    summoner = Summoner.query.filter(Summoner.id == id).first()
+    return jsonify_single_obj(summoner, summoner_to_json)
 
 @app.route('/api/team/<int:id>')
 def api_team(id):
-    return ''' 
-    {
-      "name": "Team Zon and Friends",
-      "id": "TEAM-f5b98c70-3bcd-11e4-834d-782bcb4d1861",
-      "tag": "zonpls",
-      "status": "RANKED",
-      "win_percentage": 0.6,
-      "total_games": 5,
-      "most_recent_member_timestamp": 1432351174000,
-      "players": [
-          36109721
-      ],
-      "link" : "team1.html",
-    }
-'''
+    team = Team.query.filter(Team.id == id).first()
+    return jsonify_single_obj(team, team_to_json)
 
 if __name__ == '__main__':
 
-    # timer.sleep(15)
-    # logger.debug("creating db..")
-    # app.config['SQLALCHEMY_ECHO'] = True
-    # db.drop_all()
-    # db.create_all()
     manager.run()

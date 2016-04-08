@@ -60,6 +60,20 @@ class Summoner(db.Model):
         self.win_percentage = win_per
         self.total_games = total_games
 
+def summoner_to_json(summoner):
+    return {
+        "id":               summoner.id,
+        "name":             summoner.name,
+        "rank":             summoner.rank,
+        "tier":             summoner.tier,
+        "division":         summoner.division,
+        "lp":               summoner.lp,
+        "win_percentage":   summoner.win_percentage,
+        "total_games":      summoner.total_games,
+        "teams":            [{"id": t.id, "tag": t.tag} for t in summoner.teams],
+        "top_3_champs": [{"id": c.champion.id, "name": c.champion.name} for c in sorted(summoner.champions, key=lambda m: m.mastery_score)[0:3]]
+    }
+
 class Team(db.Model):
     """
     Teams are composed of Summoners, with the minimum of 1 Summoner per team. Each team name is unique. Each Team can play in a competitive setting in ranked matches
@@ -79,6 +93,17 @@ class Team(db.Model):
         self.win_percentage = win_p
         self.total_games = total_games
         self.most_recent_member_timestamp = most_recent_member_timestamp
+
+def team_to_json(team):
+    return {
+        "id":                           team.id,
+        "tag":                          team.tag,
+        "status":                       team.status,
+        "win_percentage":               team.win_percentage,
+        "total_games":                  team.total_games,
+        "most_recent_member_timestamp": team.most_recent_member_timestamp,
+        "summoners": [{"id": s.id, "name": s.name} for s in team.summoners]    
+    }
 
 class Champion(db.Model):
     """
@@ -105,6 +130,17 @@ class Champion(db.Model):
         self.spellblock = spellblock
         self.portrait_url = portrait_url
 
+def champion_to_json(champion):
+    return {
+        "id":         champion.id,
+        "name":       champion.name,
+        "title":      champion.title,
+        "hp":         champion.hp,
+        "mp":         champion.mp,
+        "movespeed":  champion.movespeed,
+        "spellblock": champion.spellblock,
+        "icon_url":   champion.portrait_url
+    }
 
 class SummonerChampionMastery(db.Model):               
     """             
