@@ -72,6 +72,9 @@ class Summoner(db.Model):
         self.total_games = total_games
 
 def summoner_to_json(summoner):
+    # champ_list = summoner.champions
+    # champ_list = sorted(champ_list, key=lambda m : m.mastery_score)
+
     return {
         "id":               summoner.id,
         "name":             summoner.name,
@@ -81,8 +84,8 @@ def summoner_to_json(summoner):
         "lp":               summoner.lp,
         "win_percentage":   summoner.win_percentage,
         "total_games":      summoner.total_games,
-        "teams":            [{"id": t.id, "tag": t.tag} for t in summoner.teams]
-        # "top_3_champs": [{"id": c.champion.id, "name": c.champion.name} for c in sorted(summoner.champions, key=lambda m: m.mastery_score)[0:3]]
+        "teams":            [{"id": t.id, "tag": t.tag} for t in summoner.teams],
+        "top_3_champs": [{"id": c.champion.id, "name": c.champion.name, "masteryScore" : c.mastery_score} for c in sorted(summoner.champions, key=lambda m: m.mastery_score)[0:3]]
     }
 
 class Team(db.Model):
