@@ -15,12 +15,11 @@ def main():
 
 	scrape(players)
 
-	result = clean()
+	additions = clean()
 
-	while len(result) != 0:
-		result = update(result)
-		scrape(result)
-		clean(result)
+	while len(additions) != 0:
+		scrape(additions)
+		additions = clean()
 
 	# print_player()
 	# print_team()
@@ -40,31 +39,28 @@ def initial_scrape():
 
 	return players
 
-# gets player name for id list from clean() and returns a dictionary {name : id}
-def update(players):
-	
-	v = {}
-	# https://na.api.pvp.net/api/lol/na/v1.4/summoner/22301825?api_key=a5b55989-0be8-452f-bc45-2c5265ce99c3
-	for i in players:
-		url = "https://na.api.pvp.net/api/lol/na/v1.4/summoner/" + i + "?api_key=a5b55989-0be8-452f-bc45-2c5265ce99c3"
-		r = requests.get(url)
-		sleep(1.5)
-		d = json.loads(str(r.text))
-		v[i["name"]] = i
-
-	return v
-
 def clean(): 
 	additions = []
 	global player_data
 	global team_data
 
+	# 36109721
 	for team in team_data:
 		for member in team_data[team]["team_roster"]:
-			if member not in player_data and len(team_data[team]["team_roster"]) > 3:
+			
+			url_clean_start = "https://na.api.pvp.net/api/lol/na/v1.4/summoner/"
+			url_clean_end = "?api_key=a5b55989-0be8-452f-bc45-2c5265ce99c3"
+
+			url_clean = url_clean_start + member + url_clean_end
+			clean_r = request(url_clean)
+
+			clean_data = json.loads(clean_r.text)
+
+			sleep(1.5)
+			if clean_data[member]["name"] not in player_data and len(team_data[team]["team_roster"]) > 3:
 				team_data[team]["team_roster"].remove(member)
 			else:
-				additions.append(member)
+				additions.append({clean_data[member]["name"] : int(member)})
 
 	return additions
 
