@@ -58,7 +58,8 @@ def populate():
 
   for t in team_data:
     boo = True if team_data[t]["team_status"] == "RANKED" else False
-    new_team = Team(team_data[t]["fullTeamId"], team_data[t]["team_tag"], boo , team_data[t]["team_win_perc"], 
+    new_team = Team(team_data[t]["fullTeamId"], team_data[t]["team_name"], 
+      team_data[t]["team_tag"], boo , team_data[t]["team_win_perc"], 
       team_data[t]["team_total_games"], str(team_data[t]["team_lastJoinDate"]))
     db.session.add(new_team)
 
@@ -101,22 +102,24 @@ def create_db():
 
 @manager.command
 def create_dummy_data():
-   champion = Champion(5, "john", "asdfasf", 20.5, 60.2, 55.5, 2.2, "example.com")
-   team = Team(10, "asdfasdfaskljlkj", True, 60.0, 105, 89)
-   summoner = Summoner(15, "bob", "bronze", 1, 50, 25.0, 100)
-   summoner2 = Summoner(20, "bob", "bronze", 1, 50, 25.0, 100)
-   mastery = SummonerChampionMastery(50)
-   summoner.champions.append(mastery)
-   summoner.teams.append(team)
-   champion.summoners.append(mastery)
 
-   mastery2 = SummonerChampionMastery(70)
-   summoner2.champions.append(mastery2)
-   champion.summoners.append(mastery2)
-   db.session.add(summoner)
-   db.session.add(champion)
-   db.session.add(team)
-   db.session.commit()
+  # wrong
+  champion = Champion(5, "john", "asdfasf", 20.5, 60.2, 55.5, 2.2, "example.com")
+  team = Team(10, "asdfasdfaskljlkj", True, 60.0, 105, 89)
+  summoner = Summoner(15, "bob", "bronze", 1, 50, 25.0, 100)
+  summoner2 = Summoner(20, "bob", "bronze", 1, 50, 25.0, 100)
+  mastery = SummonerChampionMastery(50)
+  summoner.champions.append(mastery)
+  summoner.teams.append(team)
+  champion.summoners.append(mastery)
+
+  mastery2 = SummonerChampionMastery(70)
+  summoner2.champions.append(mastery2)
+  champion.summoners.append(mastery2)
+  db.session.add(summoner)
+  db.session.add(champion)
+  db.session.add(team)
+  db.session.commit()
 
 @app.route('/')
 def splash():

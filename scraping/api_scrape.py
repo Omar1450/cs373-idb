@@ -51,7 +51,7 @@ def clean():
 			url_clean_start = "https://na.api.pvp.net/api/lol/na/v1.4/summoner/"
 			url_clean_end = "?api_key=a5b55989-0be8-452f-bc45-2c5265ce99c3"
 
-			url_clean = url_clean_start + member + url_clean_end
+			url_clean = url_clean_start + str(member) + url_clean_end
 			clean_r = request(url_clean)
 
 			clean_data = json.loads(clean_r.text)

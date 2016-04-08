@@ -10,13 +10,13 @@ class TestApp (TestCase):
     # -----------
 
     def test_champion_1(self):
-        champ = app.champion(id = 412) # Will be implemented later
-        self.assertEqual(champ.name,  'Thresh')
-        self.assertEqual(champ.id, 412)
-        self.assertEqual(champ.hp, 560.2)
-        self.assertEqual(champ.mp, 273.92)
-        self.assertEqual(champ.movespeed, 335.0)
-        self.assertEqual(champ.spellblock, 30.0)
+        champ = Champion(0, '', '', '', 0, 0, 0, 0, "")
+        self.assertEqual(champ.name,  '')
+        self.assertEqual(champ.id, 0)
+        self.assertEqual(champ.hp, 0)
+        self.assertEqual(champ.mp, 0)
+        self.assertEqual(champ.movespeed, 0)
+        self.assertEqual(champ.spellblock, 0)
     
     def test_champion_2(self):
         champ = Champion(1, 'name', 'tag', 'title', 50, 100, 200, 0, "url")
@@ -41,15 +41,15 @@ class TestApp (TestCase):
     # -------------
 
     def test_summoner_1(self):
-        summoner = app.summoner(id=23509228) # Will be implemented later
-        self.assertEqual(summoner.id, 23509228)
-        self.assertEqual(summoner.name, "XRedxDragonX")
-        self.assertEqual(summoner.win_percentage, )       
+        summoner = Summoner(0, "", "", "", 0, 0, 0)
+        self.assertEqual(summoner.id, 10)
+        self.assertEqual(summoner.name, "test_name")
+        self.assertEqual(summoner.win_percentage, 0.52)       
 
     def test_summoner_2(self):
-        summoner = Summoner(1, 'name')
-        self.assertEqual(summoner.id, 1)
-        self.assertEqual(summoner.name, 'name')
+        summoner = Summoner(10, "test_name", "bronze", "I", 56, 0.52, 100)
+        self.assertEqual(summoner.id, 10)
+        self.assertEqual(summoner.name, 'test_name')
 
     def test_summoner_3(self):
         d = json.loads(request.get('dudecarry.me/summoner/23509228').text)
@@ -61,14 +61,14 @@ class TestApp (TestCase):
     # -------------
 
     def test_team_1(self):
-        team = app.team(id="TEAM-222e7b80-49d9-11e4-806c-782bcb4d0bb2") # Will be implemented later
-        self.assertEqual(team.id, "TEAM-222e7b80-49d9-11e4-806c-782bcb4d0bb2")
-        self.assertEqual(team.tag, "OPot")
-        self.assertEqual(team.win_percentage, 0.5)       
+        team = Team("", "", "", False, 0, 0, "")
+        self.assertEqual(team.id, "")
+        self.assertEqual(team.tag, "")
+        self.assertEqual(team.win_percentage, 0)       
 
     def test_team_2(self):
-        team = Summoner(1, 'name')
-        self.assertEqual(team.id, 1)
+        team = Team("team_id", "test-name", "test_tag", True, 0.52, 56, "123123")
+        self.assertEqual(team.id, "team_id")
         self.assertEqual(team.name, 'name')
 
     def test_team_3(self):
@@ -108,7 +108,7 @@ class TestApp (TestCase):
         self.assertEqual(champ.movespeed, ret.movespeed)
 
     def test_db_3(self):
-        tm = Team("team_id", "test_tag", True, 0.52, 56, "123123")
+        tm = Team("team_id", "team_name", "test_tag", True, 0.52, 56, "123123")
         db.session.add(tm)
         db.session.commit()
 
@@ -152,6 +152,7 @@ class TestApp (TestCase):
 
         team_true = {
             "id":                           "team_id",
+            "name":                         "team_name",
             "tag":                          "test_tag",
             "status":                       True,
             "win_percentage":               0.52,
