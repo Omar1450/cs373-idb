@@ -1,6 +1,7 @@
 import logging
 import os
 import time
+import ast
 
 from flask import Flask, render_template, request, redirect, url_for, send_file, jsonify
 from flask.ext.script import Manager, Server
@@ -40,6 +41,56 @@ import models
 from models import *
 
 logger.debug("finished start up")
+
+@manager.command
+def populate():
+  summ_f = open("summoners.txt", "r")
+  team_f = open("teams.txt", "r")
+  chmp_f = open("champions.txt", "r")
+
+  o1 = str(team_f.readline()) 
+  o2 = str(summ_f.readline())
+  o3 = str(chmp_f.readline())
+
+  team_data = json.loads(o1)
+  summ_data = json.loads(o2)
+  chmp_data = ast.literal_eval(o3)
+
+  for t in team_data:
+    boo = True if team_data[t]["team_status"] == "RANKED" else False
+    new_team = Team(team_data[t]["fullTeamId"], team_data[t]["team_tag"], boo , team_data[t]["team_win_perc"], 
+      team_data[t]["team_total_games"], str(team_data[t]["team_lastJoinDate"]))
+    db.session.add(new_team)
+
+  db.session.commit()
+
+  for c in chmp_data:
+    new_chmp = Champion(chmp_data[c]["id"], chmp_data[c]["name"], chmp_data[c]["title"], chmp_data[c]["stats"]["hp"],
+                        chmp_data[c]["stats"]["mp"], chmp_data[c]["stats"]["movespeed"], chmp_data[c]["stats"]["spellblock"], "")
+    db.session.add(new_chmp)
+
+  db.session.commit()
+
+  for s in summ_data:
+    new_summ = Summoner(int(summ_data[s]["player_id"]), s, summ_data[s]["rank"]["tier"], 
+                summ_data[s]["rank"]["division"], summ_data[s]["rank"]["league_points"], summ_data[s]["win_perc"], summ_data[s]["total_games"])
+    for s_t in summ_data[s]["teams"]:
+      team_link = Team.query.filter(Team.id == s_t["fullTeamId"]).first()
+      new_summ.teams.append(team_link)
+    for s_c in summ_data[s]["champ_mastery"]:
+      champ_link = Champion.query.filter(Champion.id == s_c["champID"]).first()
+
+      # , int(s["player_id"]), s_c["champID"]
+      mastery = SummonerChampionMastery(s_c["mastery_score"] , int(summ_data[s]["player_id"]), s_c["champID"])
+
+      db.session.add(mastery)
+
+      new_summ.champions.append(mastery)
+      champ_link.summoners.append(mastery)
+
+    db.session.add(new_summ)
+
+  db.session.commit()
 
 @manager.command
 def create_db():
@@ -131,7 +182,7 @@ def api_summoner(id):
     summoner = Summoner.query.filter(Summoner.id == id).first()
     return jsonify_single_obj(summoner, summoner_to_json)
 
-@app.route('/api/team/<int:id>')
+@app.route('/api/team/<id>')
 def api_team(id):
     team = Team.query.filter(Team.id == id).first()
     return jsonify_single_obj(team, team_to_json)

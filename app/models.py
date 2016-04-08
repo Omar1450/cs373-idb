@@ -27,7 +27,7 @@ class Summoner(db.Model):
     name = db.Column(db.String(50))
     rank = db.Column(db.Integer)
     tier = db.Column(db.String(50))
-    division = db.Column(db.Integer)
+    division = db.Column(db.String(10))
     lp = db.Column(db.Integer)
     champions = db.relationship("SummonerChampionMastery", backref=db.backref("summoner"))
     teams = db.relationship("Team", secondary=team_membership, backref=db.backref("summoners"))
@@ -40,20 +40,31 @@ class Summoner(db.Model):
         self.name = name
         self.rank = 0
         if (tier.lower() == "bronze"):
-            self.rank += 10
+            self.rank += 100
         elif (tier.lower() == "silver"):
-            self.rank += 20
+            self.rank += 200
         elif (tier.lower() == "gold"):
-            self.rank += 30
+            self.rank += 300
         elif (tier.lower() == "platinum"):
-            self.rank += 40
+            self.rank += 400
         elif (tier.lower() == "diamond"):
-            self.rank += 50
+            self.rank += 500
         elif (tier.lower() == "master"):
-            self.rank += 60
+            self.rank += 600
         elif (tier.lower() == "challenger"):
-            self.rank += 70
-        self.rank += int(division)
+            self.rank += 700
+
+        if (division == "I"):
+            self.rank += 80
+        if (division == "II"):
+            self.rank += 60
+        if (division == "III"):
+            self.rank += 40
+        if (division == "IV"):
+            self.rank += 20
+        if (division == "V"):
+            self.rank += 0
+
         self.tier = tier
         self.division = division
         self.lp = lp
@@ -70,8 +81,8 @@ def summoner_to_json(summoner):
         "lp":               summoner.lp,
         "win_percentage":   summoner.win_percentage,
         "total_games":      summoner.total_games,
-        "teams":            [{"id": t.id, "tag": t.tag} for t in summoner.teams],
-        "top_3_champs": [{"id": c.champion.id, "name": c.champion.name} for c in sorted(summoner.champions, key=lambda m: m.mastery_score)[0:3]]
+        "teams":            [{"id": t.id, "tag": t.tag} for t in summoner.teams]
+        # "top_3_champs": [{"id": c.champion.id, "name": c.champion.name} for c in sorted(summoner.champions, key=lambda m: m.mastery_score)[0:3]]
     }
 
 class Team(db.Model):
@@ -84,7 +95,7 @@ class Team(db.Model):
     status = db.Column(db.Boolean)
     win_percentage = db.Column(db.Float)
     total_games = db.Column(db.Integer)
-    most_recent_member_timestamp = db.Column(db.Integer)
+    most_recent_member_timestamp = db.Column(db.String(255))
 
     def __init__(self, id, tag, status, win_p, total_games, most_recent_member_timestamp):
         self.id = id
@@ -155,5 +166,7 @@ class SummonerChampionMastery(db.Model):
     champ_id = db.Column(db.Integer, db.ForeignKey('champion.id'), primary_key=True)                
     mastery_score = db.Column(db.Integer)
     
-    def __init__(self, score):
+    def __init__(self, score, pid, cid):
         self.mastery_score = score
+        self.summ_id = pid
+        self.champ_id = cid
