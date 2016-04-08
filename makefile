@@ -4,8 +4,18 @@ FILES :=                              \
     makefile                          \
     IDB1.log                          \
     models.html                       \
-    models.py                         \
-    tests.py                          \
+    app/models.py                     \
+    app/tests.py                      \
+    app/summoners.txt                 \
+    app/requirements.txt              \
+    app/teams.txt                     \
+    app/champions.txt                 \
+    run_local.sh                      \
+    push_to_prod.sh                   \
+    docker-compose-prod.yml           \
+    docker-compose-common.yml         \
+    docker-compose.yml                \
+    scraping/api_scrape.py            \
     UML.pdf                           \
 
 check:

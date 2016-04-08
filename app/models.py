@@ -94,14 +94,16 @@ class Team(db.Model):
     """
     __tablename__ = 'team'
     id = db.Column(db.String(50), primary_key=True)
+    name = db.Column(db.String(255))
     tag = db.Column(db.String(50))
     status = db.Column(db.Boolean)
     win_percentage = db.Column(db.Float)
     total_games = db.Column(db.Integer)
     most_recent_member_timestamp = db.Column(db.String(255))
 
-    def __init__(self, id, tag, status, win_p, total_games, most_recent_member_timestamp):
+    def __init__(self, id, name, tag, status, win_p, total_games, most_recent_member_timestamp):
         self.id = id
+        self.name = name
         self.tag = tag
         self.status = status
         self.win_percentage = win_p
@@ -111,6 +113,7 @@ class Team(db.Model):
 def team_to_json(team):
     return {
         "id":                           team.id,
+        "name":                         team.name,
         "tag":                          team.tag,
         "status":                       team.status,
         "win_percentage":               team.win_percentage,
