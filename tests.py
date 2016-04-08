@@ -94,7 +94,7 @@ class TestApp (TestCase):
         self.assertEqual(summ.division, ret.division)
         self.assertEqual(summ.lp, ret.lp)
 
-     def test_db_2(self):
+    def test_db_2(self):
         champ = Champion(10, "test_name", "bronze champ op", 1, 2, 0.52, 100, "")
         db.session.add(champ)
         db.session.commit()
@@ -107,7 +107,7 @@ class TestApp (TestCase):
         self.assertEqual(champ.spellblock, ret.spellblock)
         self.assertEqual(champ.movespeed, ret.movespeed)
 
-     def test_db_3(self):
+    def test_db_3(self):
         tm = Team("team_id", "test_tag", True, 0.52, 56, "123123")
         db.session.add(tm)
         db.session.commit()
@@ -119,4 +119,69 @@ class TestApp (TestCase):
         self.assertEqual(tm.status, ret.status)
         self.assertEqual(tm.total_games, ret.total_games)
         self.assertEqual(tm.win_percentage, ret.win_percentage)
+
+    # --------------------------------
+    # Test models.py API functionality
+    # --------------------------------
+
+    def test__apiCall_1(self):
+        summ_test = Summoner.query.filter(Summoner.id == 10).first()
+
+        summ_true = {
+            "id":               summoner.id,
+            "name":             summoner.name,
+            "rank":             summoner.rank,
+            "tier":             summoner.tier,
+            "division":         summoner.division,
+            "lp":               summoner.lp,
+            "win_percentage":   summoner.win_percentage,
+            "total_games":      summoner.total_games,
+            # "teams":            [{"id": t.id, "tag": t.tag} for t in summoner.teams],
+            # "top_3_champs": [{"id": c.champion.id, "name": c.champion.name, "masteryScore" : c.mastery_score} for c in sorted(summoner.champions, key=lambda m: m.mastery_score)[0:3]]
+        }
+
+        test_obj = jsonify_single_obj(summoner_test, summoner_to_json)
+        true_obj = json.dumps(summ_true)
+
+        self.assertEqual(test_obj, true_obj)
+
+
+    def test__apiCall_2(self):
+        team_test = Team.query.filter(Team.id == "test-id").first()
+
+        team_true = {
+            "id":                           team.id,
+            "tag":                          team.tag,
+            "status":                       team.status,
+            "win_percentage":               team.win_percentage,
+            "total_games":                  team.total_games,
+            "most_recent_member_timestamp": team.most_recent_member_timestamp,
+            "summoners": [{"id": s.id, "name": s.name} for s in team.summoners]    
+        }
+
+        test_obj = jsonify_single_obj(team_test, team_to_json)
+        true_obj = json.dumps(team_true)
+
+        self.assertEqual(test_obj, true_obj)
+
+    def test__apiCall_3(self):
+        champ_test = Champion.query.filter(Champion.id == 10).first()
+
+        champ_true = {
+            "id":         champion.id,
+            "name":       champion.name,
+            "title":      champion.title,
+            "hp":         champion.hp,
+            "mp":         champion.mp,
+            "movespeed":  champion.movespeed,
+            "spellblock": champion.spellblock,
+            "icon_url":   champion.portrait_url
+        }
+
+        test_obj = jsonify_single_obj(champ_true, champ_to_json)
+        true_obj = json.dumps(champ_true)
+
+        self.assertEqual(test_obj, true_obj)
+
+
 
