@@ -77,4 +77,46 @@ class TestApp (TestCase):
         self.assertEqual(team['tag'], "OPot")
         self.assertEqual(team['win_percentage'], 0.5)       
 
+    # ---------------------------
+    # Test database functionality
+    # ---------------------------
+
+    def test_db_1(self):
+        summ = Summoner(10, "test_name", "bronze", "I", 56, 0.52, 100)
+        db.session.add(summ)
+        db.session.commit()
+
+        ret = Summoner.query.filter(Summoner.id == 10)
+
+        self.assertEqual(summ.id, ret.id)
+        self.assertEqual(summ.name, ret.name)
+        self.assertEqual(summ.tier, ret.tier)
+        self.assertEqual(summ.division, ret.division)
+        self.assertEqual(summ.lp, ret.lp)
+
+     def test_db_2(self):
+        champ = Champion(10, "test_name", "bronze champ op", 1, 2, 0.52, 100, "")
+        db.session.add(champ)
+        db.session.commit()
+
+        ret = Champion.query.filter(Champion.id == 10)
+
+        self.assertEqual(champ.id, ret.id)
+        self.assertEqual(champ.name, ret.name)
+        self.assertEqual(champ.hp, ret.hp)
+        self.assertEqual(champ.spellblock, ret.spellblock)
+        self.assertEqual(champ.movespeed, ret.movespeed)
+
+     def test_db_3(self):
+        tm = Team("team_id", "test_tag", True, 0.52, 56, "123123")
+        db.session.add(tm)
+        db.session.commit()
+
+        ret = Team.query.filter(Team.id == "team_id")
+
+        self.assertEqual(tm.id, ret.id)
+        self.assertEqual(tm.name, ret.name)
+        self.assertEqual(tm.status, ret.status)
+        self.assertEqual(tm.total_games, ret.total_games)
+        self.assertEqual(tm.win_percentage, ret.win_percentage)
 
