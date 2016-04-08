@@ -1,6 +1,0 @@
-Step 1 : FROM mysql:5.6
- ---> f44353327cb6
-Step 2 : ADD mysql.cnf /etc/mysql/conf.d/
- ---> e3e2bcb0fb0d
-Removing intermediate container 9d6f13e3a206
-Successfully built e3e2bcb0fb0d
