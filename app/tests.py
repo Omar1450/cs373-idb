@@ -15,7 +15,7 @@ app.config['TESTING'] = True
 
 test_db = SQLAlchemy(app)
 
-from test_models import *
+from test_test_models import *
 
 class TestApp (TestCase):
     
@@ -150,7 +150,7 @@ class TestApp (TestCase):
         test_db.session.add(tm)
         test_db.session.commit()
 
-        ret = Team.query.filter(Team.id == "team_id")first()
+        ret = Team.query.filter(Team.id == "team_id").first()
 
         self.assertEqual(tm.id, ret.id)
         self.assertEqual(tm.name, ret.name)
@@ -162,7 +162,7 @@ class TestApp (TestCase):
         test_db.session.commit()
 
     # --------------------------------
-    # Test models.py API functionality
+    # Test test_models.py API functionality
     # --------------------------------
 
     def test__apiCall_1(self):
@@ -187,7 +187,7 @@ class TestApp (TestCase):
         }
 
 
-        summ_test = models.summoner_to_json(summoner)
+        summ_test = test_models.summoner_to_json(summoner)
        
 
         self.assertEqual(summ_test, json.dumps(summ_true))
@@ -214,7 +214,7 @@ class TestApp (TestCase):
             "summoners":                    []    
         }
 
-        team_test = models.team_to_json(team)
+        team_test = test_models.team_to_json(team)
 
         self.assertEqual(team_test, json.dumps(team_true))
 
@@ -240,7 +240,7 @@ class TestApp (TestCase):
             "icon_url":   ""
         }
 
-        champ_test = models.champ_to_json(champ)
+        champ_test = test_models.champ_to_json(champ)
 
         self.assertEqual(champ_test, json.dumps(champ_true))
 
