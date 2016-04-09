@@ -8,11 +8,7 @@ import app
 class TestApp (TestCase):
     
     # set up test database
-
-    def createApp(self):
-        app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://travis:@127.0.0.1/dudecarryme'
-        return app
-
+    
     def setUp(self):
         db.create_all()
 
@@ -87,7 +83,7 @@ class TestApp (TestCase):
         self.assertEqual(team['id'], "TEAM-222e7b80-49d9-11e4-806c-782bcb4d0bb2")
         self.assertEqual(team['tag'], "OPot")
         self.assertEqual(team['win_percentage'], 0.5)       
-        
+
     # ---------------------------
     # Test database functionality
     # ---------------------------

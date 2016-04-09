@@ -104,7 +104,6 @@ def create_db():
 def create_travis_db():
   logger.debug("creating db..")
   app.config['SQLALCHEMY_ECHO'] = True
-  app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://travis:@127.0.0.1/dudecarryme'
   db.drop_all()
   db.create_all()
 
