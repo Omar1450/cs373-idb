@@ -4,7 +4,6 @@ python:
    - "3.5"
 
 services:
-    - mysql
 
 sudo: false
 
@@ -12,7 +11,6 @@ install:
     - pip install --upgrade pip
     - pip --version
     - pip install coverage
-    - pip install numpy
     - pip install requests
     - pip install flask
     - pip install flask-Script
@@ -25,8 +23,6 @@ before_script:
     - uname -a
     - printenv
     - pip list
-    - mysql -e 'create database dudecarryme;'
-    - python app/app.py create_travis_db
     - coverage --version
 
 script:
