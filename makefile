@@ -58,7 +58,7 @@ status:
 	git status
 
 test: tests.py
-	#python3 tests.py
+	python3 tests.py
 
 model.html: models.py
 	pydoc3 -w models
