@@ -1,8 +1,10 @@
 import unittest
 from flask.ext.testing import TestCase
 import json
-from models import *
-from sqlalchemy import *
+from sqlalchemy import create_engine
+from flask.ext.sqlalchemy import SQLAlchemy
+from flask import Flask
+from unittest import main
 
 app = Flask(__name__)
 
@@ -11,6 +13,9 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
 app.config['TESTING'] = True
 
 test_db = SQLAlchemy(app)
+
+
+from test_models import *
 
 class TestApp (TestCase):
     
@@ -244,5 +249,4 @@ class TestApp (TestCase):
 
 
 if __name__ == '__main__':
-    unittest.main(verbosity=2)
-
+    main()
