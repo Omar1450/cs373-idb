@@ -15,7 +15,7 @@ app.config['TESTING'] = True
 
 test_db = SQLAlchemy(app)
 
-from test_test_models import *
+from test_models import *
 
 class TestApp (TestCase):
     
@@ -111,7 +111,7 @@ class TestApp (TestCase):
     # Test database functionality
     # ---------------------------
 
-    def test_test_db_1(self):
+    def test_db_1(self):
         summ = Summoner(10, "test_name", "bronze", "I", 56, 0.52, 100)
         
         test_db.session.add(summ)
@@ -128,7 +128,7 @@ class TestApp (TestCase):
         test_db.session.delete(summ)
         test_db.session.commit()
 
-    def test_test_db_2(self):
+    def test_db_2(self):
         champ = Champion(10, "test_name", "bronze champ op", 1, 2, 3, 100, "")
         test_db.session.add(champ)
         test_db.session.commit()
@@ -144,7 +144,7 @@ class TestApp (TestCase):
         test_db.session.delete(champ)
         test_db.session.commit()
 
-    def test_test_db_3(self):
+    def test_db_3(self):
         tm = Team("team_id", "team_name", "test_tag", True, 0.52, 56, "123123")
 
         test_db.session.add(tm)
@@ -165,7 +165,7 @@ class TestApp (TestCase):
     # Test test_models.py API functionality
     # --------------------------------
 
-    def test__apiCall_1(self):
+    def test_apiCall_1(self):
         summ = Summoner(10, "test_name", "bronze", "I", 56, 0.52, 100)
         
         test_db.session.add(summ)
@@ -196,7 +196,7 @@ class TestApp (TestCase):
         test_db.session.commit()
 
 
-    def test__apiCall_2(self):
+    def test_apiCall_2(self):
         tm = Team("team_id", "team_name", "test_tag", True, 0.52, 56, "123123")
         test_db.session.add(tm)
         test_db.session.commit()
@@ -221,7 +221,7 @@ class TestApp (TestCase):
         test_db.session.delete(tm)
         test_db.session.commit()
 
-    def test__apiCall_3(self):
+    def test_apiCall_3(self):
 
         champ = Champion(10, "test_name", "bronze champ op", 1, 2, 3, 100, "")
         test_db.session.add(champ)
