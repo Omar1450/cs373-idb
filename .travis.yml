@@ -3,6 +3,9 @@ language: python
 python:
    - "3.5"
 
+services:
+    - mysql
+
 sudo: false
 
 install:
@@ -14,11 +17,16 @@ install:
     - pip install flask
     - pip install flask-Script
     - pip install flask-sqlalchemy
+    - pip install gunicorn
+    - pip install pymysql
+    - pip install Flask-Testing
  
 before_script:
     - uname -a
     - printenv
     - pip list
+    - mysql -e 'create database dudecarryme;'
+    - python app/app.py create_travis_db
     - coverage --version
 
 script:

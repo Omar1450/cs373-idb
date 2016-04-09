@@ -1,10 +1,21 @@
-from unittest import main, TestCase
-import requests, json
+import unittest
+from flask.ext.testing import TestCase
+import json
 from models import *
+from sqlalchemy import *
 import app
 
 class TestApp (TestCase):
     
+    # set up test database
+
+    def createApp(self):
+        app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://travis:@127.0.0.1/dudecarryme'
+        return app
+
+    def setUp(self):
+        db.create_all()
+
     # -----------
     # Champions
     # -----------
@@ -83,6 +94,7 @@ class TestApp (TestCase):
 
     def test_db_1(self):
         summ = Summoner(10, "test_name", "bronze", "I", 56, 0.52, 100)
+        
         db.session.add(summ)
         db.session.commit()
 
@@ -93,6 +105,9 @@ class TestApp (TestCase):
         self.assertEqual(summ.tier, ret.tier)
         self.assertEqual(summ.division, ret.division)
         self.assertEqual(summ.lp, ret.lp)
+
+        db.session.delete(summ)
+        db.session.commit()
 
     def test_db_2(self):
         champ = Champion(10, "test_name", "bronze champ op", 1, 2, 3, 100, "")
@@ -107,8 +122,12 @@ class TestApp (TestCase):
         self.assertEqual(champ.spellblock, ret.spellblock)
         self.assertEqual(champ.movespeed, ret.movespeed)
 
+        db.session.delete(champ)
+        db.session.commit()
+
     def test_db_3(self):
         tm = Team("team_id", "team_name", "test_tag", True, 0.52, 56, "123123")
+
         db.session.add(tm)
         db.session.commit()
 
@@ -120,11 +139,19 @@ class TestApp (TestCase):
         self.assertEqual(tm.total_games, ret.total_games)
         self.assertEqual(tm.win_percentage, ret.win_percentage)
 
+        db.session.delete(tm)
+        db.session.commit()
+
     # --------------------------------
     # Test models.py API functionality
     # --------------------------------
 
     def test__apiCall_1(self):
+        summ = Summoner(10, "test_name", "bronze", "I", 56, 0.52, 100)
+        
+        db.session.add(summ)
+        db.session.commit()
+
         summoner = Summoner.query.filter(Summoner.id == 10).first()
 
         summ_true = {
@@ -144,10 +171,17 @@ class TestApp (TestCase):
         summ_test = models.summoner_to_json(summoner)
        
 
-        self.assertEqual(summ_test, summ_true)
+        self.assertEqual(summ_test, json.dumps(summ_true))
+
+        db.session.delete(summ)
+        db.session.commit()
 
 
     def test__apiCall_2(self):
+        tm = Team("team_id", "team_name", "test_tag", True, 0.52, 56, "123123")
+        db.session.add(tm)
+        db.session.commit()
+
         team = Team.query.filter(Team.id == "test-id").first()
 
         team_true = {
@@ -163,9 +197,17 @@ class TestApp (TestCase):
 
         team_test = models.team_to_json(team)
 
-        self.assertEqual(team_test, team_true)
+        self.assertEqual(team_test, json.dumps(team_true))
+
+        db.session.delete(tm)
+        db.session.commit()
 
     def test__apiCall_3(self):
+
+        champ = Champion(10, "test_name", "bronze champ op", 1, 2, 3, 100, "")
+        db.session.add(champ)
+        db.session.commit()
+
         champ = Champion.query.filter(Champion.id == 10).first()
 
         champ_true = {
@@ -181,7 +223,11 @@ class TestApp (TestCase):
 
         champ_test = models.champ_to_json(champ)
 
-        self.assertEqual(champ_test, champ_true)
+        self.assertEqual(champ_test, json.dumps(champ_true))
 
+        db.session.delete(champ)
+        db.session.commit()
 
+if __name__ = '__main__':
+    unittest.main(verbosity=2)
 
