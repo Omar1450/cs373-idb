@@ -14,7 +14,6 @@ app.config['TESTING'] = True
 
 test_db = SQLAlchemy(app)
 
-
 from test_models import *
 
 class TestApp (TestCase):
@@ -22,9 +21,10 @@ class TestApp (TestCase):
     # set up test database
 
     SQLALCHEMY_DATABASE_URI = 'sqlite:///testing.db'
+
     TESTING = True
 
-    def createTestApp(self):
+    def create_app(self):
         return app
 
     def setUp(self):
