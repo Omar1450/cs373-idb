@@ -101,6 +101,13 @@ def create_db():
   db.create_all()
 
 @manager.command
+def create_travis_db():
+  logger.debug("creating db..")
+  app.config['SQLALCHEMY_ECHO'] = True
+  db.drop_all()
+  db.create_all()
+
+@manager.command
 def create_dummy_data():
 
   # wrong
