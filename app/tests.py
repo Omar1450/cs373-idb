@@ -3,14 +3,31 @@ from flask.ext.testing import TestCase
 import json
 from models import *
 from sqlalchemy import *
-import app
+
+app = Flask(__name__)
+
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///testing.db'
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
+app.config['TESTING'] = True
+
+test_db = SQLAlchemy(app)
 
 class TestApp (TestCase):
     
     # set up test database
-    
+
+    SQLALCHEMY_DATABASE_URI = 'sqlite:///testing.db'
+    TESTING = True
+
+    def createTestApp(self):
+        return app
+
     def setUp(self):
-        db.create_all()
+        test_db.create_all();
+
+    def tearDown(self):
+        db.session.remove()
+        db.drop_all()
 
     # -----------
     # Champions
