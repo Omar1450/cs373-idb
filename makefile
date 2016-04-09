@@ -61,7 +61,7 @@ test: tests.py
 	python3 app/tests.py
 	coverage3 run --branch app/tests.py > test.tmp 2>&1
 	coverage3 report -m >> test.tmp
-	cat tests_output.tmp
+	cat test.tmp
 
 model.html: models.py
 	pydoc3 -w models
