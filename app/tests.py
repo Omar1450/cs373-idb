@@ -5,6 +5,7 @@ from sqlalchemy import create_engine
 from flask.ext.sqlalchemy import SQLAlchemy
 from flask import Flask
 from unittest import main
+import requests
 
 app = Flask(__name__)
 
@@ -39,7 +40,7 @@ class TestApp (TestCase):
     # -----------
 
     def test_champion_1(self):
-        champ = Champion(0, '', '', '', 0, 0, 0, 0, "")
+        champ = Champion(0, '', '', 0, 0, 0, 0, "")
         self.assertEqual(champ.name,  '')
         self.assertEqual(champ.id, 0)
         self.assertEqual(champ.hp, 0)
@@ -48,7 +49,7 @@ class TestApp (TestCase):
         self.assertEqual(champ.spellblock, 0)
     
     def test_champion_2(self):
-        champ = Champion(1, 'name', 'tag', 'title', 50, 100, 200, 0, "url")
+        champ = Champion(1, 'name', 'title', 50, 100, 200, 0, "url")
         self.assertEqual(champ.id, 1)
         self.assertEqual(champ.name, 'name')
         self.assertEqual(champ.title, 'title')
@@ -59,7 +60,7 @@ class TestApp (TestCase):
         self.assertEqual(champ.url, "url")
 
     def test_champion_3(self):
-        d = json.loads(request.get('dudecarry.me/champion/412').text)
+        d = json.loads(requests.get('dudecarry.me/champion/412').text)
         self.assertEqual(d['name'], 'Thresh')
         self.assertEqual(d['id'], 412)
         self.assertEqual(d['hp'], 560.2)
@@ -71,7 +72,7 @@ class TestApp (TestCase):
 
     def test_summoner_1(self):
         summoner = Summoner(0, "", "", "", 0, 0, 0)
-        self.assertEqual(summoner.id, 10)
+        self.assertEqual(summoner.id, 0)
         self.assertEqual(summoner.name, "test_name")
         self.assertEqual(summoner.win_percentage, 0.52)       
 
@@ -98,10 +99,10 @@ class TestApp (TestCase):
     def test_team_2(self):
         team = Team("team_id", "test-name", "test_tag", True, 0.52, 56, "123123")
         self.assertEqual(team.id, "team_id")
-        self.assertEqual(team.name, 'name')
+        self.assertEqual(team.name, 'test-name')
 
     def test_team_3(self):
-        d = json.loads(request.get('dudecarry.me/team/23509228').text)
+        d = json.loads(requests.get('dudecarry.me/team/23509228').text)
         self.assertEqual(team['id'], "TEAM-222e7b80-49d9-11e4-806c-782bcb4d0bb2")
         self.assertEqual(team['tag'], "OPot")
         self.assertEqual(team['win_percentage'], 0.5)       
@@ -132,7 +133,7 @@ class TestApp (TestCase):
         test_db.session.add(champ)
         test_db.session.commit()
 
-        ret = Champion.query.filter(Champion.id == 10)
+        ret = Champion.query.filter(Champion.id == 10).first()
 
         self.assertEqual(champ.id, ret.id)
         self.assertEqual(champ.name, ret.name)
@@ -149,7 +150,7 @@ class TestApp (TestCase):
         test_db.session.add(tm)
         test_db.session.commit()
 
-        ret = Team.query.filter(Team.id == "team_id")
+        ret = Team.query.filter(Team.id == "team_id")first()
 
         self.assertEqual(tm.id, ret.id)
         self.assertEqual(tm.name, ret.name)
