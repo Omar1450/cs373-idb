@@ -243,6 +243,6 @@ class TestApp (TestCase):
         self.assertEqual(champ_test, champ_true)
 
 
-if __name__ = '__main__':
+if __name__ == '__main__':
     unittest.main(verbosity=2)
 
