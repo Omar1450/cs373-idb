@@ -15,7 +15,7 @@ app.config['TESTING'] = True
 
 test_db = SQLAlchemy(app)
 
-import test_models
+import test_models.py
 
 class TestApp (TestCase):
     
