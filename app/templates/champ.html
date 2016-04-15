@@ -48,27 +48,26 @@
       
     <div class="container body-content" ng-app="lol_app" ng-controller="lol_controller">
       {% endraw %}
-      <div ng-init="id = {{id}}">
-        {% raw %}
-        <img src="{{champs[id].icon_url}}" class="icon col-md-6"/>
-        <div class="top-text">
-          <h1>{{champs[id].name}}</h1>
-          <hr>
-        </div>
-        <div class="well col-md-6">
-          <h3>ID</h3>
-          <p>{{champs[id].id}}</p>
-          <h3>Title</h3>
-          <p>{{champs[id].title}}</p>
-          <h3>HP</h3>
-          <p>{{champs[id].hp}}</p>
-          <h3>MP</h3>
-          <p>{{champs[id].mp}}</p>
-          <h3>Movespeed</h3>
-          <p>{{champs[id].movespeed}}</p>
-          <h3>Spellblock</h3>
-          <p>{{champs[id].spellblock}}</p>                                        
-        </div>
+      <div ng-init="request_champ({{id}})"></div>
+      {% raw %}
+      <img src="{{champ.icon_url}}" class="icon col-md-6"/>
+      <div class="top-text">
+        <h1>{{ champ.name }}</h1>
+        <hr>
+      </div>
+      <div class="well col-md-6">
+        <h3>ID</h3>
+        <p>{{champ.id}}</p>
+        <h3>Title</h3>
+        <p>{{champ.title}}</p>
+        <h3>HP</h3>
+        <p>{{champ.hp}}</p>
+        <h3>MP</h3>
+        <p>{{champ.mp}}</p>
+        <h3>Movespeed</h3>
+        <p>{{champ.movespeed}}</p>
+        <h3>Spellblock</h3>
+        <p>{{champ.spellblock}}</p>                                        
       </div>
     </div>
 

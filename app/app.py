@@ -145,10 +145,10 @@ def champion(id):
     return render_template('champ.html', id=id)
 
 @app.route('/teams')
-def teams(teams):
+def teams():
     return render_template('teams.html')
 
-@app.route('/team/<int:id>')
+@app.route('/team/<string:id>')
 def team(id):
     return render_template('team.html', id=id)
 
@@ -192,10 +192,21 @@ def api_summoner(id):
     summoner = Summoner.query.filter(Summoner.id == id).first()
     return jsonify_single_obj(summoner, summoner_to_json)
 
-@app.route('/api/team/<id>')
+@app.route('/api/team/<string:id>')
 def api_team(id):
     team = Team.query.filter(Team.id == id).first()
     return jsonify_single_obj(team, team_to_json)
+
+@app.route('/run_tests')
+def run_tests():
+    import subprocess
+    p = subprocess.Popen(['python3', 'tests.py'],
+                         stdout=subprocess.PIPE,
+                         stderr=subprocess.PIPE)
+    output = p.stdout.read()
+    output += p.stderr.read()
+
+    return output
 
 if __name__ == '__main__':
 

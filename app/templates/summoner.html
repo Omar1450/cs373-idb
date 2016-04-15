@@ -48,45 +48,44 @@
       
     <div class="container body-content" ng-app="lol_app" ng-controller="lol_controller">
       {% endraw %}
-      <div ng-init="id = {{id}}">
-        {% raw %}
-        <img src="{{summoners[id].icon_url}}" class="icon col-md-6"/>
-        <div class="top-text">
-          <h1>{{summoners[id].name}}</h1>
-          <hr>
+      <div ng-init="request_summoner({{id}})"></div>
+      {% raw %}
+      <img src="{{summoner.icon_url}}" class="icon col-md-6"/>
+      <div class="top-text">
+        <h1>{{summoner.name}}</h1>
+        <hr>
+      </div>
+      <div class="well col-md-6">
+        <h3>ID</h3>
+        <p>{{summoner.id}}</p>
+        <div class = "well">
+          <h3>Rank</h3>
+          <hr></hr>
+          <h4>Tier</h4>
+          <p>{{summoner.tier}}</p>
+          <h4>Division</h4>
+          <p>{{summoner.division}}</p>
+          <h4>League Points</h4>
+          <p>{{summoner.lp}}</p>
         </div>
-        <div class="well col-md-6">
-          <h3>ID</h3>
-          <p>{{summoners[id].id}}</p>
-          <div class = "well">
-            <h3>Rank</h3>
-            <hr></hr>
-            <h4>Tier</h4>
-            <p>{{summoners[id].rank.tier}}</p>
-            <h4>Division</h4>
-            <p>{{summoners[id].rank.division}}</p>
-            <h4>League Points</h4>
-            <p>{{summoners[id].rank.league_points}}</p>
+        <div class="well">
+          <h3>Teams</h3>
+          <hr></hr>
+          <div ng-repeat="team in summoner.teams">
+            <p><a href="/team/{{team.id}}">{{team.tag}}</a></p>
           </div>
-          <div class="well">
-            <h3>Teams</h3>
-            <hr></hr>
-            <div ng-repeat="team in summoners[id].teams">
-              <p>{{team}}</p>
-            </div>
-          </div>
-          <div class="well">
-            <h3>Top 3 Champions</h3>
-            <hr></hr>
-            <div ng-repeat="champ in summoners[id].top_3_champions">
-              <p><a ng-init="i = get_champion_index(champ)" ng-href="{{get_champion_link(i)}}">{{get_champion_name(i)}}</a></p>
-            </div>
-          </div>
-          <h3>Win Percentage</h3>
-          <p>{{summoners[id].win_percentage}}</p>
-          <h3>Total Games</h3>
-          <p>{{summoners[id].total_games}}</p>
         </div>
+        <div class="well">
+          <h3>Top 3 Champions</h3>
+          <hr></hr>
+          <div ng-repeat="champ in summoner.top_3_champs">
+            <p><a href="/champion/{{champ.id}}">{{champ.name}}</a></p>
+          </div>
+        </div>
+        <h3>Win Percentage</h3>
+        <p>{{summoner.win_percentage}}</p>
+        <h3>Total Games</h3>
+        <p>{{summoner.total_games}}</p>
       </div>
     </div>
 
