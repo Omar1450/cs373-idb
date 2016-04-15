@@ -6,6 +6,7 @@ from flask.ext.sqlalchemy import SQLAlchemy
 from flask import Flask
 from unittest import main
 import requests
+from test_models import Summoner, Champion, Team
 
 app = Flask(__name__)
 
@@ -15,7 +16,6 @@ app.config['TESTING'] = True
 
 test_db = SQLAlchemy(app)
 
-import test_models
 
 class TestApp (TestCase):
     
