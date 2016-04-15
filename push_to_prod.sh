@@ -53,19 +53,18 @@ then
 fi 
 
 
-# stop and remove all containers (except carina containers)
-#docker-compose down
 
-echo "removing old containers:"
-docker stop $(docker ps -aq -f "name=app") || true
-docker stop $(docker ps -aq -f "name=lb") || true
-docker stop $(docker ps -aq -f "name=db") || true
-docker rm $(docker ps -aq -f="name=db") || true
-docker rm $(docker ps -aq -f="name=app") || true
-docker rm $(docker ps -aq -f="name=lb") || true
-docker rmi $(docker images -aq -f="name=db") || true
-docker rmi $(docker images -aq -f="name=app") || true
-docker rmi $(docker images -aq -f="name=lb") || true
+echo "Stopping old containers:"
+docker stop $(docker ps -a -q)
+#docker stop $(docker ps -aq -f "name=app") || true
+#docker stop $(docker ps -aq -f "name=lb") || true
+#docker stop $(docker ps -aq -f "name=db") || true
+#docker rm $(docker ps -aq -f="name=db") || true
+#docker rm $(docker ps -aq -f="name=app") || true
+#docker rm $(docker ps -aq -f="name=lb") || true
+#docker rmi $(docker images -aq -f="name=db") || true
+#docker rmi $(docker images -aq -f="name=app") || true
+#docker rmi $(docker images -aq -f="name=lb") || true
 
 # start up server
 docker-compose --file docker-compose-prod.yml up -d
