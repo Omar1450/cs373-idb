@@ -55,7 +55,8 @@ fi
 
 
 echo "Stopping old containers:"
-docker stop $(docker ps -a -q)
+docker-compose --file docker-compose-prod.yml down || true
+docker stop $(docker ps -a -q) || true
 #docker stop $(docker ps -aq -f "name=app") || true
 #docker stop $(docker ps -aq -f "name=lb") || true
 #docker stop $(docker ps -aq -f "name=db") || true
@@ -69,8 +70,18 @@ docker stop $(docker ps -a -q)
 # start up server
 docker-compose --file docker-compose-prod.yml up -d
 
-# initialize database
-#docker-compose --file docker-compose-prod.yml run -d --rm --no-deps app python app.py create_db
+echo "Giving database time to to start up"
+sleep 15
+
+echo "Running create_db"
+docker-compose --file docker-compose-prod.yml run -d --rm --no-deps app python app.py create_db
+sleep 10
+
+echo "Running populate"
+docker-compose --file docker-compose-prod.yml run -d --rm --no-deps app python app.py populate
+
+sleep 15
 
 # print ip and port
+echo "ip address:"
 docker port ${APP_NAME}_lb 80 
