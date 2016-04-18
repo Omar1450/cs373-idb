@@ -6,6 +6,7 @@ import ast
 from flask import Flask, render_template, request, redirect, url_for, send_file, jsonify
 from flask.ext.script import Manager, Server
 from flask.ext.sqlalchemy import SQLAlchemy
+from search import search_result
 
 
 logging.basicConfig(
@@ -207,6 +208,30 @@ def run_tests():
     output += p.stderr.read()
 
     return output
+
+@app.route('/api/search/<sql_query>')
+def search(sql_query):
+    query_words = sql_query.split()
+    and_set = None
+    or_set = None
+    for word in query_words:
+        champions = Champion.query.filter(Champion.name.like("%"+word+"%") | Champion.title.like("%"+word+"%") | Champion.id.like("%"+word+"%") | Champion.hp.like("%"+word+"%") |  Champion.mp.like("%"+word+"%") |  Champion.movespeed.like("%"+word+"%") |  Champion.spellblock.like("%"+word+"%")).all()
+        champion_searchresults = [search_result(c.name, c.portrait_url) for c in champions]
+        
+        summoners = Summoner.query.filter(Summoner.name.like("%"+word+"%") | Summoner.id.like("%"+word+"%") | Summoner.lp.like("%"+word+"%") | Summoner.win_percentage.like("%"+word+"%") |  Summoner.total_games.like("%"+word+"%")).all()
+        summoner_searchresults = [search_result(s.name, "") for s in summoners]
+
+        teams = Team.query.filter(Team.name.like("%"+word+"%") | Team.id.like("%"+word+"%") | Team.tag.like("%"+word+"%") | Team.win_percentage.like("%"+word+"%") | Team.total_games.like("%"+word+"%") | Team.status.like("%"+word+"%")).all()
+        team_searchresults = [search_result(t.name, "") for t in teams]
+
+        iteration_set = set(champion_searchresults) | set(summoner_searchresults) | set(team_searchresults)
+        if(and_set == None and or_set == None):
+            and_set = iteration_set
+            or_set = iteration_set
+        or_set = or_set | iteration_set
+        and_set = and_set & iteration_set
+
+    return jsonify({"and_set": [s.to_json() for s in and_set]})
 
 if __name__ == '__main__':
 
