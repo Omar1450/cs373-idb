@@ -6,6 +6,7 @@ import ast
 from flask import Flask, render_template, request, redirect, url_for, send_file, jsonify
 from flask.ext.script import Manager, Server
 from flask.ext.sqlalchemy import SQLAlchemy
+from flask.ext.cors import CORS
 from search import search_result
 
 
@@ -31,6 +32,7 @@ app.config['SQLALCHEMY_COMMIT_ON_TEARDOWN'] = True
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SQLALCHEMY_DATABASE_URI'] = DATABASE_URI
 app.config['SQLALCHEMY_ECHO'] = True
+CORS(app)
 
 logger.debug("%s", DATABASE_URI)
 
