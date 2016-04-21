@@ -4,9 +4,9 @@ models.py
 
 import json
 
-from tests import test_db 
 from flask.ext.sqlalchemy import SQLAlchemy
 
+from tests import db 
 
 team_membership = test_db.Table('team_membership', 
     test_db.Column('summoner_id', test_db.Integer, test_db.ForeignKey('summoner.id')),

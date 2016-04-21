@@ -3,14 +3,19 @@ from flask.ext.testing import TestCase
 from sqlalchemy import create_engine
 from flask import Flask
 from unittest import main
-from app import db, app
 
-from models import Summoner, Champion, Team
+app = Flask(__name__)
+
+db = SQLAlchemy(app)
+
+from test_models import *
 
 class TestApp (TestCase):
 
     def create_app(self):
         app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///testing.db'
+        app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
+        app.config['TESTING'] = True
         return app
 
     def setUp(self):
