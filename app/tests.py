@@ -1,8 +1,11 @@
+#!/usr/bin/env python3
+
 import unittest
 from flask.ext.testing import TestCase
 from sqlalchemy import create_engine
 from flask import Flask
 from unittest import main
+from flask.ext.sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
 
