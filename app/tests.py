@@ -6,9 +6,16 @@ from flask.ext.sqlalchemy import SQLAlchemy
 from flask import Flask
 from unittest import main
 import requests
-from models import Summoner, Champion, Team
-import models
-from app import app, db
+
+test_app = Flask(__name__)
+
+test_app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///testing.db'
+test_app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
+test_app.config['TESTING'] = True
+
+test_db = SQLAlchemy(test_app)
+
+import test_models
 
 class TestApp (TestCase):
     
@@ -19,18 +26,14 @@ class TestApp (TestCase):
     TESTING = True
 
     def create_app(self):
-        app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///testing.db'
-        app.config['SQLALCHEMY_ECHO'] = False
-        app.config['TESTING'] = True
-        return app
+        return test_app
 
     def setUp(self):
-        print("Calling setup")
-        db.create_all();
+        test_db.create_all();
 
     def tearDown(self):
-        db.session.remove()
-        db.drop_all()
+        test_db.session.remove()
+        test_db.drop_all()
 
     # -----------
     # Champions
@@ -108,11 +111,11 @@ class TestApp (TestCase):
     # Test database functionality
     # ---------------------------
 
-    def db_1(self):
+    def test_db_1(self):
         summ = Summoner(10, "test_name", "bronze", "I", 56, 0.52, 100)
         
-        db.session.add(summ)
-        db.session.commit()
+        test_db.session.add(summ)
+        test_db.session.commit()
 
         ret = Summoner.query.filter(Summoner.id == 10).first()
 
@@ -122,13 +125,13 @@ class TestApp (TestCase):
         self.assertEqual(summ.division, ret.division)
         self.assertEqual(summ.lp, ret.lp)
 
-        db.session.delete(summ)
-        db.session.commit()
+        test_db.session.delete(summ)
+        test_db.session.commit()
 
-    def db_2(self):
+    def test_db_2(self):
         champ = Champion(10, "test_name", "bronze champ op", 1, 2, 3, 100, "")
-        db.session.add(champ)
-        db.session.commit()
+        test_db.session.add(champ)
+        test_db.session.commit()
 
         ret = Champion.query.filter(Champion.id == 10).first()
 
@@ -138,14 +141,14 @@ class TestApp (TestCase):
         self.assertEqual(champ.spellblock, ret.spellblock)
         self.assertEqual(champ.movespeed, ret.movespeed)
 
-        db.session.delete(champ)
-        db.session.commit()
+        test_db.session.delete(champ)
+        test_db.session.commit()
 
-    def db_3(self):
+    def test_db_3(self):
         tm = Team("team_id", "team_name", "test_tag", True, 0.52, 56, "123123")
 
-        db.session.add(tm)
-        db.session.commit()
+        test_db.session.add(tm)
+        test_db.session.commit()
 
         ret = Team.query.filter(Team.id == "team_id").first()
 
@@ -155,18 +158,18 @@ class TestApp (TestCase):
         self.assertEqual(tm.total_games, ret.total_games)
         self.assertEqual(tm.win_percentage, ret.win_percentage)
 
-        db.session.delete(tm)
-        db.session.commit()
+        test_db.session.delete(tm)
+        test_db.session.commit()
 
     # --------------------------------
-    # Test models.py API functionality
+    # Test test_models.py API functionality
     # --------------------------------
 
     def test_apiCall_1(self):
         summ = Summoner(10, "test_name", "bronze", "I", 56, 0.52, 100)
         
-        db.session.add(summ)
-        db.session.commit()
+        test_db.session.add(summ)
+        test_db.session.commit()
 
         summoner = Summoner.query.filter(Summoner.id == 10).first()
 
@@ -184,19 +187,19 @@ class TestApp (TestCase):
         }
 
 
-        summ_test = models.summoner_to_json(summoner)
+        summ_test = test_models.summoner_to_json(summoner)
        
 
         self.assertEqual(summ_test, json.dumps(summ_true))
 
-        db.session.delete(summ)
-        db.session.commit()
+        test_db.session.delete(summ)
+        test_db.session.commit()
 
 
     def test_apiCall_2(self):
         tm = Team("team_id", "team_name", "test_tag", True, 0.52, 56, "123123")
-        db.session.add(tm)
-        db.session.commit()
+        test_db.session.add(tm)
+        test_db.session.commit()
 
         team = Team.query.filter(Team.id == "test-id").first()
 
@@ -211,18 +214,18 @@ class TestApp (TestCase):
             "summoners":                    []    
         }
 
-        team_test = models.team_to_json(team)
+        team_test = test_models.team_to_json(team)
 
         self.assertEqual(team_test, json.dumps(team_true))
 
-        db.session.delete(tm)
-        db.session.commit()
+        test_db.session.delete(tm)
+        test_db.session.commit()
 
     def test_apiCall_3(self):
 
         champ = Champion(10, "test_name", "bronze champ op", 1, 2, 3, 100, "")
-        db.session.add(champ)
-        db.session.commit()
+        test_db.session.add(champ)
+        test_db.session.commit()
 
         champ = Champion.query.filter(Champion.id == 10).first()
 
@@ -237,12 +240,12 @@ class TestApp (TestCase):
             "icon_url":   ""
         }
 
-        champ_test = models.champion_to_json(champ)
+        champ_test = test_models.champ_to_json(champ)
 
         self.assertEqual(champ_test, json.dumps(champ_true))
 
-        db.session.delete(champ)
-        db.session.commit()
+        test_db.session.delete(champ)
+        test_db.session.commit()
         self.assertEqual(champ_test, champ_true)
 
 
