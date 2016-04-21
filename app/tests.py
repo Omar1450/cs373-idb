@@ -15,7 +15,7 @@ test_app.config['TESTING'] = True
 
 test_db = SQLAlchemy(test_app)
 
-import test_models
+from test_models import Summoner, Champion, Team
 
 class TestApp (TestCase):
     
