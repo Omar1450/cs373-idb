@@ -1,10 +1,17 @@
-class search_result:
-    def __init__(self, name, url):
-        self.name = name
-        self.url = url
+class SearchResult:
+    def __init__(self, type, id, obj):
+        self.type = type
+        self.id = id
+        self.obj = obj
+
+    def fleshOut(self, blah):
+        pass
+
+    def __eq__(self, other):
+        return self.type == other.type and self.id == other.id
 
     def __hash__(self):
-        return hash((self.name, self.url))
+        return hash((self.type, self.id))
     
     def to_json(self):
-        return {"name": self.name, "url": self.url}
+        return {"type": self.type, "id": self.id}
