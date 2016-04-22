@@ -3,9 +3,11 @@ class SearchResult:
         self.type = type
         self.id = id
         self.obj = obj
+        self.context = set()
 
-    def fleshOut(self, blah):
-        pass
+    def copy(self):
+        other = SearchResult(self.type, self.id, self.obj)
+        return other
 
     def __eq__(self, other):
         return self.type == other.type and self.id == other.id
@@ -14,4 +16,4 @@ class SearchResult:
         return hash((self.type, self.id))
     
     def to_json(self):
-        return {"type": self.type, "id": self.id}
+        return {"type": self.type, "id": self.id, "context": list(self.context)}

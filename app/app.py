@@ -255,9 +255,29 @@ def search(sql_query):
 
         or_set = or_set | iteration_set
         and_set = and_set & iteration_set
+        
+    and_list = list(and_set)
+    or_list = [s.copy() for s in list(or_set)]
 
-    return jsonify({"and_set": [s.to_json() for s in and_set],
-                    "or_set":  [s.to_json() for s in or_set]})
+    # Get context
+    
+    for word in query_words:
+        for i, r in enumerate(and_list):
+            for variable, value in r.obj.__dict__.items():
+                if (not variable.startswith("_") and
+                    word.lower() in str(value).lower()):
+                    and_list[i].context.add(str(variable) + ": " + str(value))
+                    
+ 
+        for i, r in enumerate(or_list):
+            for variable, value in r.obj.__dict__.items():
+                if (not variable.startswith("_") and
+                    word.lower() in str(value).lower()):
+                    or_list[i].context.add(str(variable) + ": " + str(value))
+
+
+    return jsonify({"and_set": [s.to_json() for s in and_list],
+                    "or_set":  [s.to_json() for s in or_list]})
 
 if __name__ == '__main__':
 
