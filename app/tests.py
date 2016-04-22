@@ -57,7 +57,7 @@ class TestApp (TestCase):
         d = json.loads(requests.get('http://dudecarry.me/api/champion/103').text)
         self.assertEqual(d['name'], 'Ahri')
         self.assertEqual(d['id'], 103)
-        self.assertEqual(d['hp'], 514.3)
+        self.assertEqual(d['hp'], 514.4)
         self.assertEqual(d['mp'], 334.0)
 
     # -------------
@@ -76,7 +76,7 @@ class TestApp (TestCase):
         self.assertEqual(summoner.name, 'test_name')
 
     def test_summoner_3(self):
-        d = json.loads(request.get('http://dudecarry.me/api/summoner/35590582').text)
+        d = json.loads(requests.get('http://dudecarry.me/api/summoner/35590582').text)
         self.assertEqual(d['name'], 'Annie Bot')
         self.assertEqual(d['id'], 35590582)
         self.assertEqual(d['lp'], 528)
@@ -98,7 +98,7 @@ class TestApp (TestCase):
         self.assertEqual(team.name, 'test-name')
 
     def test_team_3(self):
-        d = json.loads(requests.get('dudecarry.me/api/team/TEAM-265d8300-1379-11e3-af41-782bcb4d0bb2').text)
+        d = json.loads(requests.get('http://dudecarry.me/api/team/TEAM-265d8300-1379-11e3-af41-782bcb4d0bb2').text)
         
         self.assertEqual(team['id'], "TEAM-265d8300-1379-11e3-af41-782bcb4d0bb2")
         self.assertEqual(team['tag'], "BALEAF")
@@ -174,7 +174,7 @@ class TestApp (TestCase):
         summ_true = {
             "id":               10,
             "name":             "test_name",
-            "rank":             236,
+            "rank":             180,
             "tier":             "bronze",
             "division":         "I",
             "lp":               56,
@@ -199,7 +199,7 @@ class TestApp (TestCase):
         db.session.add(tm)
         db.session.commit()
 
-        team = Team.query.filter(Team.id == "test-id").first()
+        team = Team.query.filter(Team.id == "team_id").first()
 
         team_true = {
             "id":                           "team_id",
@@ -238,7 +238,7 @@ class TestApp (TestCase):
             "icon_url":   ""
         }
 
-        champ_test = champ_to_json(champ)
+        champ_test = champion_to_json(champ)
 
         self.assertEqual(champ_test, json.dumps(champ_true))
 
