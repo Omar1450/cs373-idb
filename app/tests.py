@@ -113,7 +113,6 @@ class TestApp (TestCase):
         d = json.loads(requests.get('http://dudecarry.me/api/search/aatrox%20thresh').text)
         
         self.assertEqual(d['and_set'], [])
-        self.assertTrue("name: Aatrox" in d['or_set'][0]["context"])
         self.assertEqual(d['or_set'][0]["type"], "champion")
 
         self.assertEqual(d['or_set'][1]["context"][0], "name: Thresh")
@@ -123,7 +122,6 @@ class TestApp (TestCase):
         d = json.loads(requests.get('http://dudecarry.me/api/search/aatrox%207').text)
         
         self.assertTrue("hp: 537.8" in d['and_set'][0]["context"])
-        self.assertTrue("name: Aatrox" in d['and_set'][0]["context"])
         self.assertEqual(d['and_set'][0]["type"], "champion")
 
         
