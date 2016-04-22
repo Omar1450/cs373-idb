@@ -1,31 +1,27 @@
+#!/usr/bin/env python3
+
 import unittest
 from flask.ext.testing import TestCase
-import json
 from sqlalchemy import create_engine
-from flask.ext.sqlalchemy import SQLAlchemy
 from flask import Flask
 from unittest import main
-import requests
-from models import Summoner, Champion, Team
-import models
-from app import app, db
+from flask.ext.sqlalchemy import SQLAlchemy
+
+app = Flask(__name__)
+
+db = SQLAlchemy(app)
+
+from test_models import *
 
 class TestApp (TestCase):
-    
-    # set up test database
-
-    SQLALCHEMY_DATABASE_URI = 'sqlite:///testing.db'
-
-    TESTING = True
 
     def create_app(self):
         app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///testing.db'
-        app.config['SQLALCHEMY_ECHO'] = False
+        app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
         app.config['TESTING'] = True
         return app
 
     def setUp(self):
-        print("Calling setup")
         db.create_all();
 
     def tearDown(self):
@@ -159,7 +155,7 @@ class TestApp (TestCase):
         db.session.commit()
 
     # --------------------------------
-    # Test models.py API functionality
+    # Test test_models.py API functionality
     # --------------------------------
 
     def test_apiCall_1(self):
@@ -184,7 +180,7 @@ class TestApp (TestCase):
         }
 
 
-        summ_test = models.summoner_to_json(summoner)
+        summ_test = test_models.summoner_to_json(summoner)
        
 
         self.assertEqual(summ_test, json.dumps(summ_true))
@@ -211,7 +207,7 @@ class TestApp (TestCase):
             "summoners":                    []    
         }
 
-        team_test = models.team_to_json(team)
+        team_test = test_models.team_to_json(team)
 
         self.assertEqual(team_test, json.dumps(team_true))
 
@@ -237,7 +233,7 @@ class TestApp (TestCase):
             "icon_url":   ""
         }
 
-        champ_test = models.champion_to_json(champ)
+        champ_test = test_models.champ_to_json(champ)
 
         self.assertEqual(champ_test, json.dumps(champ_true))
 
