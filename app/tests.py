@@ -105,6 +105,40 @@ class TestApp (TestCase):
         self.assertEqual(d['win_percentage'], 0.560976)
         self.assertEqual(d['name'], "Bayleaf")       
 
+    # ----------------------
+    # Test Search API calls
+    # ----------------------
+
+    def test_apiCallSearch_1(self):
+        d = json.loads(requests.get('http://dudecarry.me/api/search/aatrox%20thresh').text)
+        
+        self.assertEqual(d['and_set'], [])
+        self.assertEqual(d['or_set'][0]["context"][0], "name: Aatrox")
+        self.assertEqual(d['or_set'][0]["type"], "champion")
+
+        self.assertEqual(d['or_set'][1]["context"][0], "name: Thresh")
+        self.assertEqual(d['or_set'][1]["type"], "champion")  
+
+    def test_apiCallSearch_2(self):
+        d = json.loads(requests.get('http://dudecarry.me/api/search/aatrox%207').text)
+        
+        self.assertEqual(d['and_set'][0]["context"][0], "hp: 537.8")
+        self.assertEqual(d['and_set'][0]["context"][1], "name: Aatrox")
+        self.assertEqual(d['and_set'][0]["type"], "champion")
+
+        self.assertEqual(d['or_set'][0]["context"][0], "id: 73459352")
+        self.assertEqual(d['or_set'][0]["context"][1], "rank: 780")
+        self.assertEqual(d['or_set'][0]["type"], "summoner")  
+
+    def test_apiCallSearch_3(self):
+        d = json.loads(requests.get('http://dudecarry.me/api/search/aatrox').text)
+        
+        self.assertEqual(d['and_set'][0]["context"][0], "name: Aatrox")
+        self.assertEqual(d['and_set'][0]["type"], "champion")
+
+        self.assertEqual(d['or_set'][0]["context"][0], "name: Aatrox")
+        self.assertEqual(d['or_set'][0]["type"], "champion")
+
     # ---------------------------
     # Test database functionality
     # ---------------------------
@@ -160,10 +194,10 @@ class TestApp (TestCase):
         db.session.commit()
 
     # --------------------------------
-    # Test test_models.py API functionality
+    # Test test_models.py API functions
     # --------------------------------
 
-    def test_apiCall_1(self):
+    def test_apiFunc_1(self):
         summ = Summoner(10, "test_name", "bronze", "I", 56, 0.52, 100)
         
         db.session.add(summ)
@@ -195,7 +229,7 @@ class TestApp (TestCase):
         db.session.commit()
 
 
-    def test_apiCall_2(self):
+    def test_apiFunc_2(self):
         tm = Team("team_id", "team_name", "test_tag", True, 0.52, 56, "123123")
         db.session.add(tm)
         db.session.commit()
@@ -221,7 +255,7 @@ class TestApp (TestCase):
         db.session.delete(tm)
         db.session.commit()
 
-    def test_apiCall_3(self):
+    def test_apiFunc_3(self):
 
         champ = Champion(10, "test_name", "bronze champ op", 1, 2, 3, 100, "")
         db.session.add(champ)
