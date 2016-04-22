@@ -58,7 +58,7 @@ status:
 	git status
 
 test: 
-	python3 app/tests.py 
+	coverage run app/tests.py 
 	coverage report --include=app/test_models.py,app/tests.py
 
 model.html: models.py
