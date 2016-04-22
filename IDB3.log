@@ -1,0 +1,925 @@
+commit b040e07e561cf501f3b09e3b727f5ca8fc3740b5
+Author: Ethan Jennings <ethanhjennings@gmail.com>
+Date:   Thu Apr 21 21:06:18 2016 -0500
+
+    Fixing travis final
+
+commit 5caf3dfa7b80b805f1391fe14408fd851ac972eb
+Author: Ethan Jennings <ethanhjennings@gmail.com>
+Date:   Thu Apr 21 21:01:36 2016 -0500
+
+    Fixing travis again
+
+commit 5f87eb5232841279ce3b2080c851458f8fd4811a
+Merge: af1b299 cd12465
+Author: Ethan Jennings <ethanhjennings@gmail.com>
+Date:   Thu Apr 21 20:57:11 2016 -0500
+
+    Merge branch 'master' of https://github.com/Omar1450/cs373-idb
+
+commit af1b299f5b9f3a3f6fc66851b3722f3e5635bf37
+Author: Ethan Jennings <ethanhjennings@gmail.com>
+Date:   Thu Apr 21 20:56:56 2016 -0500
+
+    Fixing travis
+
+commit cd1246539e40fd4bcd5d98bf6c4b962a94a179f7
+Merge: 5670e9d 430b060
+Author: Ethan Jennings <ethanhjennings@users.noreply.github.com>
+Date:   Thu Apr 21 20:51:24 2016 -0500
+
+    Merge pull request #58 from Omar1450/dev
+    
+    Dev
+
+commit 8f126b1cfdf4028f148576dfd4b8fd9a385c22d5
+Merge: 5670e9d 430b060
+Author: Ethan Jennings <ethanhjennings@gmail.com>
+Date:   Thu Apr 21 20:49:04 2016 -0500
+
+    Merge branch 'dev'
+
+commit 430b060cb960a3e62e596dc552fbcc3337fdefb6
+Merge: 5ae4b1e 8e5e39f
+Author: Ethan Jennings <ethanhjennings@gmail.com>
+Date:   Thu Apr 21 20:48:14 2016 -0500
+
+    Merge branch 'dev' of https://github.com/Omar1450/cs373-idb into dev
+
+commit 5ae4b1e4e5ecdc2922377d0d0707a702fee801b0
+Author: Ethan Jennings <ethanhjennings@gmail.com>
+Date:   Thu Apr 21 20:47:59 2016 -0500
+
+    Adding requests to requirements.txt
+
+commit 8e5e39f67ac8fd8a76af6d88b6673e3fecf2bf24
+Author: Ouyangzheng Huang <ouyang16@cs.utexas.edu>
+Date:   Thu Apr 21 20:42:06 2016 -0500
+
+    added tests for search 2
+
+commit d8e36f30ee820987663e601089bf8e9174945f29
+Author: Ouyangzheng Huang <ouyang16@cs.utexas.edu>
+Date:   Thu Apr 21 20:39:49 2016 -0500
+
+    added tests for search 1
+
+commit 021eff80def37175907b27835375cd40781d3309
+Merge: 37de53e 222b8a1
+Author: Ouyangzheng Huang <ouyang16@cs.utexas.edu>
+Date:   Thu Apr 21 20:18:40 2016 -0500
+
+    Merge branch 'dev' of https://github.com/Omar1450/cs373-idb into dev
+
+commit 37de53e10e62a00220df3f6148b86f7fbde18b47
+Author: Ouyangzheng Huang <ouyang16@cs.utexas.edu>
+Date:   Thu Apr 21 20:18:20 2016 -0500
+
+    scraped more data
+
+commit 222b8a1bb1d38620ce98da232a2f297258439aef
+Author: Ethan Jennings <ethanhjennings@gmail.com>
+Date:   Thu Apr 21 20:13:23 2016 -0500
+
+    Finalizing search API
+
+commit 46a1ad880232ea7c7b03cc1f43a9a665c93c0aee
+Author: Ouyangzheng Huang <ouyang16@cs.utexas.edu>
+Date:   Thu Apr 21 20:09:23 2016 -0500
+
+    modified makefile to check for test coverage 3
+
+commit f816d3c26ffd3913c985c1f6c063dbf2089f7b30
+Author: Ouyangzheng Huang <ouyang16@cs.utexas.edu>
+Date:   Thu Apr 21 20:06:21 2016 -0500
+
+    modified makefile to check for test coverage 2
+
+commit a827337ad53d9b47b583ad3a48d3f5ce1cca2a66
+Author: Ouyangzheng Huang <ouyang16@cs.utexas.edu>
+Date:   Thu Apr 21 20:01:32 2016 -0500
+
+    modified makefile to check for test coverage
+
+commit b75200323c3f271923656e0e7b9fca4f1f7e2fe8
+Author: Ouyangzheng Huang <ouyang16@cs.utexas.edu>
+Date:   Thu Apr 21 19:27:11 2016 -0500
+
+    tests validated, need to get output
+
+commit 294b4acee7b2fd9ff781bee2f8ab8f2d28b59aa1
+Author: Ouyangzheng Huang <ouyang16@cs.utexas.edu>
+Date:   Thu Apr 21 19:23:27 2016 -0500
+
+    validating tests 3
+
+commit 3a66a011ce93f6f19fe374b6e09c9559a8cf80b5
+Author: Ouyangzheng Huang <ouyang16@cs.utexas.edu>
+Date:   Thu Apr 21 19:15:50 2016 -0500
+
+    validating tests 2
+
+commit eddac18daa46401ba4cb1b6eb82d88d39376364f
+Author: Ouyangzheng Huang <ouyang16@cs.utexas.edu>
+Date:   Thu Apr 21 19:06:38 2016 -0500
+
+    validating tests 1
+
+commit d3ae1ef4d0d3630a89cc33d85144341dcf50ea77
+Merge: a8f2a81 faf3c2a
+Author: Ethan Jennings <ethanhjennings@gmail.com>
+Date:   Thu Apr 21 19:01:37 2016 -0500
+
+    Merge branch 'dev' of https://github.com/Omar1450/cs373-idb into dev
+
+commit a8f2a81986e09e3fb75a0b5320ef4811a8b7d0dc
+Author: Ethan Jennings <ethanhjennings@gmail.com>
+Date:   Thu Apr 21 18:55:49 2016 -0500
+
+    Fixing search API, temporarily disabling COORS
+
+commit faf3c2aa15dd8683174f8bffed07e273887790ef
+Author: Ouyangzheng Huang <ouyang16@cs.utexas.edu>
+Date:   Thu Apr 21 18:50:01 2016 -0500
+
+    check tests 6
+
+commit fd2f99b0d92b932f47178cb45139ae539504f793
+Author: Ouyangzheng Huang <ouyang16@cs.utexas.edu>
+Date:   Thu Apr 21 18:47:26 2016 -0500
+
+    check tests 5
+
+commit b03c72aac389e8715df37b401e4b642d5abc2fb9
+Author: Ouyangzheng Huang <ouyang16@cs.utexas.edu>
+Date:   Thu Apr 21 18:44:56 2016 -0500
+
+    check tests 4
+
+commit 466cf73c29e4346e66055172222337adcf372fad
+Author: Ouyangzheng Huang <ouyang16@cs.utexas.edu>
+Date:   Thu Apr 21 18:38:12 2016 -0500
+
+    check tests 3
+
+commit f3eb5d2a065b97d5a94f4707093c2a4c4f36be36
+Author: Ouyangzheng Huang <ouyang16@cs.utexas.edu>
+Date:   Thu Apr 21 18:28:34 2016 -0500
+
+    checking tests 2
+
+commit cdfc90da7c857a8c835c75e62a9893ef077f4899
+Author: Ouyangzheng Huang <ouyang16@cs.utexas.edu>
+Date:   Thu Apr 21 18:26:33 2016 -0500
+
+    checking tests
+
+commit 5670e9d5963e46b9f05f4749f0540c055b8d96d4
+Author: Ouyangzheng Huang <ouyang16@cs.utexas.edu>
+Date:   Thu Apr 21 18:15:02 2016 -0500
+
+    checking which tests are failing
+
+commit 13f74eebd71c12930cc3f84a87491657edf27c5e
+Author: Omar Mahmud <Omar Mahmud>
+Date:   Tue Apr 19 23:25:31 2016 -0500
+
+    Added cors code to app.py and requirements.txt.
+
+commit d608d767c0bd7299038936c7d739cb370858870f
+Author: Ethan Jennings <ethanhjennings@gmail.com>
+Date:   Tue Apr 19 22:39:08 2016 -0500
+
+    Fixing push_to_prod.sh and adding source_prod.sh
+
+commit 70bcd0c6f0c6c997a8047306779ef3cee2e3e033
+Author: Omar Mahmud <Omar Mahmud>
+Date:   Mon Apr 18 16:33:04 2016 -0500
+
+    Added search.py in order to have a search_result class, started
+    implementing search.
+
+commit 25e05c4d361d994814072a94dd3b07d897336eff
+Author: Ethan Jennings <ethanhjennings@gmail.com>
+Date:   Fri Apr 15 17:56:55 2016 -0500
+
+    Fixing a few unit tests
+
+commit b8066426a7dde22d6cf40869efabb71b52f651f2
+Author: Ethan Jennings <ethanhjennings@gmail.com>
+Date:   Fri Apr 15 17:15:44 2016 -0500
+
+    Allowing push_to_prod to setup database
+
+commit 95686a492a21e9491bee2f083123cefac2f97eee
+Author: Ethan Jennings <ethanhjennings@gmail.com>
+Date:   Fri Apr 15 16:48:24 2016 -0500
+
+    Fixing push_to_prod.sh
+
+commit 2773bb9b5353bae6d2899e9d318778ac8d93e1e5
+Author: Omar Mahmud <Omar Mahmud>
+Date:   Fri Apr 15 16:42:15 2016 -0500
+
+    Testing Travis 3
+
+commit e314ba36074085ec5d2ece5ec986db09abb66586
+Author: Omar Mahmud <Omar Mahmud>
+Date:   Fri Apr 15 16:39:09 2016 -0500
+
+    Testing Travis 2
+
+commit 595babe8c4bb164433f2a59926ca31b94f44d394
+Author: Omar Mahmud <Omar Mahmud>
+Date:   Fri Apr 15 16:33:50 2016 -0500
+
+    Testing Travis to see if tests.py is working.
+
+commit debc6b5973b7137385681790c1b4709d9389f994
+Author: Ethan Jennings <ethanhjennings@gmail.com>
+Date:   Thu Apr 14 22:24:22 2016 -0500
+
+    Fixing front-end's connection to backend
+
+commit 7282def8778b6859b79dee7ba58a74d64da0b630
+Merge: 58bc02c 43a166a
+Author: willhuang93 <negative134@gmail.com>
+Date:   Fri Apr 8 21:53:59 2016 -0500
+
+    Merge pull request #41 from Omar1450/dev
+    
+    Dev
+
+commit 43a166a58f3ae5270eb68b9c46ca3fa886d22c20
+Author: Ouyangzheng Huang <ouyang16@cs.utexas.edu>
+Date:   Fri Apr 8 21:51:31 2016 -0500
+
+    RIPPERONI travis
+
+commit 7f85016d8c89c9c552deaaca2cd7249cdd7509bf
+Author: Ouyangzheng Huang <ouyang16@cs.utexas.edu>
+Date:   Fri Apr 8 21:45:59 2016 -0500
+
+    travis coverage attempt 11
+
+commit 3289c90d0b365a2a4ebbb05304941e451a952733
+Author: Ouyangzheng Huang <ouyang16@cs.utexas.edu>
+Date:   Fri Apr 8 21:43:42 2016 -0500
+
+    travis coverage attempt 10
+
+commit 8da0b07f0105bb4cf752c06f75bdabfe75210cb5
+Author: Ouyangzheng Huang <ouyang16@cs.utexas.edu>
+Date:   Fri Apr 8 21:41:27 2016 -0500
+
+    travis coverage attempt 9
+
+commit 6b04abb5f96021c6b8d767a087b790290eb15ab7
+Author: Ouyangzheng Huang <ouyang16@cs.utexas.edu>
+Date:   Fri Apr 8 21:33:44 2016 -0500
+
+    travis coverage attempt 8
+
+commit 30cc4da87fbdf55171582aa390f25bb5ac03d905
+Author: Ouyangzheng Huang <ouyang16@cs.utexas.edu>
+Date:   Fri Apr 8 21:31:41 2016 -0500
+
+    travis coverage attempt 7
+
+commit c352e6855c9891367fb1ec195ce228ca48c2014d
+Author: Ouyangzheng Huang <ouyang16@cs.utexas.edu>
+Date:   Fri Apr 8 21:27:30 2016 -0500
+
+    travis coverage attempt 6
+
+commit 9d55b2c1115a7c8eb119cbf70e2f92e52d1f8c6e
+Author: Ouyangzheng Huang <ouyang16@cs.utexas.edu>
+Date:   Fri Apr 8 21:23:43 2016 -0500
+
+    travis coverage attempt 5
+
+commit 150cf531ed879b45d6f02ecf4157968ed5966ff6
+Author: Ouyangzheng Huang <ouyang16@cs.utexas.edu>
+Date:   Fri Apr 8 21:20:31 2016 -0500
+
+    travis coverage attempt 4
+
+commit 4f9674388156079dfb83cddc3782a7ff2dc197bc
+Author: Ouyangzheng Huang <ouyang16@cs.utexas.edu>
+Date:   Fri Apr 8 21:18:13 2016 -0500
+
+    travis coverage attempt 3
+
+commit b4e20de1da230bb7a8f5289f1263f6e42aac8e5b
+Author: Ouyangzheng Huang <ouyang16@cs.utexas.edu>
+Date:   Fri Apr 8 21:07:49 2016 -0500
+
+    travis attempt 2
+
+commit 352fd757dbafc9e27c384e911ca674f400b773d5
+Merge: 978e746 97bd9bb
+Author: Ouyangzheng Huang <ouyang16@cs.utexas.edu>
+Date:   Fri Apr 8 20:55:22 2016 -0500
+
+    added unit testing functionality
+
+commit 978e74635f66c5b8e571aef28d4d1ea43bb6008e
+Author: Ouyangzheng Huang <ouyang16@cs.utexas.edu>
+Date:   Fri Apr 8 20:53:10 2016 -0500
+
+    added case testing functionality, changed app.py, tests.py, and travis.yml
+
+commit 97bd9bbf2b5ebb494fc775b361fa709dd98717ec
+Author: Omar Mahmud <Omar Mahmud>
+Date:   Fri Apr 8 20:17:55 2016 -0500
+
+    Fixing typo error in makefile.
+
+commit d83c758c3530920eb212f8dc28b4d73ecda1f62f
+Author: Omar Mahmud <Omar Mahmud>
+Date:   Fri Apr 8 20:15:23 2016 -0500
+
+    Added coverage commands to makefile.
+
+commit c6a7d3a8fada40577b516ebb2162e9f32c73e4b5
+Author: Omar Mahmud <Omar Mahmud>
+Date:   Fri Apr 8 20:10:30 2016 -0500
+
+    Uncommented python3 tests.py in makefile and commented out some tests in
+    tests.py.
+
+commit 58bc02ce58d6054e3207afc8ccaf4c4f9e220c73
+Merge: 0b4e6a4 318cf28
+Author: willhuang93 <negative134@gmail.com>
+Date:   Fri Apr 8 19:49:36 2016 -0500
+
+    Merge pull request #40 from Omar1450/dev
+    
+    added tests.py
+
+commit 0b4e6a4ef724f502b034beaa64b98fec9da28b69
+Author: willhuang93 <negative134@gmail.com>
+Date:   Fri Apr 8 19:48:02 2016 -0500
+
+    Update .travis.yml
+
+commit 318cf28bdda7361fab0417a3c362dc34b92e7a5b
+Author: Ouyangzheng Huang <ouyang16@cs.utexas.edu>
+Date:   Fri Apr 8 19:42:24 2016 -0500
+
+    added tests.py
+
+commit e33698630176131623da8601e876ad1f6240ab45
+Merge: 8ca51ba 7ee3584
+Author: Ouyangzheng Huang <ouyang16@cs.utexas.edu>
+Date:   Fri Apr 8 19:40:07 2016 -0500
+
+    ?
+
+commit 7ee3584280f94cd3cb293bb4588ea1eef3253e1d
+Merge: 836bec0 3a34a45
+Author: Ouyangzheng Huang <ouyang16@cs.utexas.edu>
+Date:   Fri Apr 8 19:36:02 2016 -0500
+
+    Merge branch 'master' into dev
+    
+    ??
+    .
+
+commit 836bec05f6e4f626d1c94dcfa038674dbb2e60ec
+Author: Ouyangzheng Huang <ouyang16@cs.utexas.edu>
+Date:   Fri Apr 8 19:35:18 2016 -0500
+
+    ?
+
+commit 8ca51baf8b9b422c42270da8971778b369a20485
+Author: willhuang93 <negative134@gmail.com>
+Date:   Fri Apr 8 19:29:55 2016 -0500
+
+    Delete tests.py
+
+commit c7efd6ac7e9c651fca43dca4a4cbe54a5170d541
+Author: willhuang93 <negative134@gmail.com>
+Date:   Fri Apr 8 19:22:35 2016 -0500
+
+    Create tests.py
+
+commit ce0d54691a181988825e9b2c57af6c324990e460
+Author: willhuang93 <negative134@gmail.com>
+Date:   Fri Apr 8 19:18:24 2016 -0500
+
+    Update .travis.yml
+
+commit ae3d989794225b18069e2785a0b9d957caa9671a
+Author: willhuang93 <negative134@gmail.com>
+Date:   Fri Apr 8 19:17:11 2016 -0500
+
+    Update makefile
+
+commit 522c40b76467e8d2cf9c94093f577cc93a669e97
+Author: willhuang93 <negative134@gmail.com>
+Date:   Fri Apr 8 19:16:37 2016 -0500
+
+    Update .travis.yml
+
+commit 592e91f46c09a6265ce39893512b91f7c8d4f3bb
+Author: Ouyangzheng Huang <ouyang16@cs.utexas.edu>
+Date:   Fri Apr 8 19:11:49 2016 -0500
+
+    changed .travis.yml
+
+commit 4882e04db80c85f3b6a23b62a976c5d3efb80711
+Merge: f845901 36ddc02
+Author: Ouyangzheng Huang <ouyang16@cs.utexas.edu>
+Date:   Fri Apr 8 18:52:23 2016 -0500
+
+    Merge branch 'dev' of https://github.com/Omar1450/cs373-idb into dev
+
+commit f845901b5ebe2127249ada10aaa8a05dc85afe92
+Author: Ouyangzheng Huang <ouyang16@cs.utexas.edu>
+Date:   Fri Apr 8 18:51:57 2016 -0500
+
+    app/tests.py updated
+
+commit 36ddc02f10dccc092bc9a27c7dd160ea27fd6758
+Author: Omar Mahmud <Omar Mahmud>
+Date:   Fri Apr 8 18:22:58 2016 -0500
+
+    editing makefile added make check to makefile and ls.
+
+commit 0800d08601345873c840abb8cf154237138e6c25
+Author: Omar Mahmud <Omar Mahmud>
+Date:   Fri Apr 8 18:14:25 2016 -0500
+
+    Fixing a typo error in makefile.
+
+commit a51f301ea17be0b7baff02af33d92ccdc2af1ad8
+Author: Omar Mahmud <Omar Mahmud>
+Date:   Fri Apr 8 18:11:18 2016 -0500
+
+    editing makefile by adding check for new files.
+
+commit 3a34a45e3a7cb8d84abc5e1f35f7bac60364ac79
+Author: willhuang93 <negative134@gmail.com>
+Date:   Fri Apr 8 18:06:49 2016 -0500
+
+    delete app/tests.py
+
+commit 03efc121ef565b5c31da3bec0feb037ab4a9198e
+Author: Ouyangzheng Huang <ouyang16@cs.utexas.edu>
+Date:   Fri Apr 8 18:00:34 2016 -0500
+
+    added name attribute to Team in models.py, updated api_scrape.py, fixed tests that tested the Team model
+
+commit 5b6cd9e852bd4749c6d6bb08bd3d812a502ed5a6
+Author: Ouyangzheng Huang <ouyang16@cs.utexas.edu>
+Date:   Fri Apr 8 17:39:21 2016 -0500
+
+    updated api script
+
+commit 3de69728d507492a2f1fd905a0417327a407ccce
+Author: Ouyangzheng Huang <ouyang16@cs.utexas.edu>
+Date:   Fri Apr 8 16:48:30 2016 -0500
+
+    fixed models api/json tests
+
+commit 7313b143dfd22eaa97c39770e1e5bef1a3e99c77
+Author: Ouyangzheng Huang <ouyang16@cs.utexas.edu>
+Date:   Fri Apr 8 16:32:22 2016 -0500
+
+    added api call tests, not yet working
+
+commit d5f7a54f757a486da83205342f0709ac7b946359
+Author: Ethan Jennings <ethanhjennings@gmail.com>
+Date:   Thu Apr 7 21:54:26 2016 -0500
+
+    adding IDB2
+
+commit ab824d4e08d508323ba57e48e40c746ae8d3756a
+Merge: 79d8e77 be297f4
+Author: Ethan Jennings <ethanhjennings@gmail.com>
+Date:   Thu Apr 7 21:52:46 2016 -0500
+
+    Merge branch 'dev'
+
+commit be297f40627d3c312838238299168f41195bc5fe
+Author: Ethan Jennings <ethanhjennings@gmail.com>
+Date:   Thu Apr 7 21:52:14 2016 -0500
+
+    Adding log
+
+commit 6bd7dca043675744b9dd84e2b3619f7c8dae4301
+Author: willhuang93 <negative134@gmail.com>
+Date:   Thu Apr 7 21:51:22 2016 -0500
+
+    added some db tests
+
+commit 829b9337f4d833c161b464bd7792a9ada7099daf
+Author: Ethan Jennings <ethanhjennings@gmail.com>
+Date:   Thu Apr 7 21:43:18 2016 -0500
+
+    Removing old files
+
+commit 9ba8e6cf1a21ff0d3a0c3008c1753a29fedc1343
+Author: willhuang93 <negative134@gmail.com>
+Date:   Thu Apr 7 21:20:07 2016 -0500
+
+    api/summoners top 3 champs working
+
+commit 19867bf1f14377c3ddefa140a058f6d98f616834
+Author: willhuang93 <negative134@gmail.com>
+Date:   Thu Apr 7 20:47:19 2016 -0500
+
+    api working, populated data
+
+commit 0d62640537d5a013fd4d9eae8e353672911f9f57
+Author: Ethan Jennings <ethanhjennings@gmail.com>
+Date:   Thu Apr 7 20:12:32 2016 -0500
+
+    Implementing API
+
+commit 17463d7873a0b75bd7debd34e4a773fb71e57fc7
+Merge: 80eb87d fef677c
+Author: ChidiOmen <ochidimon@utexas.edu>
+Date:   Thu Apr 7 18:32:32 2016 -0500
+
+    Merge branch 'dev' of https://github.com/Omar1450/cs373-idb into dev
+
+commit 80eb87d34144fcb5b76d29da1fdfd4327d16decc
+Merge: 022dc71 fa28eb4
+Author: ChidiOmen <ochidimon@utexas.edu>
+Date:   Thu Apr 7 18:30:21 2016 -0500
+
+    Merge remote-tracking branch 'origin/dev' into dev
+
+commit fef677c6206821ff74ca76e7e462f31f62f10d46
+Author: Omar Mahmud <Omar Mahmud>
+Date:   Thu Apr 7 18:14:58 2016 -0500
+
+    I am adding an updated UML.pdf
+
+commit 022dc71ea819a069d8e57e711c6a382a2ca26d59
+Author: ChidiOmen <ochidimon@utexas.edu>
+Date:   Thu Apr 7 00:01:34 2016 -0500
+
+    Added Run Unit Tests module
+
+commit fa28eb4d967b44fc42fd6f1d97fbbee5df60e400
+Merge: 56823c7 9882312
+Author: Ethan Jennings <ethanhjennings@gmail.com>
+Date:   Wed Apr 6 23:45:23 2016 -0500
+
+    Merge branch 'dev' of https://github.com/Omar1450/cs373-idb into dev
+
+commit 56823c740eed0b255a9f3d03b0c786b3f552b01c
+Author: Ethan Jennings <ethanhjennings@gmail.com>
+Date:   Wed Apr 6 23:45:05 2016 -0500
+
+    Fixing models.py, adding champion mastery
+
+commit 9882312501b57043c0795e879ab0a544de14198c
+Author: willhuang93 <negative134@gmail.com>
+Date:   Wed Apr 6 23:09:32 2016 -0500
+
+    scrape script updated
+
+commit 1a22402620cacc181f5f01a1a9233838e0139cea
+Merge: bd2d4f4 5feea7d
+Author: Omar Mahmud <Omar Mahmud>
+Date:   Wed Apr 6 22:08:40 2016 -0500
+
+    Merge branch 'dev' of https://github.com/Omar1450/cs373-idb into dev
+
+commit bd2d4f4850d92258a5e06ddf3c4d0ac9dd382bbc
+Author: Omar Mahmud <Omar Mahmud>
+Date:   Wed Apr 6 22:06:51 2016 -0500
+
+    Added 2 new relation tables and we added create_dummy_data command.
+
+commit 5feea7d604bba6e330cb6326b68322f09f58bb31
+Author: nalisia <nalisia@utexas.edu>
+Date:   Wed Apr 6 20:51:29 2016 -0500
+
+    Added files via upload
+    
+    changed api_scrape.py to include new player dict
+
+commit 0f2ae1631b3d5317ae1d6273c9daa54c8401d100
+Author: Ethan Jennings <ethanhjennings@gmail.com>
+Date:   Wed Apr 6 20:49:29 2016 -0500
+
+    Adding run_tests route
+
+commit 8792e560c50340cc79f5f2b1ca9505712cb93d7c
+Author: Ethan Jennings <ethanhjennings@gmail.com>
+Date:   Wed Apr 6 20:15:49 2016 -0500
+
+    Fixing displaying ip address from script
+
+commit 63b4daee136466185a9a5a6f52d9621d9dfa8dd6
+Author: Ethan Jennings <ethanhjennings@gmail.com>
+Date:   Wed Apr 6 20:11:12 2016 -0500
+
+    Adding support for linux in run_local.sh
+
+commit 26bf2b400e1941a43e04879355609436d1ac3852
+Author: willhuang93 <negative134@gmail.com>
+Date:   Wed Apr 6 18:04:36 2016 -0500
+
+    database is up, tables are created, need to get data
+
+commit 242dec608dc7b8eb5e726dc9ad88377e3adbc94b
+Merge: 6f75a0c a69fb50
+Author: willhuang93 <negative134@gmail.com>
+Date:   Tue Apr 5 23:36:39 2016 -0500
+
+    Merge branch 'dev' of https://github.com/Omar1450/cs373-idb into dev
+
+commit 6f75a0c4347b9415aeacb77e48445586c99faf30
+Author: willhuang93 <negative134@gmail.com>
+Date:   Tue Apr 5 22:31:04 2016 -0500
+
+    database with no tables
+
+commit a69fb50ca6b60c48350d36d0d048dd4c902f469e
+Author: ChidiOmen <ochidimon@utexas.edu>
+Date:   Tue Apr 5 21:57:42 2016 -0500
+
+    Used Flask in HTML to generate pages by ID
+
+commit 21f6ef108ea7bdbb04825c01de442196f892d694
+Author: ChidiOmen <ochidimon@utexas.edu>
+Date:   Tue Apr 5 20:24:53 2016 -0500
+
+    Changed HTML links to work with Flask
+
+commit afed089515aa32052075e4ad0301e97d5ae40b77
+Author: Ethan Jennings <ethanhjennings@gmail.com>
+Date:   Tue Apr 5 19:08:38 2016 -0500
+
+    Integrating html content with flask
+
+commit 7b7ce1ca1b6116493e7395e20f32beccef2c0494
+Author: Ethan Jennings <ethanhjennings@gmail.com>
+Date:   Mon Apr 4 23:19:59 2016 -0500
+
+    Fixing bad-gatway error and updating helper scripts
+
+commit db4c2710f989a16a4d8f31b242a443251b8843ff
+Author: Omar Mahmud <Omar Mahmud>
+Date:   Fri Apr 1 17:41:36 2016 -0500
+
+    Added the create_database command to the runlocal and pushtoprod sh
+    files and app.py now has improved flask for single champion, summoner, and
+    team pages.
+
+commit c20580f59fba5a5188a5e2424614e69fb7bdb432
+Author: Ethan Jennings <ethanhjennings@gmail.com>
+Date:   Thu Mar 31 03:26:54 2016 -0500
+
+    Adding flask app code
+
+commit aa66f1bed336233e480d73eb450cb41f7a107cab
+Author: ChidiOmen <ochidimon@utexas.edu>
+Date:   Wed Mar 30 17:02:33 2016 -0500
+
+    Added static HTML files
+
+commit 79d8e77588c7a45f5c577e0d645d54758e629849
+Merge: 0fc6c15 0ba7447
+Author: willhuang93 <negative134@gmail.com>
+Date:   Thu Mar 24 21:49:14 2016 -0500
+
+    Merge pull request #16 from Omar1450/dev
+    
+    data model pictures
+
+commit 0ba7447e22906f55aabf23700ec4e032707e4273
+Author: Ouyangzheng Huang <ouyang16@cs.utexas.edu>
+Date:   Thu Mar 24 21:45:45 2016 -0500
+
+    data model pictures
+
+commit 0fc6c1516efea6c4719521618e977c6f7a5496a7
+Merge: 0cec0a5 f4eb653
+Author: Ethan Jennings <ethanhjennings@gmail.com>
+Date:   Thu Mar 24 21:44:54 2016 -0500
+
+    Merge branch 'dev'
+
+commit f4eb6535aa2e639aaab148990df02f94f3d4a9ae
+Author: Ethan Jennings <ethanhjennings@gmail.com>
+Date:   Thu Mar 24 21:44:19 2016 -0500
+
+    Adding log
+
+commit b1f899078faca8a3d8608551c2ca8ed51ae1c006
+Author: Nalisia Greenleaf <nalisia@cs.utexas.edu>
+Date:   Thu Mar 24 17:23:03 2016 -0500
+
+    include time estimates in README
+
+commit 5d44c21e27efadd4e2dc635ebd20c8a49c51cd48
+Author: Ethan Jennings <ethanhjennings@gmail.com>
+Date:   Thu Mar 24 16:52:50 2016 -0500
+
+    Updating API yet again
+
+commit 37adb3ea93c16882196d8c01ff89dbcc115db3f3
+Merge: 881752d b79ee11
+Author: Omar Mahmud <omar1450@cs.utexas.edu>
+Date:   Thu Mar 24 16:36:19 2016 -0500
+
+    Pulling to fix pip install app on travis yml.
+
+commit 881752d3289c60c2f4c1cb24c78e98af9fb4ca67
+Merge: f722821 fa1172d
+Author: Omar Mahmud <omar1450@cs.utexas.edu>
+Date:   Thu Mar 24 16:35:37 2016 -0500
+
+    Pulling in order to push travis.yml changes
+
+commit b79ee1149739fbb727c119b42190f3a2e069f58e
+Author: Ouyangzheng Huang <ouyang16@cs.utexas.edu>
+Date:   Thu Mar 24 16:35:24 2016 -0500
+
+    script for scraping Riot API and input file, currently reads from text file
+
+commit f722821ca6829967d3ba03bac9bd0b1fc6b07c3c
+Author: Omar Mahmud <omar1450@cs.utexas.edu>
+Date:   Thu Mar 24 16:35:05 2016 -0500
+
+    I took out the pip install app command from the travis.yml file.
+
+commit fa1172dc8c764ca917d04f7a41713d6d6f5d6aab
+Author: Ethan Jennings <ethanhjennings@gmail.com>
+Date:   Thu Mar 24 16:30:17 2016 -0500
+
+    Making makefile run by ignoring tests
+
+commit 85772429e7561732fba5411b7601f79e50ee6482
+Author: Ethan Jennings <ethanhjennings@gmail.com>
+Date:   Thu Mar 24 16:26:44 2016 -0500
+
+    Fixing apiary API
+
+commit 96353707be64b1d3692e97c66c20da456a64846a
+Author: Omar Mahmud <omar1450@cs.utexas.edu>
+Date:   Wed Mar 23 23:25:21 2016 -0500
+
+    I added pip install app to .travis.yml.
+
+commit 86093ff97940b7bb8be47bc85eeb78ad17589b19
+Author: Omar Mahmud <omar1450@cs.utexas.edu>
+Date:   Wed Mar 23 23:22:57 2016 -0500
+
+    I added pip install Flask-script and pip install flask-sqlalchemy to the travis.yml file.
+
+commit 1e5f397f0d8b3c30a812ed7afae400de61148e13
+Author: Ethan Jennings <ethanhjennings@gmail.com>
+Date:   Wed Mar 23 23:21:31 2016 -0500
+
+    Fixing models.py and adding models.html
+
+commit 0cec0a5e66ae93159352f16c58d334a7880e76bd
+Author: Ethan Jennings <ethanhjennings@gmail.com>
+Date:   Wed Mar 23 23:20:55 2016 -0500
+
+    Fixing models.py and adding models.html
+
+commit 89d892cbd3044eaefe532e9791742c53cbe83cdd
+Author: Omar Mahmud <omar1450@cs.utexas.edu>
+Date:   Wed Mar 23 23:09:42 2016 -0500
+
+    Adding pip install flask.ext.sqlalchemy to travis.yml.
+
+commit 6de78414890c9d47bf40603409848452edc4363b
+Author: Omar Mahmud <omar1450@cs.utexas.edu>
+Date:   Wed Mar 23 23:07:35 2016 -0500
+
+    I added pip install sqlalchemy to the .travis.yml file.
+
+commit a621a69bbdb2d7d88d08911ac105721d460a3dc2
+Author: Omar Mahmud <omar1450@cs.utexas.edu>
+Date:   Wed Mar 23 23:03:45 2016 -0500
+
+    I added pip install flask to the .travis.yml file.
+
+commit 2909f42996a4cd0fb953a7237e807fecf1ccf554
+Author: Omar Mahmud <omar1450@cs.utexas.edu>
+Date:   Wed Mar 23 23:01:57 2016 -0500
+
+    Removed the pip install json from the .travis.yml.
+
+commit 00fba0759f4c4631e25918227b4bb6bc01220122
+Author: Omar Mahmud <omar1450@cs.utexas.edu>
+Date:   Wed Mar 23 22:59:50 2016 -0500
+
+    Adding commands to install json and requests into travis.yml.
+
+commit 4c3b87e99f721fc34b1f19b45adfd722c862577b
+Author: Omar Mahmud <omar1450@cs.utexas.edu>
+Date:   Wed Mar 23 22:55:13 2016 -0500
+
+    Fixing test from makefile for travis.
+
+commit b443e1080c8de7e6ff2524fa2046c00cb98154d7
+Merge: 3e2ef24 de035a3
+Author: Omar Mahmud <omar1450@cs.utexas.edu>
+Date:   Wed Mar 23 22:50:02 2016 -0500
+
+    Pulling dev branch in order to add fixed makefile.
+
+commit 3e2ef24179d5e5546fbbd3b35edc4456f2f252e0
+Author: Omar Mahmud <omar1450@cs.utexas.edu>
+Date:   Wed Mar 23 22:48:53 2016 -0500
+
+    I am fixing the make file adding test, model.html, and IDB1.log.
+
+commit de035a36ec0ea41a0030e41c6c839a065d26ac03
+Author: Ethan Jennings <ethanhjennings@gmail.com>
+Date:   Wed Mar 23 22:45:32 2016 -0500
+
+    Adding tests (broken for now)
+
+commit 0001e7ef1539646a190a249a9b178c349b11d818
+Author: Ethan Jennings <ethanhjennings@gmail.com>
+Date:   Wed Mar 23 22:40:40 2016 -0500
+
+    Adding (broken) unit tests
+
+commit 8acd2e2c078045df8d0d7c4d5f123048e3da1bb0
+Merge: 74f13c0 b090a5f
+Author: Ouyangzheng Huang <ouyang16@cs.utexas.edu>
+Date:   Wed Mar 23 22:39:54 2016 -0500
+
+    Merge branch 'dev' of https://github.com/Omar1450/cs373-idb into dev
+
+commit b090a5f81cd7941579741fbb2c7d12a3b379fb97
+Author: Omar Mahmud <omar1450@cs.utexas.edu>
+Date:   Wed Mar 23 22:38:32 2016 -0500
+
+    Correcting spelling error on travis file.
+
+commit 74f13c0ecfc9f38b9ee163d5f44e62587c64ce82
+Merge: 437b95f 86e4119
+Author: Ouyangzheng Huang <ouyang16@cs.utexas.edu>
+Date:   Wed Mar 23 22:36:43 2016 -0500
+
+    Merge branch 'dev' of https://github.com/Omar1450/cs373-idb into dev
+
+commit 437b95f0e92fabe108234c9a4ed01f2f91bd89c5
+Author: Ouyangzheng Huang <ouyang16@cs.utexas.edu>
+Date:   Wed Mar 23 22:35:42 2016 -0500
+
+    Finished Models.py and its documentation, might need further inspection and correction
+
+commit 86e41193b49f66b33477131db5c90e954b1f5f88
+Author: Omar Mahmud <omar1450@cs.utexas.edu>
+Date:   Wed Mar 23 22:34:33 2016 -0500
+
+    I'm adding the travis yml file.
+
+commit cd44189148dda698041ace8ba82c27d629ebc3d4
+Author: Omar Mahmud <omar1450@cs.utexas.edu>
+Date:   Wed Mar 23 22:32:12 2016 -0500
+
+    I'm adding the makefile.
+
+commit 6c30f139ec26132526f47a4e03275c91f0237dc6
+Author: Omar Mahmud <omar1450@cs.utexas.edu>
+Date:   Wed Mar 23 22:28:49 2016 -0500
+
+    Change the UML Class diagram Name.
+
+commit 8a3080bf3ce4be67e6e8b050d4c4ae8c4f47a13d
+Merge: d104b6e f187f58
+Author: Omar Mahmud <omar1450@cs.utexas.edu>
+Date:   Wed Mar 23 21:36:00 2016 -0500
+
+    Merge branch 'dev' of https://github.com/Omar1450/cs373-idb into dev
+
+commit d104b6e26865990328679d85b1053855496bd3aa
+Merge: dd1ecd6 a7994b8
+Author: Omar Mahmud <omar1450@cs.utexas.edu>
+Date:   Wed Mar 23 21:32:22 2016 -0500
+
+    I am adding the UML Class diagram.
+
+commit dd1ecd6b59c4adb1fbd11b1491763759a0a86d32
+Author: Omar Mahmud <omar1450@cs.utexas.edu>
+Date:   Wed Mar 23 21:30:34 2016 -0500
+
+    I am adding the UML class diagram.
+
+commit f187f5829f53bc42bc89b525bf03d7364738a234
+Author: Ethan Jennings <ethanhjennings@gmail.com>
+Date:   Wed Mar 23 21:30:24 2016 -0500
+
+    Adding API documentation, fixes #13
+
+commit a7994b886e38d330f4f5ca248f008b501eccaeae
+Author: Ethan Jennings <ethanhjennings@gmail.com>
+Date:   Wed Mar 23 21:29:17 2016 -0500
+
+    first commit

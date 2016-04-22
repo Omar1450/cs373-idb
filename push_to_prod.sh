@@ -46,16 +46,16 @@ docker rmi $(docker images -q) || true
 docker-compose --file docker-compose-prod.yml up -d
 
 echo "Giving database time to to start up"
-sleep 15
+sleep 30
 
 echo "Running create_db"
 docker-compose --file docker-compose-prod.yml run -d --rm --no-deps app python app.py create_db
-sleep 10
+sleep 30
 
 echo "Running populate"
 docker-compose --file docker-compose-prod.yml run -d --rm --no-deps app python app.py populate
 
-sleep 15
+sleep 60
 
 # print ip and port
 echo "ip address:"
