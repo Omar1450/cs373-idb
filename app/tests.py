@@ -130,7 +130,7 @@ class TestApp (TestCase):
         self.assertEqual(d['or_set'][0]["context"][1], "rank: 780")
         self.assertEqual(d['or_set'][0]["type"], "summoner")  
 
-    def test_apiCallSearch_2(self):
+    def test_apiCallSearch_3(self):
         d = json.loads(requests.get('http://dudecarry.me/api/search/aatrox').text)
         
         self.assertEqual(d['and_set'][0]["context"][0], "name: Aatrox")
