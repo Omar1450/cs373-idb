@@ -53,7 +53,7 @@
 </div>
 
 <div class="container" ng-app="lol_app" ng-controller="lol_controller">
-
+  <div ng-init="request_summoners()"></div>
   <!-- Search Form -->
   <form>
     <div class="form-group">
@@ -84,10 +84,10 @@
             </a>
           </td>
           <td>
-            <a href="#" ng-click="summs_sortReverse = sortOrder(summs_sortType, 'rank', summs_sortReverse); summs_sortType = 'rank'">
-              Rank
-              <span ng-show="summs_sortType == 'rank' && !summs_sortReverse" class="fa fa-caret-down"></span>
-              <span ng-show="summs_sortType == 'rank' && summs_sortReverse" class="fa fa-caret-up"></span>
+            <a href="#" ng-click="summs_sortReverse = sortOrder(summs_sortType, 'lp', summs_sortReverse); summs_sortType = 'lp'">
+              League Points
+              <span ng-show="summs_sortType == 'lp' && !summs_sortReverse" class="fa fa-caret-down"></span>
+              <span ng-show="summs_sortType == 'lp' && summs_sortReverse" class="fa fa-caret-up"></span>
             </a>
           </td>
           <td>
@@ -109,9 +109,9 @@
 
       <tbody>
         <tr ng-repeat="summ in summoners | orderBy:summs_sortType:summs_sortReverse | filter:summs_search">
-          <td><a href="{{summ.link}}">{{ summ.name }}</a></td>
+          <td><a href="/summoner/{{summ.id}}">{{ summ.name }}</a></td>
           <td>{{ summ.id }}</td>
-          <td>{{ summ.rank.tier }} {{summ.rank.division}}</td>
+          <td>{{ summ.lp }}</td>
           <td>{{ summ.win_percentage }}</td>
           <td>{{ summ.total_games }}</td>
         </tr>

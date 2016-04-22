@@ -57,8 +57,8 @@ status:
 	git remote -v
 	git status
 
-test: tests.py
-	python3 app/tests.py 
+test: 
+	coverage run app/tests.py 
 	coverage report --include=app/test_models.py,app/tests.py
 
 model.html: models.py

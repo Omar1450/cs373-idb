@@ -21,9 +21,7 @@ function getNumber(num) {
 
 var lol_app = angular.module('lol_app', []);
 
-lol_app.controller('lol_controller', function($scope) {
-
-  Console.log("EWRTYU");
+lol_app.controller('lol_controller', function($scope, $http) {
 
   $scope.rut = "Unit test complete.";
   $scope.fillrut = "";
@@ -41,7 +39,23 @@ lol_app.controller('lol_controller', function($scope) {
 
   // Summoners Data
 
-  $scope.summoners = [{
+  $scope.request_summoners = function() {
+    $http.get("/api/summoners")
+    .then(function(response) {
+      $scope.summoners = response.data.summoners;
+    });
+  }
+
+  $scope.request_summoner = function (id) {
+    $http.get("/api/summoner/" + id)
+    .then(function(response) {
+      var summoner = response.data;
+      summoner.icon_url = $scope.champion_icon_url(summoner.top_3_champs[0].name);
+      $scope.summoner = summoner;
+    });
+  }
+
+  /*$scope.summoners = [{
     "name": "XRedxDragonX",
     "id": 23509228,
     "icon_url": "http://sk2.op.gg/images/profile_icons/profileIcon592.jpg",
@@ -104,7 +118,7 @@ lol_app.controller('lol_controller', function($scope) {
     "win_percentage": 0.530120481928,
     "total_games": 83,
     "link" : "/summoner/2",
-  }];
+  }];*/
 
   function get_summoner_link(index) {
     if (index < 0 || index >= $scope.summoners.length) {
@@ -147,39 +161,27 @@ lol_app.controller('lol_controller', function($scope) {
 
   // Champions Data
 
-  $scope.champs = [{
-    "name": "Thresh",
-    "id": 412,
-    "icon_url": "http://ddragon.leagueoflegends.com/cdn/6.5.1/img/champion/Thresh.png",
-    "title": "the Chain Warden",
-    "hp": 560.2,
-    "mp": 273.92,
-    "movespeed": 335.0,
-    "spellblock": 30.0,
-    "link": "/champion/0",
-  },
-  {
-    "name": "Veigar",
-    "id": 45,
-    "icon_url": "http://ddragon.leagueoflegends.com/cdn/6.5.1/img/champion/Veigar.png",
-    "title": "the Tiny Master of Evil",
-    "hp": 492.76,
-    "mp": 392.4,
-    "movespeed": 340.0,
-    "spellblock": 30.0,
-    "link": "/champion/1",
-  },
-  {
-    "name": "Katarina",
-    "id": 55,
-    "icon_url": "http://ddragon.leagueoflegends.com/cdn/6.5.1/img/champion/Katarina.png",
-    "title": "'the Sinister Blade'",
-    "hp": 510.0,
-    "mp": 0.0,
-    "movespeed": 345.0,
-    "spellblock": 32.1,
-    "link": "/champion/2",
-  }];
+  $scope.champion_icon_url = function(name) {
+  return "http://ddragon.leagueoflegends.com/cdn/6.7.1/img/champion/" + 
+    name.replace(/'(.)/, function(v) { return v.toLowerCase(); })
+    .replace(/[^a-zA-Z0-9]/g,'') + ".png";
+  }
+
+  $scope.request_champs = function() {
+    $http.get("/api/champions")
+    .then(function(response) {
+      $scope.champs = response.data.champions;
+    });
+  }
+
+  $scope.request_champ = function (id) {
+    $http.get("/api/champion/" + id)
+    .then(function(response) {
+      var champ = response.data;
+      champ.icon_url = $scope.champion_icon_url(champ.name);      
+      $scope.champ = champ;
+    });
+  }
 
   function get_champion_link(index) {
     if (index < 0 || index >= $scope.champs.length) {
@@ -220,10 +222,23 @@ lol_app.controller('lol_controller', function($scope) {
   $scope.teams_sortReverse  = false;  // set the default sort order
   $scope.teams_search   = '';     // set the default search/filter term
 
-
   // Teams Data
 
-  $scope.teams = [{
+  $scope.request_teams = function() {
+    $http.get("/api/teams")
+    .then(function(response) {
+      $scope.teams = response.data.teams;
+    });
+  }
+
+  $scope.request_team = function (id) {
+    $http.get("/api/team/" + id)
+    .then(function(response) {
+      $scope.team = response.data;
+    });
+  }
+
+  /*$scope.teams = [{
       "name": "Order of the Iron Potato",
       "id": "TEAM-222e7b80-49d9-11e4-806c-782bcb4d0bb2",
       "tag": "OPot",
@@ -262,6 +277,6 @@ lol_app.controller('lol_controller', function($scope) {
           36109721
       ],
       "link" : "/team/2",
-  }];
+  }];*/
 
 });
