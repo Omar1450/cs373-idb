@@ -100,10 +100,10 @@ class TestApp (TestCase):
     def test_team_3(self):
         d = json.loads(requests.get('http://dudecarry.me/api/team/TEAM-265d8300-1379-11e3-af41-782bcb4d0bb2').text)
         
-        self.assertEqual(team['id'], "TEAM-265d8300-1379-11e3-af41-782bcb4d0bb2")
-        self.assertEqual(team['tag'], "BALEAF")
-        self.assertEqual(team['win_percentage'], 0.560976)
-        self.assertEqual(team['name'], "Bayleaf")       
+        self.assertEqual(d['id'], "TEAM-265d8300-1379-11e3-af41-782bcb4d0bb2")
+        self.assertEqual(d['tag'], "BALEAF")
+        self.assertEqual(d['win_percentage'], 0.560976)
+        self.assertEqual(d['name'], "Bayleaf")       
 
     # ---------------------------
     # Test database functionality
@@ -188,7 +188,8 @@ class TestApp (TestCase):
         summ_test = summoner_to_json(summoner)
        
 
-        self.assertEqual(summ_test, json.dumps(summ_true))
+        for field in summ_true:
+            self.assertEqual(summ_true[field], summ_test[field])
 
         db.session.delete(summ)
         db.session.commit()
@@ -214,7 +215,8 @@ class TestApp (TestCase):
 
         team_test = team_to_json(team)
 
-        self.assertEqual(team_test, json.dumps(team_true))
+        for field in team_true:
+            self.assertEqual(team_true[field], team_test[field])
 
         db.session.delete(tm)
         db.session.commit()
@@ -240,11 +242,11 @@ class TestApp (TestCase):
 
         champ_test = champion_to_json(champ)
 
-        self.assertEqual(champ_test, json.dumps(champ_true))
+        for field in champ_true:
+            self.assertEqual(champ_true[field], champ_test[field])
 
         db.session.delete(champ)
         db.session.commit()
-        self.assertEqual(champ_test, champ_true)
 
 
 if __name__ == '__main__':
