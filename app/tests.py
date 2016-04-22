@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 import unittest
+import requests
 from flask.ext.testing import TestCase
 from sqlalchemy import create_engine
 from flask import Flask
@@ -52,12 +53,12 @@ class TestApp (TestCase):
         self.assertEqual(champ.spellblock, 0)
         self.assertEqual(champ.portrait_url, "url")
 
-    # def test_champion_3(self):
-    #     d = json.loads(requests.get('dudecarry.me/champion/412').text)
-    #     self.assertEqual(d['name'], 'Thresh')
-    #     self.assertEqual(d['id'], 412)
-    #     self.assertEqual(d['hp'], 560.2)
-    #     self.assertEqual(d['mp'], 273.92)
+    def test_champion_3(self):
+        d = json.loads(requests.get('http://dudecarry.me/api/champion/103').text)
+        self.assertEqual(d['name'], 'Ahri')
+        self.assertEqual(d['id'], 103)
+        self.assertEqual(d['hp'], 514.3)
+        self.assertEqual(d['mp'], 334.0)
 
     # -------------
     # Summoners
@@ -67,17 +68,19 @@ class TestApp (TestCase):
         summoner = Summoner(0, "", "", "", 0, 0, 0)
         self.assertEqual(summoner.id, 0)
         self.assertEqual(summoner.name, "")
-        self.assertEqual(summoner.win_percentage, 0.52)       
+        self.assertEqual(summoner.win_percentage, 0.0)       
 
     def test_summoner_2(self):
         summoner = Summoner(10, "test_name", "bronze", "I", 56, 0.52, 100)
         self.assertEqual(summoner.id, 10)
         self.assertEqual(summoner.name, 'test_name')
 
-    # def test_summoner_3(self):
-    #     d = json.loads(request.get('dudecarry.me/summoner/23509228').text)
-    #     self.assertEqual(d['name'], 'XRedxDragonX')
-    #     self.assertEqual(d['id'], 23509228)
+    def test_summoner_3(self):
+        d = json.loads(request.get('http://dudecarry.me/api/summoner/35590582').text)
+        self.assertEqual(d['name'], 'Annie Bot')
+        self.assertEqual(d['id'], 35590582)
+        self.assertEqual(d['lp'], 528)
+        self.assertEqual(d['total_games'], 473)
 
     # -------------
     # Teams
@@ -94,11 +97,13 @@ class TestApp (TestCase):
         self.assertEqual(team.id, "team_id")
         self.assertEqual(team.name, 'test-name')
 
-    # def test_team_3(self):
-    #     d = json.loads(requests.get('dudecarry.me/team/23509228').text)
-    #     self.assertEqual(team['id'], "TEAM-222e7b80-49d9-11e4-806c-782bcb4d0bb2")
-    #     self.assertEqual(team['tag'], "OPot")
-    #     self.assertEqual(team['win_percentage'], 0.5)       
+    def test_team_3(self):
+        d = json.loads(requests.get('dudecarry.me/api/team/TEAM-265d8300-1379-11e3-af41-782bcb4d0bb2').text)
+        
+        self.assertEqual(team['id'], "TEAM-265d8300-1379-11e3-af41-782bcb4d0bb2")
+        self.assertEqual(team['tag'], "BALEAF")
+        self.assertEqual(team['win_percentage'], 0.560976)
+        self.assertEqual(team['name'], "Bayleaf")       
 
     # ---------------------------
     # Test database functionality
@@ -180,7 +185,7 @@ class TestApp (TestCase):
         }
 
 
-        summ_test = test_models.summoner_to_json(summoner)
+        summ_test = summoner_to_json(summoner)
        
 
         self.assertEqual(summ_test, json.dumps(summ_true))
@@ -207,7 +212,7 @@ class TestApp (TestCase):
             "summoners":                    []    
         }
 
-        team_test = test_models.team_to_json(team)
+        team_test = team_to_json(team)
 
         self.assertEqual(team_test, json.dumps(team_true))
 
@@ -233,7 +238,7 @@ class TestApp (TestCase):
             "icon_url":   ""
         }
 
-        champ_test = test_models.champ_to_json(champ)
+        champ_test = champ_to_json(champ)
 
         self.assertEqual(champ_test, json.dumps(champ_true))
 
