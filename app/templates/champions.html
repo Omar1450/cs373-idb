@@ -52,8 +52,8 @@
   <hr>
 </div>
 
-<div class="container" ng-app="lol_app" ng-controller="lol_controller">
-
+<div id="mainSection" class="container" ng-app="lol_app" ng-controller="lol_controller">
+  <div ng-init="request_champs()"></div>
   <!-- Search Form -->
   <form>
     <div class="form-group">
@@ -123,7 +123,7 @@
 
       <tbody>
         <tr ng-repeat="champ in champs | orderBy:champs_sortType:champs_sortReverse | filter:champs_search">
-          <td><a href="{{champ.link}}">{{ champ.name }}</a></td>
+          <td><a href="champion/{{champ.id}}">{{ champ.name }}</a></td>
           <td>{{ champ.id }}</td>
           <td>{{ champ.title }}</td>
           <td>{{ champ.hp }}</td>

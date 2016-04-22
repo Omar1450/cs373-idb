@@ -1,39 +1,33 @@
+#!/usr/bin/env python3
+
 import unittest
+import requests
 from flask.ext.testing import TestCase
-import json
 from sqlalchemy import create_engine
-from flask.ext.sqlalchemy import SQLAlchemy
 from flask import Flask
 from unittest import main
-import requests
+from flask.ext.sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
 
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///testing.db'
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
-app.config['TESTING'] = True
+db = SQLAlchemy(app)
 
-test_db = SQLAlchemy(app)
-
-import test_models
+from test_models import *
 
 class TestApp (TestCase):
-    
-    # set up test database
-
-    SQLALCHEMY_DATABASE_URI = 'sqlite:///testing.db'
-
-    TESTING = True
 
     def create_app(self):
+        app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///testing.db'
+        app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
+        app.config['TESTING'] = True
         return app
 
     def setUp(self):
-        test_db.create_all();
+        db.create_all();
 
     def tearDown(self):
-        test_db.session.remove()
-        test_db.drop_all()
+        db.session.remove()
+        db.drop_all()
 
     # -----------
     # Champions
@@ -59,12 +53,12 @@ class TestApp (TestCase):
         self.assertEqual(champ.spellblock, 0)
         self.assertEqual(champ.portrait_url, "url")
 
-    # def test_champion_3(self):
-    #     d = json.loads(requests.get('dudecarry.me/champion/412').text)
-    #     self.assertEqual(d['name'], 'Thresh')
-    #     self.assertEqual(d['id'], 412)
-    #     self.assertEqual(d['hp'], 560.2)
-    #     self.assertEqual(d['mp'], 273.92)
+    def test_champion_3(self):
+        d = json.loads(requests.get('http://dudecarry.me/api/champion/103').text)
+        self.assertEqual(d['name'], 'Ahri')
+        self.assertEqual(d['id'], 103)
+        self.assertEqual(d['hp'], 514.4)
+        self.assertEqual(d['mp'], 334.0)
 
     # -------------
     # Summoners
@@ -74,17 +68,19 @@ class TestApp (TestCase):
         summoner = Summoner(0, "", "", "", 0, 0, 0)
         self.assertEqual(summoner.id, 0)
         self.assertEqual(summoner.name, "")
-        self.assertEqual(summoner.win_percentage, 0.52)       
+        self.assertEqual(summoner.win_percentage, 0.0)       
 
     def test_summoner_2(self):
         summoner = Summoner(10, "test_name", "bronze", "I", 56, 0.52, 100)
         self.assertEqual(summoner.id, 10)
         self.assertEqual(summoner.name, 'test_name')
 
-    # def test_summoner_3(self):
-    #     d = json.loads(request.get('dudecarry.me/summoner/23509228').text)
-    #     self.assertEqual(d['name'], 'XRedxDragonX')
-    #     self.assertEqual(d['id'], 23509228)
+    def test_summoner_3(self):
+        d = json.loads(requests.get('http://dudecarry.me/api/summoner/35590582').text)
+        self.assertEqual(d['name'], 'Annie Bot')
+        self.assertEqual(d['id'], 35590582)
+        self.assertEqual(d['lp'], 528)
+        self.assertEqual(d['total_games'], 473)
 
     # -------------
     # Teams
@@ -101,21 +97,57 @@ class TestApp (TestCase):
         self.assertEqual(team.id, "team_id")
         self.assertEqual(team.name, 'test-name')
 
-    # def test_team_3(self):
-    #     d = json.loads(requests.get('dudecarry.me/team/23509228').text)
-    #     self.assertEqual(team['id'], "TEAM-222e7b80-49d9-11e4-806c-782bcb4d0bb2")
-    #     self.assertEqual(team['tag'], "OPot")
-    #     self.assertEqual(team['win_percentage'], 0.5)       
+    def test_team_3(self):
+        d = json.loads(requests.get('http://dudecarry.me/api/team/TEAM-265d8300-1379-11e3-af41-782bcb4d0bb2').text)
+        
+        self.assertEqual(d['id'], "TEAM-265d8300-1379-11e3-af41-782bcb4d0bb2")
+        self.assertEqual(d['tag'], "BALEAF")
+        self.assertEqual(d['win_percentage'], 0.560976)
+        self.assertEqual(d['name'], "Bayleaf")       
+
+    # ----------------------
+    # Test Search API calls
+    # ----------------------
+
+    def test_apiCallSearch_1(self):
+        d = json.loads(requests.get('http://dudecarry.me/api/search/aatrox%20thresh').text)
+        
+        self.assertEqual(d['and_set'], [])
+        self.assertEqual(d['or_set'][0]["context"][0], "name: Aatrox")
+        self.assertEqual(d['or_set'][0]["type"], "champion")
+
+        self.assertEqual(d['or_set'][1]["context"][0], "name: Thresh")
+        self.assertEqual(d['or_set'][1]["type"], "champion")  
+
+    def test_apiCallSearch_2(self):
+        d = json.loads(requests.get('http://dudecarry.me/api/search/aatrox%207').text)
+        
+        self.assertEqual(d['and_set'][0]["context"][0], "hp: 537.8")
+        self.assertEqual(d['and_set'][0]["context"][1], "name: Aatrox")
+        self.assertEqual(d['and_set'][0]["type"], "champion")
+
+        self.assertEqual(d['or_set'][0]["context"][0], "id: 73459352")
+        self.assertEqual(d['or_set'][0]["context"][1], "rank: 780")
+        self.assertEqual(d['or_set'][0]["type"], "summoner")  
+
+    def test_apiCallSearch_3(self):
+        d = json.loads(requests.get('http://dudecarry.me/api/search/aatrox').text)
+        
+        self.assertEqual(d['and_set'][0]["context"][0], "name: Aatrox")
+        self.assertEqual(d['and_set'][0]["type"], "champion")
+
+        self.assertEqual(d['or_set'][0]["context"][0], "name: Aatrox")
+        self.assertEqual(d['or_set'][0]["type"], "champion")
 
     # ---------------------------
     # Test database functionality
     # ---------------------------
 
-    def test_db_1(self):
+    def db_1(self):
         summ = Summoner(10, "test_name", "bronze", "I", 56, 0.52, 100)
         
-        test_db.session.add(summ)
-        test_db.session.commit()
+        db.session.add(summ)
+        db.session.commit()
 
         ret = Summoner.query.filter(Summoner.id == 10).first()
 
@@ -125,13 +157,13 @@ class TestApp (TestCase):
         self.assertEqual(summ.division, ret.division)
         self.assertEqual(summ.lp, ret.lp)
 
-        test_db.session.delete(summ)
-        test_db.session.commit()
+        db.session.delete(summ)
+        db.session.commit()
 
-    def test_db_2(self):
+    def db_2(self):
         champ = Champion(10, "test_name", "bronze champ op", 1, 2, 3, 100, "")
-        test_db.session.add(champ)
-        test_db.session.commit()
+        db.session.add(champ)
+        db.session.commit()
 
         ret = Champion.query.filter(Champion.id == 10).first()
 
@@ -141,14 +173,14 @@ class TestApp (TestCase):
         self.assertEqual(champ.spellblock, ret.spellblock)
         self.assertEqual(champ.movespeed, ret.movespeed)
 
-        test_db.session.delete(champ)
-        test_db.session.commit()
+        db.session.delete(champ)
+        db.session.commit()
 
-    def test_db_3(self):
+    def db_3(self):
         tm = Team("team_id", "team_name", "test_tag", True, 0.52, 56, "123123")
 
-        test_db.session.add(tm)
-        test_db.session.commit()
+        db.session.add(tm)
+        db.session.commit()
 
         ret = Team.query.filter(Team.id == "team_id").first()
 
@@ -158,25 +190,25 @@ class TestApp (TestCase):
         self.assertEqual(tm.total_games, ret.total_games)
         self.assertEqual(tm.win_percentage, ret.win_percentage)
 
-        test_db.session.delete(tm)
-        test_db.session.commit()
+        db.session.delete(tm)
+        db.session.commit()
 
     # --------------------------------
-    # Test test_models.py API functionality
+    # Test test_models.py API functions
     # --------------------------------
 
-    def test_apiCall_1(self):
+    def test_apiFunc_1(self):
         summ = Summoner(10, "test_name", "bronze", "I", 56, 0.52, 100)
         
-        test_db.session.add(summ)
-        test_db.session.commit()
+        db.session.add(summ)
+        db.session.commit()
 
         summoner = Summoner.query.filter(Summoner.id == 10).first()
 
         summ_true = {
             "id":               10,
             "name":             "test_name",
-            "rank":             236,
+            "rank":             180,
             "tier":             "bronze",
             "division":         "I",
             "lp":               56,
@@ -187,21 +219,22 @@ class TestApp (TestCase):
         }
 
 
-        summ_test = test_models.summoner_to_json(summoner)
+        summ_test = summoner_to_json(summoner)
        
 
-        self.assertEqual(summ_test, json.dumps(summ_true))
+        for field in summ_true:
+            self.assertEqual(summ_true[field], summ_test[field])
 
-        test_db.session.delete(summ)
-        test_db.session.commit()
+        db.session.delete(summ)
+        db.session.commit()
 
 
-    def test_apiCall_2(self):
+    def test_apiFunc_2(self):
         tm = Team("team_id", "team_name", "test_tag", True, 0.52, 56, "123123")
-        test_db.session.add(tm)
-        test_db.session.commit()
+        db.session.add(tm)
+        db.session.commit()
 
-        team = Team.query.filter(Team.id == "test-id").first()
+        team = Team.query.filter(Team.id == "team_id").first()
 
         team_true = {
             "id":                           "team_id",
@@ -214,18 +247,19 @@ class TestApp (TestCase):
             "summoners":                    []    
         }
 
-        team_test = test_models.team_to_json(team)
+        team_test = team_to_json(team)
 
-        self.assertEqual(team_test, json.dumps(team_true))
+        for field in team_true:
+            self.assertEqual(team_true[field], team_test[field])
 
-        test_db.session.delete(tm)
-        test_db.session.commit()
+        db.session.delete(tm)
+        db.session.commit()
 
-    def test_apiCall_3(self):
+    def test_apiFunc_3(self):
 
         champ = Champion(10, "test_name", "bronze champ op", 1, 2, 3, 100, "")
-        test_db.session.add(champ)
-        test_db.session.commit()
+        db.session.add(champ)
+        db.session.commit()
 
         champ = Champion.query.filter(Champion.id == 10).first()
 
@@ -240,14 +274,14 @@ class TestApp (TestCase):
             "icon_url":   ""
         }
 
-        champ_test = test_models.champ_to_json(champ)
+        champ_test = champion_to_json(champ)
 
-        self.assertEqual(champ_test, json.dumps(champ_true))
+        for field in champ_true:
+            self.assertEqual(champ_true[field], champ_test[field])
 
-        test_db.session.delete(champ)
-        test_db.session.commit()
-        self.assertEqual(champ_test, champ_true)
+        db.session.delete(champ)
+        db.session.commit()
 
 
 if __name__ == '__main__':
-    main()
+    unittest.main(verbosity = 2)

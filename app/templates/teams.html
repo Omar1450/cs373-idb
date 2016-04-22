@@ -53,7 +53,7 @@
 </div>
 
 <div class="container" ng-app="lol_app" ng-controller="lol_controller">
-
+  <div ng-init="request_teams()"></div>
   <!-- Search Form -->
   <form>
     <div class="form-group">
@@ -116,7 +116,7 @@
 
       <tbody>
         <tr ng-repeat="team in teams | orderBy:teams_sortType:teams_sortReverse | filter:teams_search">
-          <td><a href="{{team.link}}">{{ team.name }}</a></td>
+          <td><a href="/team/{{team.id}}">{{ team.name }}</a></td>
           <td>{{ team.id }}</td>
           <td>{{ team.tag }}</td>
           <td>{{ team.status }}</td>

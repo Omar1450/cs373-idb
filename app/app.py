@@ -6,6 +6,8 @@ import ast
 from flask import Flask, render_template, request, redirect, url_for, send_file, jsonify
 from flask.ext.script import Manager, Server
 from flask.ext.sqlalchemy import SQLAlchemy
+#from flask.ext.cors import CORS
+from search import SearchResult
 
 
 logging.basicConfig(
@@ -29,7 +31,8 @@ DATABASE_URI = \
 app.config['SQLALCHEMY_COMMIT_ON_TEARDOWN'] = True
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SQLALCHEMY_DATABASE_URI'] = DATABASE_URI
-app.config['SQLALCHEMY_ECHO'] = True
+app.config['SQLALCHEMY_ECHO'] = False
+#CORS(app)
 
 logger.debug("%s", DATABASE_URI)
 
@@ -145,10 +148,10 @@ def champion(id):
     return render_template('champ.html', id=id)
 
 @app.route('/teams')
-def teams(teams):
+def teams():
     return render_template('teams.html')
 
-@app.route('/team/<int:id>')
+@app.route('/team/<string:id>')
 def team(id):
     return render_template('team.html', id=id)
 
@@ -192,10 +195,89 @@ def api_summoner(id):
     summoner = Summoner.query.filter(Summoner.id == id).first()
     return jsonify_single_obj(summoner, summoner_to_json)
 
-@app.route('/api/team/<id>')
+@app.route('/api/team/<string:id>')
 def api_team(id):
     team = Team.query.filter(Team.id == id).first()
     return jsonify_single_obj(team, team_to_json)
+
+@app.route('/run_tests')
+def run_tests():
+    import subprocess
+    p = subprocess.Popen(['python3', 'tests.py'],
+                         stdout=subprocess.PIPE,
+                         stderr=subprocess.PIPE)
+    output = p.stdout.read()
+    output += p.stderr.read()
+
+    return output
+
+@app.route('/api/search/<sql_query>')
+def search(sql_query):
+    query_words = sql_query.split()
+    and_set = None
+    or_set = set()
+
+    for word in query_words:
+        champions = Champion.query.filter(
+            Champion.name.like("%"+word+"%") | 
+            Champion.title.like("%"+word+"%") | 
+            Champion.id.like("%"+word+"%") | 
+            Champion.hp.like("%"+word+"%") |  
+            Champion.mp.like("%"+word+"%") |  
+            Champion.movespeed.like("%"+word+"%") |  
+            Champion.spellblock.like("%"+word+"%")).all()
+
+        champion_searchresults = [SearchResult("champion", c.id, c) for c in champions]
+        
+        summoners = Summoner.query.filter(
+            Summoner.name.like("%"+word+"%") | 
+            Summoner.id.like("%"+word+"%") | 
+            Summoner.lp.like("%"+word+"%") | 
+            Summoner.win_percentage.like("%"+word+"%") | 
+            Summoner.total_games.like("%"+word+"%")).all()
+
+        summoner_searchresults = [SearchResult("summoner", s.id, s) for s in summoners]
+
+        teams = Team.query.filter(
+            Team.name.like("%"+word+"%") | 
+            Team.id.like("%"+word+"%") | 
+            Team.tag.like("%"+word+"%") | 
+            Team.win_percentage.like("%"+word+"%") | 
+            Team.total_games.like("%"+word+"%") | 
+            Team.status.like("%"+word+"%")).all()
+        
+        team_searchresults = [SearchResult("team", t.id, t) for t in teams]
+
+        iteration_set = set(champion_searchresults) | set(summoner_searchresults) | set(team_searchresults)
+     
+        if and_set == None:
+            and_set = iteration_set
+
+        or_set = or_set | iteration_set
+        and_set = and_set & iteration_set
+        
+    and_list = list(and_set)
+    or_list = [s.copy() for s in list(or_set)]
+
+    # Get context
+    
+    for word in query_words:
+        for i, r in enumerate(and_list):
+            for variable, value in r.obj.__dict__.items():
+                if (not variable.startswith("_") and
+                    word.lower() in str(value).lower()):
+                    and_list[i].context.add(str(variable) + ": " + str(value))
+                    
+ 
+        for i, r in enumerate(or_list):
+            for variable, value in r.obj.__dict__.items():
+                if (not variable.startswith("_") and
+                    word.lower() in str(value).lower()):
+                    or_list[i].context.add(str(variable) + ": " + str(value))
+
+
+    return jsonify({"and_set": [s.to_json() for s in and_list],
+                    "or_set":  [s.to_json() for s in or_list]})
 
 if __name__ == '__main__':
 
