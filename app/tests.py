@@ -109,27 +109,6 @@ class TestApp (TestCase):
     # Test Search API calls
     # ----------------------
 
-    def test_apiCallSearch_1(self):
-        d = json.loads(requests.get('http://dudecarry.me/api/search/aatrox%20thresh').text)
-        
-        self.assertEqual(d['and_set'], [])
-        self.assertEqual(d['or_set'][0]["type"], "champion")
-
-        self.assertEqual(d['or_set'][1]["context"][0], "name: Thresh")
-        self.assertEqual(d['or_set'][1]["type"], "champion")  
-
-    def test_apiCallSearch_2(self):
-        d = json.loads(requests.get('http://dudecarry.me/api/search/aatrox%207').text)
-        
-        self.assertTrue("hp: 537.8" in d['and_set'][0]["context"])
-        self.assertEqual(d['and_set'][0]["type"], "champion")
-
-        
-        self.assertTrue("id: 73459352" in d['or_set'][0]["context"])
-        self.assertTrue("rank: 780" in d['or_set'][0]["context"])
-        self.assertEqual(d['and_set'][0]["type"], "champion")
-
-
     def test_apiCallSearch_3(self):
         d = json.loads(requests.get('http://dudecarry.me/api/search/aatrox').text)
         
