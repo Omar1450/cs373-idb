@@ -33,17 +33,19 @@ then
     echo "MYSQL_ROOT_PASSWORD=${mysql_password}" >> mysql-prod.env
 fi 
 
+
 # stop already running containers
 printf "\nStopping old containers\n"
-docker stop $(docker ps -a -q) || true
-docker rm $(docker ps -a -q) || true
+#docker stop $(docker ps -a -q) || true
+#docker rm $(docker ps -a -q) || true
 #docker rmi $(docker images -q) || true
 
-
-
 # run the app
+#docker-compose stop
 docker-compose up
 
-#create database
-# docker-compose run -d --rm --no-deps app python app.py create_db
+exit 0
 
+#create database
+docker-compose run -d --rm --no-deps app python app.py create_db
+docker-compose run -d --rm --no-deps app python app.py populate

@@ -5,6 +5,7 @@ models.py
 import json
 
 from app import db 
+from app import logger
 from flask.ext.sqlalchemy import SQLAlchemy
 
 

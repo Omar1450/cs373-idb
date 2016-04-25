@@ -3,12 +3,12 @@ import os
 import time
 import ast
 
+import flask
 from flask import Flask, render_template, request, redirect, url_for, send_file, jsonify
 from flask.ext.script import Manager, Server
 from flask.ext.sqlalchemy import SQLAlchemy
 from flask.ext.cors import CORS
 from search import SearchResult
-
 
 logging.basicConfig(
     level=logging.DEBUG,
@@ -218,13 +218,16 @@ def api_team_by_name(name):
 @app.route('/run_tests')
 def run_tests():
     import subprocess
-    p = subprocess.Popen(['python3', 'tests.py'],
+    p = subprocess.Popen(['python3', 'tests.py',],
                          stdout=subprocess.PIPE,
                          stderr=subprocess.PIPE)
-    output = p.stdout.read()
-    output += p.stderr.read()
+    output = str(p.stdout.read())
+    output += str(p.stderr.read())
+    output = output.replace('\\n', '<br/>')
+    response = flask.Response(output)
+    response.headers["content-type"] = "text/html"
 
-    return output
+    return response
 
 @app.route('/api/search/<sql_query>')
 def search(sql_query):
