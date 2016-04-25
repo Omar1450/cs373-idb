@@ -190,14 +190,29 @@ def api_champion(id):
     champion = Champion.query.filter(Champion.id == id).first()
     return jsonify_single_obj(champion, champion_to_json)
 
+@app.route('/api/champion/name/<string:name>')
+def api_champion_by_name(name):
+    champion = Champion.query.filter(Champion.name == name).first()
+    return jsonify_single_obj(champion, champion_to_json)
+
 @app.route('/api/summoner/<int:id>')
 def api_summoner(id):
     summoner = Summoner.query.filter(Summoner.id == id).first()
     return jsonify_single_obj(summoner, summoner_to_json)
 
+@app.route('/api/summoner/name/<string:name>')
+def api_summoner_by_name(name):
+    summoner = Summoner.query.filter(Summoner.name == name).first()
+    return jsonify_single_obj(summoner, summoner_to_json)
+
 @app.route('/api/team/<string:id>')
 def api_team(id):
     team = Team.query.filter(Team.id == id).first()
+    return jsonify_single_obj(team, team_to_json)
+
+@app.route('/api/team/name/<string:name>')
+def api_team_by_name(name):
+    team = Team.query.filter(Team.name == name).first()
     return jsonify_single_obj(team, team_to_json)
 
 @app.route('/run_tests')

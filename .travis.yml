@@ -30,3 +30,7 @@ script:
     - ls -al
     - make check
     - make test
+
+branches:
+  only:
+    - master
