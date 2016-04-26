@@ -143,7 +143,7 @@ class TestApp (TestCase):
     # Test database functionality
     # ---------------------------
 
-    def db_1(self):
+    def test_db_1(self):
         summ = Summoner(10, "test_name", "bronze", "I", 56, 0.52, 100)
         
         db.session.add(summ)
@@ -160,7 +160,7 @@ class TestApp (TestCase):
         db.session.delete(summ)
         db.session.commit()
 
-    def db_2(self):
+    def test_db_2(self):
         champ = Champion(10, "test_name", "bronze champ op", 1, 2, 3, 100, "")
         db.session.add(champ)
         db.session.commit()
@@ -176,7 +176,7 @@ class TestApp (TestCase):
         db.session.delete(champ)
         db.session.commit()
 
-    def db_3(self):
+    def test_db_3(self):
         tm = Team("team_id", "team_name", "test_tag", True, 0.52, 56, "123123")
 
         db.session.add(tm)
