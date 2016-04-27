@@ -9,7 +9,12 @@ from flask import Flask, render_template, request, redirect, url_for, send_file,
 from flask.ext.script import Manager, Server
 from flask.ext.sqlalchemy import SQLAlchemy
 from flask.ext.cors import CORS
+from flask.ext.compress import Compress
 from search import SearchResult
+
+
+import time                                                
+
 
 logging.basicConfig(
     level=logging.DEBUG,
@@ -34,6 +39,7 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SQLALCHEMY_DATABASE_URI'] = DATABASE_URI
 app.config['SQLALCHEMY_ECHO'] = False
 CORS(app)
+Compress(app)
 
 logger.debug("%s", DATABASE_URI)
 
@@ -171,7 +177,12 @@ def api_champions():
 
 @app.route('/api/summoners')
 def api_summoners():
-    summoners = Summoner.query.all()
+    start = request.args.get('start')
+    num = request.args.get('num')
+    if start is None or num is None:
+        summoners = Summoner.query.all()
+    else:
+        summoners = Summoner.query.order_by(Summoner.id).offset(start).limit(num)
     return jsonify({"summoners": [summoner_to_json(s) for s in summoners]})
 
 

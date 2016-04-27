@@ -40,11 +40,22 @@ lol_app.controller('lol_controller', function($scope, $http, $sce) {
   // Summoners Data
 
   $scope.request_summoners = function() {
-    $http.get("/api/summoners")
-    .then(function(response) {
-      $scope.summoners = response.data.summoners;
-      $scope.data_loading = false;
-    });
+    $scope.summoners = [];
+    var start = 0;
+    var num = 30;
+    function request() {
+      $http.get("/api/summoners?start=" + start + "&num=" + num)
+      .then(function(response) {
+
+        $scope.summoners = $scope.summoners.concat(response.data.summoners);
+        $scope.data_loading = false;
+
+        start += num;
+        //if (response.data.summoners.length > 0)
+        //  setTimeout(request, 50);
+      });
+    }
+    //setTimeout(request, 50);
   }
 
   $scope.request_summoner = function (id) {
