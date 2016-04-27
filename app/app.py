@@ -2,6 +2,7 @@ import logging
 import os
 import time
 import ast
+import requests
 
 import flask
 from flask import Flask, render_template, request, redirect, url_for, send_file, jsonify
@@ -61,8 +62,8 @@ def populate():
 
   for t in team_data:
     boo = True if team_data[t]["team_status"] == "RANKED" else False
-    new_team = Team(team_data[t]["fullTeamId"], team_data[t]["team_name"], 
-      team_data[t]["team_tag"], boo , team_data[t]["team_win_perc"], 
+    new_team = Team(team_data[t]["fullTeamId"], team_data[t]["team_name"].encode('utf-8'), 
+      team_data[t]["team_tag"].encode('utf-8'), boo , team_data[t]["team_win_perc"], 
       team_data[t]["team_total_games"], str(team_data[t]["team_lastJoinDate"]))
     db.session.add(new_team)
 
@@ -76,7 +77,7 @@ def populate():
   db.session.commit()
 
   for s in summ_data:
-    new_summ = Summoner(int(summ_data[s]["player_id"]), s, summ_data[s]["rank"]["tier"], 
+    new_summ = Summoner(int(summ_data[s]["player_id"]), s.encode('utf-8'), summ_data[s]["rank"]["tier"], 
                 summ_data[s]["rank"]["division"], summ_data[s]["rank"]["league_points"], summ_data[s]["win_perc"], summ_data[s]["total_games"])
     for s_t in summ_data[s]["teams"]:
       team_link = Team.query.filter(Team.id == s_t["fullTeamId"]).first()
@@ -303,6 +304,27 @@ def api_search(query):
     return jsonify({"results": [s.to_json("and") for s in and_list] + 
                                [s.to_json("or") for s in or_list]
                    })
+
+@app.route('/cars')
+def cars():
+  summoners = Summoner.query.all()
+  cars_json = requests.get('http://sweetrides.me/get_cars')
+  
+  data = sorted(json.loads(cars_json.text), key=lambda x: x['price'], reverse=True)
+
+  vals = []
+
+  for s in summoners:
+    money = s.lp * 1000
+    for d in data:
+      if(d['price'] < money):
+        temp = {"summonerName" : s.name, "summonerLp" : s.lp, "carMake" : d['make'], 
+                "carModel" : d['model'], "carImgUrl" : d['img_url'], "money" : money, "carPrice" : d['price']}
+        vals.append(temp)
+        break
+
+  return jsonify({"cars" : vals})
+
 
 if __name__ == '__main__':
 
