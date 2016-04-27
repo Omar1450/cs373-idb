@@ -191,11 +191,11 @@ lol_app.controller('lol_controller', function($scope, $http, $sce) {
   $scope.highlight = function(text, query) {
     var start_text = text.substring(0, text.indexOf(":") + 2);
     text = text.substring(text.indexOf(":") + 2);
-    var matchIndex = text.indexOf(query);
+    var matchIndex = text.toLowerCase().indexOf(query);
     var result = start_text + text.substring(0, matchIndex) +
                             "<span class='highlight'>" + 
-                            text.substring(matchIndex, matchIndex + query.length + 1) + 
-                            "</span>" + text.substring(matchIndex + query.length + 1);
+                            text.substring(matchIndex, matchIndex + query.length) + 
+                            "</span>" + text.substring(matchIndex + query.length);
 
     return $sce.trustAsHtml(result);
   }
