@@ -11,24 +11,24 @@ from app import search
 
 t_app = Flask(__name__)
 
-db = SQLAlchemy(t_app)
+t_db = SQLAlchemy(t_app)
 
 from test_models import *
 
 class TestApp (TestCase):
 
     def create_app(self):
-        t_app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///testing.db'
+        t_app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///testing.t_db'
         t_app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
         t_app.config['TESTING'] = True
         return t_app
 
     def setUp(self):
-        db.create_all();
+        t_db.create_all();
 
     def tearDown(self):
-        db.session.remove()
-        db.drop_all()
+        t_db.session.remove()
+        t_db.drop_all()
 
     # --------------------
     # Test search in app.y
@@ -37,9 +37,9 @@ class TestApp (TestCase):
     # def test_search_1(self):
     #     summ1 = Champion(10, "test_name_one", "bronze", "V", 50, 0.60, 70)
     #     summ2 = Champion(20, "test_name_two", "silver", "I", 1, 0.2, 3)
-    #     db.session.add(summ1)
-    #     db.session.add(summ2)
-    #     db.session.commit()
+    #     t_db.session.add(summ1)
+    #     t_db.session.add(summ2)
+    #     t_db.session.commit()
 
     #     res = json.loads(search("one"))
 
@@ -101,8 +101,8 @@ class TestApp (TestCase):
         d = json.loads(requests.get('http://dudecarry.me/api/summoner/35590582').text)
         self.assertEqual(d['name'], 'Annie Bot')
         self.assertEqual(d['id'], 35590582)
-        self.assertEqual(d['lp'], 509)
-        self.assertEqual(d['total_games'], 481)
+        self.assertEqual(d['lp'], 528)
+        self.assertEqual(d['total_games'], 473)
 
     # -------------
     # Teams
@@ -141,11 +141,11 @@ class TestApp (TestCase):
     # Test database functionality
     # ---------------------------
 
-    def db_1(self):
+    def t_db_1(self):
         summ = Summoner(10, "test_name", "bronze", "I", 56, 0.52, 100)
         
-        db.session.add(summ)
-        db.session.commit()
+        t_db.session.add(summ)
+        t_db.session.commit()
 
         ret = Summoner.query.filter(Summoner.id == 10).first()
 
@@ -155,13 +155,13 @@ class TestApp (TestCase):
         self.assertEqual(summ.division, ret.division)
         self.assertEqual(summ.lp, ret.lp)
 
-        db.session.delete(summ)
-        db.session.commit()
+        t_db.session.delete(summ)
+        t_db.session.commit()
 
-    def db_2(self):
+    def t_db_2(self):
         champ = Champion(10, "test_name", "bronze champ op", 1, 2, 3, 100, "")
-        db.session.add(champ)
-        db.session.commit()
+        t_db.session.add(champ)
+        t_db.session.commit()
 
         ret = Champion.query.filter(Champion.id == 10).first()
 
@@ -171,14 +171,14 @@ class TestApp (TestCase):
         self.assertEqual(champ.spellblock, ret.spellblock)
         self.assertEqual(champ.movespeed, ret.movespeed)
 
-        db.session.delete(champ)
-        db.session.commit()
+        t_db.session.delete(champ)
+        t_db.session.commit()
 
-    def db_3(self):
+    def t_db_3(self):
         tm = Team("team_id", "team_name", "test_tag", True, 0.52, 56, "123123")
 
-        db.session.add(tm)
-        db.session.commit()
+        t_db.session.add(tm)
+        t_db.session.commit()
 
         ret = Team.query.filter(Team.id == "team_id").first()
 
@@ -188,8 +188,8 @@ class TestApp (TestCase):
         self.assertEqual(tm.total_games, ret.total_games)
         self.assertEqual(tm.win_percentage, ret.win_percentage)
 
-        db.session.delete(tm)
-        db.session.commit()
+        t_db.session.delete(tm)
+        t_db.session.commit()
 
     # --------------------------------
     # Test test_models.py API functions
@@ -198,8 +198,8 @@ class TestApp (TestCase):
     def test_apiFunc_1(self):
         summ = Summoner(10, "test_name", "bronze", "I", 56, 0.52, 100)
         
-        db.session.add(summ)
-        db.session.commit()
+        t_db.session.add(summ)
+        t_db.session.commit()
 
         summoner = Summoner.query.filter(Summoner.id == 10).first()
 
@@ -223,14 +223,14 @@ class TestApp (TestCase):
         for field in summ_true:
             self.assertEqual(summ_true[field], summ_test[field])
 
-        db.session.delete(summ)
-        db.session.commit()
+        t_db.session.delete(summ)
+        t_db.session.commit()
 
 
     def test_apiFunc_2(self):
         tm = Team("team_id", "team_name", "test_tag", True, 0.52, 56, "123123")
-        db.session.add(tm)
-        db.session.commit()
+        t_db.session.add(tm)
+        t_db.session.commit()
 
         team = Team.query.filter(Team.id == "team_id").first()
 
@@ -250,14 +250,14 @@ class TestApp (TestCase):
         for field in team_true:
             self.assertEqual(team_true[field], team_test[field])
 
-        db.session.delete(tm)
-        db.session.commit()
+        t_db.session.delete(tm)
+        t_db.session.commit()
 
     def test_apiFunc_3(self):
 
         champ = Champion(10, "test_name", "bronze champ op", 1, 2, 3, 100, "")
-        db.session.add(champ)
-        db.session.commit()
+        t_db.session.add(champ)
+        t_db.session.commit()
 
         champ = Champion.query.filter(Champion.id == 10).first()
 
@@ -277,8 +277,8 @@ class TestApp (TestCase):
         for field in champ_true:
             self.assertEqual(champ_true[field], champ_test[field])
 
-        db.session.delete(champ)
-        db.session.commit()
+        t_db.session.delete(champ)
+        t_db.session.commit()
 
 
 if __name__ == '__main__':
