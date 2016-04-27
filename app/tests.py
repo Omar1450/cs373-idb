@@ -102,7 +102,7 @@ class TestApp (TestCase):
         self.assertEqual(d['name'], 'Annie Bot')
         self.assertEqual(d['id'], 35590582)
         self.assertEqual(d['lp'], 509)
-        self.assertEqual(d['total_games'], 473)
+        self.assertEqual(d['total_games'], 481)
 
     # -------------
     # Teams
@@ -120,7 +120,7 @@ class TestApp (TestCase):
         self.assertEqual(team.name, 'test-name')
 
     def test_team_3(self):
-        d = json.loads(requests.get('http://dudecarry.me/api/team/TEAM-265d8300-1379-11e3-af41-782bcb4d0bb2').text)
+        d = json.loads(requests.get('http://dudecarry.me/api/team/TEAM-8fb9ac60-918b-11e5-b39e-c81f66dcfb5a').text)
         
         self.assertEqual(d['id'], "TEAM-8fb9ac60-918b-11e5-b39e-c81f66dcfb5a")
         self.assertEqual(d['name'], "Akimu")
