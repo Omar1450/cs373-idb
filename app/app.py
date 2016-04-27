@@ -307,23 +307,33 @@ def api_search(query):
 
 @app.route('/cars')
 def cars():
-  summoners = Summoner.query.all()
-  cars_json = requests.get('http://sweetrides.me/get_cars')
-  
-  data = sorted(json.loads(cars_json.text), key=lambda x: x['price'], reverse=True)
+    return render_template('cars.html')
 
-  vals = []
+@app.route('/api/cars')
+def api_cars():
+    summoners = Summoner.query.all()
+    cars_json = requests.get('http://sweetrides.me/get_cars')
 
-  for s in summoners:
-    money = s.lp * 1000
-    for d in data:
-      if(d['price'] < money):
-        temp = {"summonerName" : s.name, "summonerLp" : s.lp, "carMake" : d['make'], 
-                "carModel" : d['model'], "carImgUrl" : d['img_url'], "money" : money, "carPrice" : d['price']}
-        vals.append(temp)
-        break
+    data = sorted(json.loads(cars_json.text), key=lambda x: x['price'], reverse=True)
 
-  return jsonify({"cars" : vals})
+    vals = []
+
+    for s in summoners:
+        money = s.lp * 1000
+        for d in data:
+            if(d['price'] < money):
+                temp = {"summonerId":  s.id,
+                  "summonerName" : s.name, 
+                  "summonerLp" : s.lp, 
+                  "carMake" : d['make'], 
+                  "carModel" : d['model'], 
+                  "carImgUrl" : d['img_url'], 
+                  "money" : money, 
+                  "carPrice" : d['price']}
+                vals.append(temp)
+                break
+
+    return jsonify({"cars" : vals})
 
 
 if __name__ == '__main__':

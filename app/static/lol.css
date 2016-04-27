@@ -64,3 +64,8 @@ hr {
 .loading {
 	color: white;
 }
+
+.car-image {
+	width: 50%;
+	height: auto;
+}

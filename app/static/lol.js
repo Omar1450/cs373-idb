@@ -207,5 +207,13 @@ lol_app.controller('lol_controller', function($scope, $http, $sce) {
     return $sce.trustAsHtml(result);
   }
 
+  $scope.request_cars = function() {
+    $http.get("/api/cars")
+    .then(function(response) {
+      $scope.cars = response.data.cars;
+      $scope.data_loading = false;
+    });
+  }
+
   $scope.data_loading = true;
 });
