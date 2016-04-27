@@ -9,7 +9,6 @@ from flask import Flask, render_template, request, redirect, url_for, send_file,
 from flask.ext.script import Manager, Server
 from flask.ext.sqlalchemy import SQLAlchemy
 from flask.ext.cors import CORS
-from flask.ext.compress import Compress
 from search import SearchResult
 
 
@@ -39,7 +38,6 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SQLALCHEMY_DATABASE_URI'] = DATABASE_URI
 app.config['SQLALCHEMY_ECHO'] = False
 CORS(app)
-Compress(app)
 
 logger.debug("%s", DATABASE_URI)
 
@@ -182,14 +180,21 @@ def api_summoners():
     if start is None or num is None:
         summoners = Summoner.query.all()
     else:
-        summoners = Summoner.query.order_by(Summoner.id).offset(start).limit(num)
+        summoners = Summoner.query.order_by(Summoner.name).offset(start).limit(num)
     return jsonify({"summoners": [summoner_to_json(s) for s in summoners]})
 
 
 @app.route('/api/teams')
 def api_teams():
-    teams = Team.query.all()
-    return jsonify({"teams": [team_to_json(t) for t in teams]})
+    start = request.args.get('start')
+    num = request.args.get('num')
+    teams = None
+    if start is None or num is None:
+        teams = Team.query.all()
+    else:
+        teams = Team.query.order_by(Team.name).offset(start).limit(num)
+    return jsonify({"teams": [team_to_json(s) for s in teams]})
+
 
 def jsonify_single_obj(obj, func):
     if obj == None:

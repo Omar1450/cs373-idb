@@ -42,7 +42,7 @@ lol_app.controller('lol_controller', function($scope, $http, $sce) {
   $scope.request_summoners = function() {
     $scope.summoners = [];
     var start = 0;
-    var num = 30;
+    var num = 40;
     function request() {
       $http.get("/api/summoners?start=" + start + "&num=" + num)
       .then(function(response) {
@@ -51,11 +51,12 @@ lol_app.controller('lol_controller', function($scope, $http, $sce) {
         $scope.data_loading = false;
 
         start += num;
-        //if (response.data.summoners.length > 0)
-        //  setTimeout(request, 50);
+        num += 100;
+        if (response.data.summoners.length > 0)
+          request();
       });
     }
-    //setTimeout(request, 50);
+    request();
   }
 
   $scope.request_summoner = function (id) {
@@ -175,13 +176,25 @@ lol_app.controller('lol_controller', function($scope, $http, $sce) {
   // Teams Data
 
   $scope.request_teams = function() {
-    $http.get("/api/teams")
-    .then(function(response) {
-      $scope.teams = response.data.teams;
-      $scope.data_loading = false;
-    });
-  }
+    $scope.teams = [];
+    var start = 0;
+    var num = 40;
+    function request() {
+      $http.get("/api/teams?start=" + start + "&num=" + num)
+      .then(function(response) {
 
+        $scope.teams = $scope.teams.concat(response.data.teams);
+        $scope.data_loading = false;
+
+        start += num;
+        num += 100;
+        if (response.data.teams.length > 0)
+          request();
+      });
+    }
+    request();
+  }
+  
   $scope.request_team = function (id) {
     $http.get("/api/team/" + id)
     .then(function(response) {
