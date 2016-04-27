@@ -75,12 +75,12 @@ class TestApp (TestCase):
         self.assertEqual(champ.spellblock, 0)
         self.assertEqual(champ.portrait_url, "url")
 
-    def test_champion_3(self):
-        d = json.loads(requests.get('http://dudecarry.me/api/champion/103').text)
-        self.assertEqual(d['name'], 'Ahri')
-        self.assertEqual(d['id'], 103)
-        self.assertEqual(d['hp'], 514.4)
-        self.assertEqual(d['mp'], 334.0)
+    # def test_champion_3(self):
+    #     d = json.loads(requests.get('http://dudecarry.me/api/champion/103').text)
+    #     self.assertEqual(d['name'], 'Ahri')
+    #     self.assertEqual(d['id'], 103)
+    #     self.assertEqual(d['hp'], 514.4)
+    #     self.assertEqual(d['mp'], 334.0)
 
     # -------------
     # Summoners
@@ -97,12 +97,12 @@ class TestApp (TestCase):
         self.assertEqual(summoner.id, 10)
         self.assertEqual(summoner.name, 'test_name')
 
-    def test_summoner_3(self):
-        d = json.loads(requests.get('http://dudecarry.me/api/summoner/35590582').text)
-        self.assertEqual(d['name'], 'Annie Bot')
-        self.assertEqual(d['id'], 35590582)
-        self.assertEqual(d['lp'], 528)
-        self.assertEqual(d['total_games'], 473)
+    # def test_summoner_3(self):
+    #     d = json.loads(requests.get('http://dudecarry.me/api/summoner/35590582').text)
+    #     self.assertEqual(d['name'], 'Annie Bot')
+    #     self.assertEqual(d['id'], 35590582)
+    #     self.assertEqual(d['lp'], 528)
+    #     self.assertEqual(d['total_games'], 473)
 
     # -------------
     # Teams
@@ -119,29 +119,29 @@ class TestApp (TestCase):
         self.assertEqual(team.id, "team_id")
         self.assertEqual(team.name, 'test-name')
 
-    def test_team_3(self):
-        d = json.loads(requests.get('http://dudecarry.me/api/team/TEAM-8fb9ac60-918b-11e5-b39e-c81f66dcfb5a').text)
+    # def test_team_3(self):
+    #     d = json.loads(requests.get('http://dudecarry.me/api/team/TEAM-8fb9ac60-918b-11e5-b39e-c81f66dcfb5a').text)
         
-        self.assertEqual(d['id'], "TEAM-8fb9ac60-918b-11e5-b39e-c81f66dcfb5a")
-        self.assertEqual(d['name'], "Akimu")
-        self.assertEqual(d['win_percentage'], None)
-        self.assertEqual(d['name'], "Akimu")       
+    #     self.assertEqual(d['id'], "TEAM-8fb9ac60-918b-11e5-b39e-c81f66dcfb5a")
+    #     self.assertEqual(d['name'], "Akimu")
+    #     self.assertEqual(d['win_percentage'], None)
+    #     self.assertEqual(d['name'], "Akimu")       
 
     # ----------------------
     # Test Search API calls
     # ----------------------
 
-    def test_apiCallSearch_3(self):
-        d = json.loads(requests.get('http://dudecarry.me/api/search/aatrox').text)
+    # def test_apiCallSearch_3(self):
+    #     d = json.loads(requests.get('http://dudecarry.me/api/search/aatrox').text)
         
-        self.assertEqual(d['results'][0]["context"][0], "name: Aatrox")
-        self.assertEqual(d['results'][0]["type"], "champion")
+    #     self.assertEqual(d['results'][0]["context"][0], "name: Aatrox")
+    #     self.assertEqual(d['results'][0]["type"], "champion")
 
     # ---------------------------
     # Test database functionality
     # ---------------------------
 
-    def t_db_1(self):
+    def test_db_1(self):
         summ = Summoner(10, "test_name", "bronze", "I", 56, 0.52, 100)
         
         t_db.session.add(summ)
@@ -158,7 +158,7 @@ class TestApp (TestCase):
         t_db.session.delete(summ)
         t_db.session.commit()
 
-    def t_db_2(self):
+    def test_db_2(self):
         champ = Champion(10, "test_name", "bronze champ op", 1, 2, 3, 100, "")
         t_db.session.add(champ)
         t_db.session.commit()
@@ -174,7 +174,7 @@ class TestApp (TestCase):
         t_db.session.delete(champ)
         t_db.session.commit()
 
-    def t_db_3(self):
+    def test_db_3(self):
         tm = Team("team_id", "team_name", "test_tag", True, 0.52, 56, "123123")
 
         t_db.session.add(tm)
