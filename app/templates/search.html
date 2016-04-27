@@ -60,12 +60,12 @@
     <h2 class="loading"> Loading... </h2>
   </div>
 
-  <div ng-if="search_results.and_set.length == 0">
+  <div ng-if="search_results.length == 0">
     <h2 class="loading"> No results found... </h2>
   </div>
 
   <!-- Table -->
-  <div ng-if="!data_loading && search_results.and_set.length > 0" class="table">
+  <div ng-if="!data_loading && search_results.length > 0" class="table">
     <table class="table table-bordered table-striped">
       <thead>
         <tr>
@@ -85,7 +85,7 @@
       </thead>
 
       <tbody>
-        <tr ng-repeat="result in search_results.and_set.concat(search_results.or_set) | limitTo:30">
+        <tr ng-repeat="result in search_results | limitTo:30">
           <td>{{ result.type }}</td>
           <td><a href="/{{ result.url }}">{{ result.name }}</a></td>
           <td>
@@ -94,6 +94,9 @@
                       <div ng-bind-html="highlight(c, search_query)"></div>
                   </li>
               </ul>
+          </td>
+          <td>
+              {{ result.result_type }}
           </td>
         </tr>
       </tbody>

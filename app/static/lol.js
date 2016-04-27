@@ -183,23 +183,29 @@ lol_app.controller('lol_controller', function($scope, $http, $sce) {
     $scope.search_query = query;
     $http.get("/api/search/" + query)
     .then(function(response) {
-      $scope.search_results = response.data;
+      $scope.search_results = response.data.results;
       $scope.data_loading = false;
     });
   }
 
   $scope.highlight = function(text, query) {
-    var start_text = text.substring(0, text.indexOf(":") + 2);
-    text = text.substring(text.indexOf(":") + 2);
-    var matchIndex = text.toLowerCase().indexOf(query);
-    var result = start_text + text.substring(0, matchIndex) +
-                            "<span class='highlight'>" + 
-                            text.substring(matchIndex, matchIndex + query.length) + 
-                            "</span>" + text.substring(matchIndex + query.length);
+    query = query.toLowerCase();
+    var words = query.split(" ");
+    for (var i = 0; i < words.length; i++) {
+      if (text.toLowerCase().indexOf(words[i]) != -1) {
+        var start_text = text.substring(0, text.indexOf(":") + 2);
+        text = text.substring(text.indexOf(":") + 2);
+        var matchIndex = text.toLowerCase().indexOf(words[i]);
+        var result = start_text + text.substring(0, matchIndex) +
+                                "<span class='highlight'>" + 
+                                text.substring(matchIndex, matchIndex + words[i].length) + 
+                                "</span>" + text.substring(matchIndex + words[i].length);
+        break;
+      }
+    }
 
     return $sce.trustAsHtml(result);
   }
 
   $scope.data_loading = true;
-
 });
