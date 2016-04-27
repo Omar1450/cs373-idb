@@ -7,6 +7,7 @@ from sqlalchemy import create_engine
 from flask import Flask
 from unittest import main
 from flask.ext.sqlalchemy import SQLAlchemy
+from app import api_search
 
 app = Flask(__name__)
 
@@ -40,7 +41,7 @@ class TestApp (TestCase):
         db.session.add(summ2)
         db.session.commit()
 
-        res = json.loads(app.api_search("one"))
+        res = json.loads(api_search("one"))
 
         self.assertEqual(res["or_set"][0]["context"][0], "name: test_name_one")
 
