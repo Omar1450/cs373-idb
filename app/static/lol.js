@@ -21,7 +21,7 @@ function getNumber(num) {
 
 var lol_app = angular.module('lol_app', []);
 
-lol_app.controller('lol_controller', function($scope, $http) {
+lol_app.controller('lol_controller', function($scope, $http, $sce) {
 
   $scope.rut = "Unit test complete.";
   $scope.fillrut = "";
@@ -43,6 +43,7 @@ lol_app.controller('lol_controller', function($scope, $http) {
     $http.get("/api/summoners")
     .then(function(response) {
       $scope.summoners = response.data.summoners;
+      $scope.data_loading = false;
     });
   }
 
@@ -52,73 +53,9 @@ lol_app.controller('lol_controller', function($scope, $http) {
       var summoner = response.data;
       summoner.icon_url = $scope.champion_icon_url(summoner.top_3_champs[0].name);
       $scope.summoner = summoner;
+      $scope.data_loading = false;
     });
   }
-
-  /*$scope.summoners = [{
-    "name": "XRedxDragonX",
-    "id": 23509228,
-    "icon_url": "http://sk2.op.gg/images/profile_icons/profileIcon592.jpg",
-    "rank": {
-        "tier": "DIAMOND",
-        "division": 4,
-        "league_points": 69
-    },
-    "teams": [
-        "OPot"
-    ],
-    "top_3_champions": [
-        412,
-        45,
-        55
-    ],
-    "win_percentage": 0.539603960396,
-    "total_games": 202,
-    "link" : "/summoner/0",
-  },
-  {
-    "name": "Eveloken",
-    "id": 72680640,
-    "icon_url": "http://sk2.op.gg/images/profile_icons/profileIcon1105.jpg",
-    "rank": {
-        "tier": "CHALLENGER",
-        "division": 1,
-        "league_points": 1360
-    },
-    "teams": [
-        "OPot"
-    ],
-    "top_3_champions": [
-        55,
-        45,
-        412
-    ],
-    "win_percentage": 0.691842900302,
-    "total_games": 331,
-    "link" : "/summoner/1",
-  },
-  {
-    "name": "Ah Wunder",
-    "id": 36109721,
-    "icon_url": "http://sk2.op.gg/images/profile_icons/profileIcon588.jpg",
-    "rank": {
-        "tier": "GOLD",
-        "division": 2,
-        "league_points": 54
-    },
-    "teams": [
-        "zonpls",
-        "ILILI"
-    ],
-    "top_3_champions": [
-        55,
-        45,
-        412
-    ],
-    "win_percentage": 0.530120481928,
-    "total_games": 83,
-    "link" : "/summoner/2",
-  }];*/
 
   function get_summoner_link(index) {
     if (index < 0 || index >= $scope.summoners.length) {
@@ -171,6 +108,7 @@ lol_app.controller('lol_controller', function($scope, $http) {
     $http.get("/api/champions")
     .then(function(response) {
       $scope.champs = response.data.champions;
+      $scope.data_loading = false;
     });
   }
 
@@ -180,6 +118,7 @@ lol_app.controller('lol_controller', function($scope, $http) {
       var champ = response.data;
       champ.icon_url = $scope.champion_icon_url(champ.name);      
       $scope.champ = champ;
+      $scope.data_loading = false;
     });
   }
 
@@ -228,6 +167,7 @@ lol_app.controller('lol_controller', function($scope, $http) {
     $http.get("/api/teams")
     .then(function(response) {
       $scope.teams = response.data.teams;
+      $scope.data_loading = false;
     });
   }
 
@@ -235,48 +175,31 @@ lol_app.controller('lol_controller', function($scope, $http) {
     $http.get("/api/team/" + id)
     .then(function(response) {
       $scope.team = response.data;
+      $scope.data_loading = false;
     });
   }
 
-  /*$scope.teams = [{
-      "name": "Order of the Iron Potato",
-      "id": "TEAM-222e7b80-49d9-11e4-806c-782bcb4d0bb2",
-      "tag": "OPot",
-      "status": "RANKED",
-      "win_percentage": 0.5,
-      "total_games": 2,
-      "most_recent_member_timestamp": 1413137738000,
-      "players": [
-          23509228,
-          72680640
-      ],
-      "link" : "/team/0",
-  },
-  {
-      "name": "Team Zon and Friends",
-      "id": "TEAM-f5b98c70-3bcd-11e4-834d-782bcb4d1861",
-      "tag": "zonpls",
-      "status": "RANKED",
-      "win_percentage": 0.6,
-      "total_games": 5,
-      "most_recent_member_timestamp": 1432351174000,
-      "players": [
-          36109721
-      ],
-      "link" : "/team/1",
-  },
-  {
-      "name": "Tomato Terrors",
-      "id": "TEAM-9b111140-5e80-11e5-87b6-c81f66dd45c9",
-      "tag": "ILILI",
-      "status": "RANKED",
-      "win_percentage": 0.6,
-      "total_games": 8,
-      "most_recent_member_timestamp": 1445915715000,
-      "players": [
-          36109721
-      ],
-      "link" : "/team/2",
-  }];*/
+  $scope.request_search = function(query) {
+    $scope.search_query = query;
+    $http.get("/api/search/" + query)
+    .then(function(response) {
+      $scope.search_results = response.data;
+      $scope.data_loading = false;
+    });
+  }
+
+  $scope.highlight = function(text, query) {
+    var start_text = text.substring(0, text.indexOf(":") + 2);
+    text = text.substring(text.indexOf(":") + 2);
+    var matchIndex = text.indexOf(query);
+    var result = start_text + text.substring(0, matchIndex) +
+                            "<span class='highlight'>" + 
+                            text.substring(matchIndex, matchIndex + query.length + 1) + 
+                            "</span>" + text.substring(matchIndex + query.length + 1);
+
+    return $sce.trustAsHtml(result);
+  }
+
+  $scope.data_loading = true;
 
 });
