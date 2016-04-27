@@ -65,7 +65,11 @@ hr {
 	color: white;
 }
 
+.car-td {
+	text-align: center;
+}
+
 .car-image {
-	width: 50%;
+	width: 200px;
 	height: auto;
 }
