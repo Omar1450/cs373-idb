@@ -2,6 +2,7 @@ import logging
 import os
 import time
 import ast
+import requests
 
 import flask
 from flask import Flask, render_template, request, redirect, url_for, send_file, jsonify
@@ -296,6 +297,27 @@ def search(sql_query):
 
     return jsonify({"and_set": [s.to_json() for s in and_list],
                     "or_set":  [s.to_json() for s in or_list]})
+
+@app.route('/cars')
+def cars():
+  summoners = Summoner.query.all()
+  cars_json = requests.get('http://sweetrides.me/get_cars')
+  
+  data = sorted(json.loads(cars_json.text), key=lambda x: x['price'], reverse=True)
+
+  vals = []
+
+  for s in summoners:
+    money = s.lp * 1000
+    for d in data:
+      if(d['price'] < money):
+        temp = {"summonerName" : s.name, "summonerLp" : s.lp, "carMake" : d['make'], 
+                "carModel" : d['model'], "carImgUrl" : d['img_url'], "money" : money, "carPrice" : d['price']}
+        vals.append(temp)
+        break
+
+  return jsonify({"cars" : vals})
+
 
 if __name__ == '__main__':
 
