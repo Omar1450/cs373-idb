@@ -7,7 +7,7 @@ from sqlalchemy import create_engine
 from flask import Flask
 from unittest import main
 from flask.ext.sqlalchemy import SQLAlchemy
-from app import api_search
+from app import search
 
 app = Flask(__name__)
 
