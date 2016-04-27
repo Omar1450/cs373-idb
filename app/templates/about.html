@@ -42,7 +42,9 @@
                     <li><a href="/teams">Teams</a></li>
                     <li><a href="/summoners">Summoners</a></li>
                     <li>
-                        <input type="text" class="form-control" placeholder="Search query...">
+                      <form onsubmit="return submit_search();">
+                        <input id="search_bar" type="text" class="form-control search" placeholder="Search query...">
+                      </form>
                     </li>
                 </ul>
             </div>
@@ -193,7 +195,7 @@
         <a href="https://github.com/Omar1450/cs373-idb/wiki" class="list-group-item">GitHub Wiki</a>
         <a href="/run_tests" class="list-group-item">Run Unit Tests</a>
         <a href="https://speakerdeck.com/hallofswe/cs373idb-presentation" class="list-group-item">SpeakDeck</a>
-	<a href="http://dudecarry.me/cars" class="list-group-item">Sweetrides API Implementation</a>
+	<a href="/cars" class="list-group-item">Sweetrides API Implementation</a>
       </ul>
       <br />
       <hr>

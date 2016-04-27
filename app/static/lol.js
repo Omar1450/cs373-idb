@@ -19,6 +19,12 @@ function getNumber(num) {
   return arr;
 }
 
+function submit_search() {
+  var query = document.getElementById("search_bar").value;
+  window.location.href = "/search/" + query;
+  return false;
+}
+
 var lol_app = angular.module('lol_app', []);
 
 lol_app.controller('lol_controller', function($scope, $http, $sce) {
@@ -194,7 +200,7 @@ lol_app.controller('lol_controller', function($scope, $http, $sce) {
     }
     request();
   }
-  
+
   $scope.request_team = function (id) {
     $http.get("/api/team/" + id)
     .then(function(response) {
