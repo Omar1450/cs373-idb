@@ -15,9 +15,10 @@ class SearchResult:
     def __hash__(self):
         return hash((self.type, self.id))
     
-    def to_json(self):
+    def to_json(self, result_type):
         return {"type": self.type, 
                 "name": self.obj.name,
                 "url":  self.type + '/' + str(self.id),
-                "id": self.id, 
+                "id": self.id,
+                "result_type": result_type,
                 "context": list(self.context)}

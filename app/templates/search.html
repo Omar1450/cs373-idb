@@ -85,7 +85,7 @@
       </thead>
 
       <tbody>
-        <tr ng-repeat="result in search_results.and_set | limitTo:30">
+        <tr ng-repeat="result in search_results.and_set.concat(search_results.or_set) | limitTo:30">
           <td>{{ result.type }}</td>
           <td><a href="/{{ result.url }}">{{ result.name }}</a></td>
           <td>

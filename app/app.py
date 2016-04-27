@@ -277,6 +277,8 @@ def api_search(query):
 
         or_set = or_set | iteration_set
         and_set = and_set & iteration_set
+
+    or_set = or_set - and_set
         
     and_list = list(and_set)
     or_list = [s.copy() for s in list(or_set)]
@@ -298,8 +300,9 @@ def api_search(query):
                     or_list[i].context.add(str(variable) + ": " + str(value))
 
 
-    return jsonify({"and_set": [s.to_json() for s in and_list],
-                    "or_set":  [s.to_json() for s in or_list]})
+    return jsonify({"results": [s.to_json("and") for s in and_list] + 
+                               [s.to_json("or") for s in or_list]
+                   })
 
 if __name__ == '__main__':
 
