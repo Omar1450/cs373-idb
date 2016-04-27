@@ -101,7 +101,7 @@ class TestApp (TestCase):
         d = json.loads(requests.get('http://dudecarry.me/api/summoner/35590582').text)
         self.assertEqual(d['name'], 'Annie Bot')
         self.assertEqual(d['id'], 35590582)
-        self.assertEqual(d['lp'], 528)
+        self.assertEqual(d['lp'], 509)
         self.assertEqual(d['total_games'], 473)
 
     # -------------
@@ -122,10 +122,10 @@ class TestApp (TestCase):
     def test_team_3(self):
         d = json.loads(requests.get('http://dudecarry.me/api/team/TEAM-265d8300-1379-11e3-af41-782bcb4d0bb2').text)
         
-        self.assertEqual(d['id'], "TEAM-265d8300-1379-11e3-af41-782bcb4d0bb2")
-        self.assertEqual(d['tag'], "BALEAF")
-        self.assertEqual(d['win_percentage'], 0.560976)
-        self.assertEqual(d['name'], "Bayleaf")       
+        self.assertEqual(d['id'], "TEAM-8fb9ac60-918b-11e5-b39e-c81f66dcfb5a")
+        self.assertEqual(d['name'], "Akimu")
+        self.assertEqual(d['win_percentage'], None)
+        self.assertEqual(d['name'], "Akimu")       
 
     # ----------------------
     # Test Search API calls
@@ -134,11 +134,8 @@ class TestApp (TestCase):
     def test_apiCallSearch_3(self):
         d = json.loads(requests.get('http://dudecarry.me/api/search/aatrox').text)
         
-        self.assertEqual(d['and_set'][0]["context"][0], "name: Aatrox")
-        self.assertEqual(d['and_set'][0]["type"], "champion")
-
-        self.assertEqual(d['or_set'][0]["context"][0], "name: Aatrox")
-        self.assertEqual(d['or_set'][0]["type"], "champion")
+        self.assertEqual(d['results'][0]["context"][0], "name: Aatrox")
+        self.assertEqual(d['results'][0]["type"], "champion")
 
     # ---------------------------
     # Test database functionality
