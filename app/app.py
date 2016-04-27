@@ -230,9 +230,13 @@ def run_tests():
 
     return response
 
-@app.route('/api/search/<sql_query>')
-def search(sql_query):
-    query_words = sql_query.split()
+@app.route('/search/<query>')
+def search(query):
+    return render_template('search.html', query=query)
+
+@app.route('/api/search/<query>')
+def api_search(query):
+    query_words = query.split()
     and_set = None
     or_set = set()
 

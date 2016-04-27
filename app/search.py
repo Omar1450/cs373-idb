@@ -16,4 +16,8 @@ class SearchResult:
         return hash((self.type, self.id))
     
     def to_json(self):
-        return {"type": self.type, "id": self.id, "context": list(self.context)}
+        return {"type": self.type, 
+                "name": self.obj.name,
+                "url":  self.type + '/' + str(self.id),
+                "id": self.id, 
+                "context": list(self.context)}

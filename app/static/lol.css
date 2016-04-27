@@ -56,3 +56,11 @@ hr {
 .wrap {
 	word-wrap: break-word;
 }
+
+.highlight {
+	background-color: yellow;
+}
+
+.loading {
+	color: white;
+}
