@@ -29,6 +29,27 @@ class TestApp (TestCase):
         db.session.remove()
         db.drop_all()
 
+    # --------------------
+    # Test search in app.y
+    # --------------------
+
+    def test_search_1(self):
+        summ1 = Summoner(10, "test_name_one", "bronze", "V", 50, 0.60, 70)
+        summ2 = Summoner(20, "test_name_two", "silver", "I", 1, 0.2, 3)
+        db.session.add(summ1)
+        db.session.add(summ2)
+        db.session.commit()
+
+        res = json.loads(app.api_search("one"))
+
+        self.assertEqual(res["or_set"][0]["context"][0], "name: test_name_one")
+
+    def test_search_2(self):
+        pass
+
+    def test_search_3(self):
+        pass
+
     # -----------
     # Champions
     # -----------
