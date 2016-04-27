@@ -9,19 +9,19 @@ from unittest import main
 from flask.ext.sqlalchemy import SQLAlchemy
 from app import search
 
-app = Flask(__name__)
+t_app = Flask(__name__)
 
-db = SQLAlchemy(app)
+db = SQLAlchemy(t_app)
 
 from test_models import *
 
 class TestApp (TestCase):
 
     def create_app(self):
-        app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///testing.db'
-        app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
-        app.config['TESTING'] = True
-        return app
+        t_app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///testing.db'
+        t_app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
+        t_app.config['TESTING'] = True
+        return t_app
 
     def setUp(self):
         db.create_all();
@@ -41,7 +41,7 @@ class TestApp (TestCase):
         db.session.add(summ2)
         db.session.commit()
 
-        res = json.loads(api_search("one"))
+        res = json.loads(search("one"))
 
         self.assertEqual(res["or_set"][0]["context"][0], "name: test_name_one")
 
